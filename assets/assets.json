@@ -1,0 +1,63 @@
+{
+        "image": {
+            "fly1": "assets/images/fly1.png",
+            "fly2": "assets/images/fly2.png",
+            "fly3": "assets/images/fly3.png",
+            "grub1": "assets/images/grub1.png",
+            "grub2": "assets/images/grub2.png",
+            "cave_man": "assets/images/spritesheet_caveman.png",
+            "cave_manr": "assets/images/spritesheet_cavemanright.png",
+            "fort": "assets/images/fortress.png",
+            "life1": "assets/images/life1.png",
+            "life2": "assets/images/life2.png",
+            "life3": "assets/images/life3.png",
+            "lava1": "assets/images/lava.png",
+            "lava2": "assets/images/lava1.png",
+            "final_boss_dead1": "assets/images/final_boss_dead1.png",
+            "final_boss_dead2": "assets/images/final_boss_dead2.png",
+            "final_boss_dead3": "assets/images/final_boss_dead2.png",
+            "final_boss1": "assets/images/final_boss/final_boss1.png",
+            "final_boss2": "assets/images/final_boss/final_boss2.png",
+            "final_boss3": "assets/images/final_boss/final_boss3.png",
+            "final_boss4": "assets/images/final_boss/final_boss4.png",
+            "tile_A": "assets/images/tile_A.png",
+            "tile_B": "assets/images/tile_B.png",
+            "tile_C": "assets/images/tile_C.png",
+            "tile_D": "assets/images/tile_D.png",
+            "tile_E": "assets/images/tile_E.png",
+            "tile_F": "assets/images/tile_F.png",
+            "tile_G": "assets/images/tile_G.png",
+            "tile_H": "assets/images/tile_H.png",
+            "tile_J": "assets/images/tile_J.png",
+            "tile_K": "assets/images/tile_K.png",
+            "tile_L": "assets/images/tile_L.png",
+            "tile_M": "assets/images/tile_M.png",
+            "tile_N": "assets/images/tile_N.png",
+            "bg1": "assets/images/background.png",
+            "bg2": "assets/images/background2.png",
+            "medallion1": "assets/images/medallion1.png",
+            "medallion2": "assets/images/medallion2.png",
+            "medallion3": "assets/images/medallion3.png",
+            "medallion4": "assets/images/medallion4.png"
+        },
+        "text": {
+            "map1": "assets/maps/map1.txt",
+            "map2": "assets/maps/map2.txt"
+        },
+        "sound": {
+            "music": "assets/sounds/background_music.mp3",
+            "prize": "assets/sounds/medallion.wav",
+            "boop2": "assets/sounds/dead.wav",
+            "blackHole": "assets/sounds/Black hole sound.wav",
+            "dying": "assets/sounds/hurt.wav",
+            "spit": "assets/sounds/alien_spit.wav",
+            "gun_blast": "assets/sounds/gun_blast.wav",
+            "full_death": "assets/sounds/Dying.wav",
+            "ammo": "assets/sounds/ammo.wav",
+            "boost": "assets/sounds/boost.wav",
+            "1up": "assets/sounds/1up.wav"
+        },
+        "json": {
+            "resources": "assets/resources/resources.json"
+        }
+    }

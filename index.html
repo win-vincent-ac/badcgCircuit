@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<link rel="icon" href="icon.ico">
+		<script src="node_modules/p5/lib/p5.js"></script>
+		<script src="node_modules/p5/lib/addons/p5.sound.js"></script>
+		<link rel="stylesheet" type="text/css" href="styles.css">
+		<title>Example Game</title>
+	</head>
+	<body>
+		<script type="module">
+			console.log("********* BEGIN *********");
+			import * as script from "./build/Main.js";
+			window.draw = script.draw;
+			window.keyPressed=script.keyPressed;
+			window.windowResized = script.windowResized;
+			window.preload = script.preload;
+			window.setup = script.setup;
+			// ****************
+			// add any additional hooks between p5 and main.js here
+			// p5.js works on the global scope so any functions
+			// that p5 needs to see must be mapped onto window
+			// ****************
+		</script>
+	</body>
+</html>

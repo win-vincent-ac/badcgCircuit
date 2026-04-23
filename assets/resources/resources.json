@@ -1,0 +1,184 @@
+{
+    "sprites": {
+        "star": {
+            "type": "Star",
+            "default": [
+                {"img":"medallion1", "duration":100},
+                {"img":"medallion2", "duration":100},
+                {"img":"medallion3", "duration":100},
+                {"img":"medallion4", "duration":100},
+                {"img":"medallion3", "duration":100},
+                {"img":"medallion2", "duration":100}
+            ]
+        },
+        "player": {
+            "type": "Player",
+
+            "left": [
+                {"sheet":"cave_man","rows":4,"cols":4,"duration":150}
+            ],
+            "right": [
+                {"sheet":"cave_manr","rows":4,"cols":4,"duration":150}
+            ],
+            "stillLeft": [
+                {"sheet":"cave_man","rows":4,"cols":4,"duration":150}
+            ],
+            "stillRight": [
+                {"sheet":"cave_manr","rows":4,"cols":4,"duration":150}
+            ],
+            "jetLeft": [
+                {"sheet":"cave_man","rows":4,"cols":4,"duration":150}
+            ],
+            "jetRight": [
+                {"sheet":"cave_manr","rows":4,"cols":4,"duration":150}
+            ],
+            "deadLeft": [
+                {"sheet":"cave_man","rows":4,"cols":4,"duration":150}
+            ],
+            "deadRight": [
+                {"sheet":"cave_manr","rows":4,"cols":4,"duration":150}
+            ]
+        },
+        "life": {
+            "type": "PowerUp",
+            "default": [
+                {"img":"life1", "duration":150},
+                {"img":"life3", "duration":150},
+                {"img":"life2", "duration":150},
+                {"img":"life3", "duration":150}
+            ]
+        },
+        "final_boss": {
+            "type": "FinalBoss",
+            "left": [
+                {"img":"final_boss1", "duration":150},
+                {"img":"final_boss2", "duration":150},
+                {"img":"final_boss3", "duration":150},
+                {"img":"final_boss4", "duration":150}
+            ],
+            "right": [
+                {"img":"final_boss1", "operators":["mirror"], "duration":150},
+                {"img":"final_boss2" , "operators":["mirror"], "duration":150},
+                {"img":"final_boss3", "operators":["mirror"], "duration":150},
+                {"img":"final_boss4" , "operators":["mirror"], "duration":150}
+            ],
+            "deadLeft": [
+                {"img":"final_boss1", "duration":50},
+                {"img":"final_boss_dead1", "duration":50},
+                {"img":"final_boss_dead2", "duration":50},
+                {"img":"final_boss_dead3", "duration":50}
+            ],
+            "deadRight": [                
+                {"img":"final_boss1", "duration":50},
+                {"img":"final_boss_dead1", "duration":50},
+                {"img":"final_boss_dead2", "duration":50},
+                {"img":"final_boss_dead3", "duration":50}
+            ]
+        },
+        "end_portal": {
+            "type":"EndPortal",
+            "default":[
+                {"img":"fort", "duration":150},
+                {"img":"fort", "duration":150}
+            ]
+        },
+        "my_fly": {
+            "type":"MyFly",
+            "default":[
+                {"img":"fly1", "duration":150},
+                {"img":"fly2", "duration":150},
+                {"img":"fly3", "duration":150},
+                {"img":"fly2", "duration":150}
+            ],
+            "deadLeft":[
+                {"img":"fly1", "operators":["flip"], "duration":100},
+                {"img":"fly2", "operators":["flip"], "duration":100}
+            ],
+            "deadRight":[
+                {"img":"fly1", "operators":["mirror","flip"], "duration":100},
+                {"img":"fly2", "operators":["mirror","flip"], "duration":100}
+            ],
+            "left":[
+                {"img":"fly1", "duration":150},
+                {"img":"fly2", "duration":150},
+                {"img":"fly3", "duration":150},
+                {"img":"fly2", "duration":150}
+            ],
+            "right":[
+                {"img":"fly1","operators":["mirror"], "duration":150},
+                {"img":"fly2","operators":["mirror"], "duration":150},
+                {"img":"fly3","operators":["mirror"], "duration":150},
+                {"img":"fly2","operators":["mirror"], "duration":150}
+            ]
+        },
+        "lava_pool": {
+            "type":"Lava",
+            "default":[
+                {"img":"lava1", "duration":75},
+                {"img":"lava2", "duration":75}
+            ],
+            "deadLeft":[
+                {"img":"lava1", "duration":75},
+                {"img":"lava2", "duration":75}
+            ],
+            "deadRight":[
+                {"img":"lava1", "duration":75},
+                {"img":"lava2", "duration":150}
+            ],
+            "left":[
+                {"img":"lava1", "duration":75},
+                {"img":"lava2", "duration":75}
+            ],
+            "right":[
+                {"img":"lava1", "duration":75},
+                {"img":"lava2", "duration":75}
+            ]
+        },
+        "power":{
+            "type":"Power",
+            "defualt": [
+                {"img":"power1", "duration": 150},
+                {"img":"power2", "duration": 150}
+            ]
+        }    
+    },
+    "images": {
+        "background": "background",
+        "bg1": "bg1",
+        "bg2": "bg2",
+        "A": "tile_A",
+        "B": "tile_B",
+        "C": "tile_C",
+        "D": "tile_D",
+        "E": "tile_E",
+        "F": "tile_F",
+        "G": "tile_G",
+        "H": "tile_H",
+        "J": "tile_J",
+        "K": "tile_K",
+        "L": "tile_L",
+        "M": "tile_M",
+        "N": "tile_N"        
+    },
+    "sounds": {
+    },
+    "maps": {
+        "TILE_SIZE": 64,
+        "mappings": {
+            "o": "star",
+            "3": "final_boss",
+            "0": "player",
+            "^": "life",
+            "%": "end_portal",
+            "-": "my_fly",
+            "5": "lava_pool",
+            "p": "power"
+
+        },
+        "levels": [
+            "map1",
+            "map2"
+        ]
+    }
+    
+}
