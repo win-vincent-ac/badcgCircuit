@@ -1,19 +1,32 @@
 
 @parallax-layer bg1
 @parallax-layer bg2
-
 @music music
 
 
-NJJJJJJJJMANJJJJJJJMNJJJJJJJJMANJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJM
-L        CADoo   o CD        KJL              oooo             C
-         CAHFo   EBGD                         EBBBBF           C
-0        CAAHF  EGNMD               o       o     -            C
-BBBBBF      -      CD     o         -      EBBBBF              C
-NJJJMHBBBBBF   EBBBGD    EBF      EF      EG                   C
-D o CNMAAAAHF EGAANMD             CHF     o                    C
-Do EGD -         o CD        EF         EBBF                   C
-HF CAHBBBF EBBBBBBBGD                     -             %      C
-ADo  -                  EBF    EBF    EBBF           EBBBBBF   C
-AHF    o o o o          C5555555 D555 CD5555555555555555555555 C
-AAHBBBBBBBBBBBBBBBBBBBBBGBBBBBBBBHBBBBGHBBBBBBBBBBBBBBBBBBBBBBBG
+    
+         
+    AAAAAA
+    AAAAA
+    AAAA
+    AAA
+    AA   NJJJJJJJJJJJJMAA   
+    A    D            CAAA    
+NJJJJJJJJL            CAAAA              
+D  o               o  CAAAAA               
+HBBBBF           EBBBBGAAAAAA
+NJJJJL   ooooo   KJJJJMAAAAAAA 
+D      B       B         EF    NM    C            
+D     EAF     EAF        KL    HG    C             
+D  o       0       o                 C            
+HBBBBF   EBBBF   EBBBBGBBBBBBBBBBBBBBB
+NJJJJL   KJJJL   KJJJJM                
+D      B       B      C                    
+D  o  EAF     EAF  o  C             
+HBBBBBGAHBBBBBGAHBBBBBG  
+     A
+     AA
+     AAA
+     AAAA
+     AAAAA
+     AAAAAA
