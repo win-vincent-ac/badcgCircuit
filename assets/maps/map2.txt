@@ -1,7 +1,6 @@
 
 @parallax-layer bg1
 @parallax-layer bg2
-
 @music music
 
 
