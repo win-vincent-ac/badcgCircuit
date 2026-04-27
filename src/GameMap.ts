@@ -181,7 +181,7 @@ export class GameMap {
                
         this.background.forEach(bg => {
             let x = Math.trunc(offsetX * (myW - bg.width)/(myW-mapWidth));
-            let y = Math.trunc(myH - bg.height);
+            let y = Math.trunc(offsetY * (myH - bg.height)/(myH-mapHeight));
             image(bg,0,0,myW,myH,0-x,0-y,800,600);
         });
         /*

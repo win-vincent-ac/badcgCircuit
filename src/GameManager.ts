@@ -6,7 +6,7 @@ import { ResourceManager } from "./ResourceManager.js";
 import { CreatureState } from "./sprites/Creature.js";
 import { Image, Renderer } from "p5";
 
-export const GRAVITY: number =  0.002;
+export const GRAVITY: number =  0.0014;
 const FONT_SIZE: number = 24;
 
 export enum STATE {Loading, Menu, Running, Finished}
@@ -146,6 +146,10 @@ export class GameManager {
                     this.inputManager.setGameAction(this.moveRight,RIGHT_ARROW);
                     this.inputManager.setGameAction(this.moveLeft,LEFT_ARROW);
                     this.inputManager.setGameAction(this.jump,UP_ARROW);
+                    this.inputManager.setGameAction(this.moveRight,68);
+                    this.inputManager.setGameAction(this.moveLeft,65);
+                    this.inputManager.setGameAction(this.jump,87);
+
                     /**
                      * sets the "R" key to restart our game
                      */
