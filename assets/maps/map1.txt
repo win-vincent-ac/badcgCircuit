@@ -12,13 +12,13 @@ AAAAAAAD                     CAAAAAAA
 AAAAAAAD  o               o  CAAAAAAA               
 AAAAAAAHBBBBF           EBBBBGAAAAAAA
 AAAAAAANJJJJL   ooooo   KJJJJMAAAAAAA 
-AAAAAAAD      B       B      CAAAAAAA            
-AAAAAAAD     EAF     EAF     CAAAAAAA             
+AAAAAAAD                     CAAAAAAA            
+AAAAAAAD     EBF     EBF     CAAAAAAA             
 AAAAAAAD  o       0       o  CAAAAAAA           
 AAAAAAAHBBBBF   EBBBF   EBBBBGAAAAAAA
 AAAAAAANJJJJL   KJJJL   KJJJJMAAAAAAA                
-AAAAAAAD      B       B      CAAAAAAA                    
-AAAAAAAD  o  EAF     EAF  o  CAAAAAAA             
+AAAAAAAD                     CAAAAAAA                    
+AAAAAAAD  o  EBF     EBF  %  CAAAAAAA             
 AAAAAAAHBBBBBGAHBBBBBGAHBBBBBGAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
