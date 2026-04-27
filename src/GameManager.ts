@@ -191,7 +191,10 @@ export class GameManager {
 
         this.map.player.setVelocity(vel.x,vel.y);
         
-        if (this.jump.isPressed() && this.map.player.getState()==CreatureState.NORMAL) {
+        if (this.jump.isBeginPress() && this.map.player.getState()==CreatureState.NORMAL) {
+            if (!this.jump.isPressed) {
+                vel.y = 0;
+            }
             this.map.player.jump(false);
         }
         
