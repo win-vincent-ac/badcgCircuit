@@ -1,0 +1,32 @@
+
+@parallax-layer bg1
+@parallax-layer bg2
+@music music
+
+
+    
+         
+    AAAAAA
+    AAAAA
+    AAAA
+    AAA
+    AA   NJJJJJJJJJJJJMAA   
+    A    D            CAAA    
+NJJJJJJJJL            CAAAA              
+D  o               o  CAAAAA               
+HBBBBF           EBBBBGAAAAAA
+NJJJJL   ooooo   KJJJJMAAAAAAA 
+D      B       B         EF    NM    C            
+D     EAF     EAF        KL    HG    C             
+D  o       0       o                 C            
+HBBBBF   EBBBF   EBBBBGBBBBBBBBBBBBBBB
+NJJJJL   KJJJL   KJJJJM                
+D      B       B      C                    
+D  o  EAF     EAF  o  C             
+HBBBBBGAHBBBBBGAHBBBBBG  
+     A
+     AA
+     AAA
+     AAAA
+     AAAAA
+     AAAAAA
