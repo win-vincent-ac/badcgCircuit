@@ -241,10 +241,11 @@ export class GameMap {
         let i1=s1.getImage();
         let i2=s2.getImage();
         
-        let val = (pos1.x < pos2.x - i2.width &&
-            pos2.x < pos1.x - i1.width &&
-            pos1.y < pos2.y - i2.height &&
-            pos2.y < pos1.y - i1.height);
+        /* was (-) changed to (+) checks if bounding box overlaps for collision detection */
+        let val = (pos1.x < pos2.x + i2.width &&
+            pos2.x < pos1.x + i1.width &&
+            pos1.y < pos2.y + i2.height &&
+            pos2.y < pos1.y + i1.height);
         return val;
     }
 
