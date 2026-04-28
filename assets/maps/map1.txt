@@ -12,20 +12,16 @@ AAAAAAAD                                 CAAAAAAA
 AAAAAAAD                                 CAAAAAAA           
 AAAAAAAD  o                           o  CAAAAAAA               
 AAAAAAAHBBBBF                       EBBBBGAAAAAAA
-AAAAAAANJJJJL        ooooo          KJJJJMAAAAAAA 
+AAAAAAANJJJJJL       ooooo         KJJJJJMAAAAAAA 
 AAAAAAAD                                 CAAAAAAA   
 AAAAAAAD                                 CAAAAAAA            
-AAAAAAAD        EBF          EBF         CAAAAAAA     
+AAAAOAAD        EBF          EBF         CAAAAAAA     
 AAAAAAAD                                 CAAAAAAA         
-AAAAAAAD  o           0               o  CAAAAAAA           
+AOAAAAAD  o           0               o  CAAAAAAA           
 AAAAAAAHBBBBF        EBBBF          EBBBBGAAAAAAA
-AAAAAAANJJJJL        KJJJL          KJJJJMAAAAAAA   
+AAAAAAANJJJJJL       KJJJL         KJJJJJMAAAAAAA   
 AAAAAAAD                                 CAAAAAAA    
-AAAAAAAD                                 CAAAAAAA             
-AAAAAAAD                                         CAAAAAAA  
-AAAAAAAD                                         CAAAAAAA  
-AAAAAAAD                                         CAAAAAAA  
-AAAAAAAHBBBBBBBBGAHBBBBBBBBBBGAHBBBBBBBBBGAAAAAAA                  
+AAAAAAAD                                 CAAAAAAA       
 AAAAAAAD  o     EBF          EBF    %    CAAAAAAA             
 AAAAAAAHBBBBBBBBGAHBBBBBBBBBBGAHBBBBBBBBBGAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA

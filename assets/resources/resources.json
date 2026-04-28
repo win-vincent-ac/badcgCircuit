@@ -158,7 +158,8 @@
         "K": "tile_K",
         "L": "tile_L",
         "M": "tile_M",
-        "N": "tile_N"        
+        "N": "tile_N",
+        "O": "tile_O"         
     },
     "sounds": {
     },
