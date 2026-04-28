@@ -58,7 +58,7 @@
             "ammo": "assets/sounds/ammo.wav",
             "boost": "assets/sounds/boost.wav",
             "1up": "assets/sounds/1up.wav",
-            "robotjump": "assets/sounds/robot_jump.wav"
+            "robot_jump": "assets/sounds/robot_jump.wav"
         },
         "json": {
             "resources": "assets/resources/resources.json"
