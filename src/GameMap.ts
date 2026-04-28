@@ -339,12 +339,13 @@ export class GameMap {
                 this.medallions=0;
                 this.initialize();
             }
+            // door code
             /*
             * the if loop states that if the level is 1 and you have 20 medaillions, you can proceed to the next level
             * and the sound black_hole will play
             * if you don't have 20 medaillions then you cannot proceed to the next level
             */
-            if(this.level==1 && this.medallions==20) {
+            if(this.level==1 && this.medallions==10) {
                 this.black_hole.play();
                 this.level+=1;
                 this.medallions=0;
