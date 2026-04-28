@@ -30,6 +30,7 @@ export class GameMap {
     boop: p5.SoundFile;
     black_hole: p5.SoundFile;
     dying: p5.SoundFile;
+    robot_jump: p5.SoundFile;
     full_death: p5.SoundFile;
     medallions: number;
     ALPHALEVEL: number;
@@ -58,6 +59,7 @@ export class GameMap {
         this.full_death=this.resources.getLoad("full_death");
         this.black_hole=this.resources.getLoad("blackHole");
         this.dying = this.resources.getLoad("dying");
+        this.robot_jump=this.resources.getLoad("robot_jump");
         /*
          * These initialze arrays to store sprites and backgrounds 
          */

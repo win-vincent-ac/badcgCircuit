@@ -4,7 +4,7 @@ import { GameMap } from "./GameMap.js";
 import { InputManager } from "./InputManager.js";
 import { ResourceManager } from "./ResourceManager.js";
 import { CreatureState } from "./sprites/Creature.js";
-import { Image, Renderer } from "p5";
+import { Delay, Image, Renderer } from "p5";
 
 export const GRAVITY: number =  0.0014;
 const FONT_SIZE: number = 24;
@@ -180,9 +180,11 @@ export class GameManager {
         vel.x=0;
 
         if (this.moveRight.isPressed() && this.map.player.getState()==CreatureState.NORMAL) {
+            if(this.moveRight.isPressed()) {this.map.robot_jump.play();}
             vel.x=this.map.player.getMaxSpeed();
         }
         if (this.moveLeft.isPressed() && this.map.player.getState()==CreatureState.NORMAL) {
+            //while(this.moveLeft.isPressed()) {this.map.robot_walk.play();}
             vel.x=-this.map.player.getMaxSpeed();
         }
         /*
@@ -191,9 +193,9 @@ export class GameManager {
 
         this.map.player.setVelocity(vel.x,vel.y);
         
-        if (this.jump.isBeginPress() && this.map.player.getState()==CreatureState.NORMAL) {
-            if (!this.jump.isPressed) {
-                vel.y = 0;
+        if (this.jump.isPressed() && this.map.player.getState()==CreatureState.NORMAL) {
+            if (this.map.player.onGround) {
+                this.map.robot_jump.play();
             }
             this.map.player.jump(false);
         }
