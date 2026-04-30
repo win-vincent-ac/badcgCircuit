@@ -17,6 +17,7 @@ export class Player extends Creature {
     fuel:number;
     numBullets: number;
     lives: number;
+    doubleJump:boolean;
     
     /**
      * the function of the player class
@@ -38,6 +39,7 @@ export class Player extends Creature {
         this.lives = 3;
         this.onGround=false;
         this.jetPackOn=false;
+        this.doubleJump=true;
     }
     /**
      * function to get the amount of fuel the jetpack is using
@@ -79,11 +81,19 @@ export class Player extends Creature {
         return this.numBullets;
     }
     /**
+     * function to check to see if player is permitted double jump
+     * @returns 
+     */
+    getDoubleJump():boolean {
+        return this.doubleJump;
+    }
+    /**
      * function that handles the collision with vertical surfaces
      */
     collideVertical() {
         if (this.velocity.y > 0) {
             this.onGround=true;
+            this.doubleJump=true;
         }
         this.velocity.y=0;
     }
@@ -104,8 +114,9 @@ export class Player extends Creature {
      * @param forceJump
      */
     jump(forceJump:boolean) {
-        if (this.onGround || forceJump) {
+        if (this.onGround || this.doubleJump || forceJump) {
             this.onGround=false;
+            this.doubleJump=false;
             this.setVelocity(0,-this.JUMP_SPEED);
         }
     }

@@ -196,11 +196,17 @@ export class GameManager {
 
         this.map.player.setVelocity(vel.x,vel.y);
         
-        if (this.jump.isPressed() && this.map.player.getState()==CreatureState.NORMAL) {
+        if (this.jump.isPressed() /*&& this.map.player.getState()==CreatureState.NORMAL*/) {
             if (this.map.player.onGround) {
                 this.map.robot_jump.play();
             }
+            else if (this.map.player.doubleJump) {
+                this.map.player.jump(true);
+                this.map.robot_jump.play();
+                //this.map.player.doubleJump=false;
+            }
             this.map.player.jump(false);
+            
         }
         
         if(this.restart.isBeginPress()){
