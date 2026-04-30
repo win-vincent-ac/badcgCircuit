@@ -5,8 +5,12 @@
             "fly3": "assets/images/fly3.png",
             "grub1": "assets/images/grub1.png",
             "grub2": "assets/images/grub2.png",
-            "cave_man": "assets/images/spritesheet_caveman.png",
-            "cave_manr": "assets/images/spritesheet_cavemanright.png",
+            "main_dude": "assets/images/main_duderun.png",
+            "main_duder": "assets/images/main_duderunr.png",
+            "main_dude_idle": "assets/images/main_dude_idle.png",
+            "main_dude_idler": "assets/images/main_dude_idler.png",
+            "main_dude_dead": "assets/images/main_dude_dead.png",
+            "main_dude_deadr": "assets/images/main_dude_deadr.png",
             "fort": "assets/images/fortress.png",
             "life1": "assets/images/life1.png",
             "life2": "assets/images/life2.png",
@@ -39,7 +43,12 @@
             "medallion1": "assets/images/medallion1.png",
             "medallion2": "assets/images/medallion2.png",
             "medallion3": "assets/images/medallion3.png",
-            "medallion4": "assets/images/medallion4.png"
+            "medallion4": "assets/images/medallion4.png",
+            "lil_dude1": "assets/images/lil_dude1.png",
+            "lil_dude2": "assets/images/lil_dude2.png",
+            "lil_dude3": "assets/images/lil_dude3.png",
+            "lil_dude4": "assets/images/lil_dude4.png",
+            "lil_dude5": "assets/images/lil_dude5.png"
         },
         "text": {
             "map1": "assets/maps/map1.txt",
@@ -58,7 +67,8 @@
             "ammo": "assets/sounds/ammo.wav",
             "boost": "assets/sounds/boost.wav",
             "1up": "assets/sounds/1up.wav",
-            "robot_jump": "assets/sounds/robot_jump.wav"
+            "robot_jump": "assets/sounds/robot_jump.wav",
+            "robot_temp": "assets/sounds/robot_temp.wav"
         },
         "json": {
             "resources": "assets/resources/resources.json"

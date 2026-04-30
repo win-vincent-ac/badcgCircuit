@@ -179,12 +179,15 @@ export class GameManager {
         let vel=this.map.player.getVelocity();
         vel.x=0;
 
+        //WHEN WALKING SOUND EFFECT IS MADE REPLACE robot_jump WITH robot_walk
         if (this.moveRight.isPressed() && this.map.player.getState()==CreatureState.NORMAL) {
-            if(this.moveRight.isPressed()) {this.map.robot_jump.play();}
+            if(this.moveRight.isPressed() && this.map.player.onGround && !this.map.robot_temp.isPlaying()) {this.map.robot_temp.play();}
+            
             vel.x=this.map.player.getMaxSpeed();
         }
         if (this.moveLeft.isPressed() && this.map.player.getState()==CreatureState.NORMAL) {
-            //while(this.moveLeft.isPressed()) {this.map.robot_walk.play();}
+            if(this.moveLeft.isPressed() && this.map.player.onGround && !this.map.robot_temp.isPlaying()) {this.map.robot_temp.play();}
+            
             vel.x=-this.map.player.getMaxSpeed();
         }
         /*
