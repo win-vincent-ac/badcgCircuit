@@ -15,32 +15,32 @@
             "type": "Player",
 
             "left": [
-                {"sheet":"cave_man","rows":2,"cols":4,"duration":150}
+                {"sheet":"main_dude","rows":1,"cols":4,"duration":100}
             ],
             "right": [
-                {"sheet":"cave_manr","rows":2,"cols":4,"duration":150}
+                {"sheet":"main_duder","rows":1,"cols":4,"duration":100}
             ],
             "stillLeft": [
-                {"sheet":"cave_man","rows":2,"cols":4,"duration":300}
+                {"sheet":"main_dude_idle","rows":1,"cols":2,"duration":550}
             ],
             "stillRight": [
-                {"sheet":"cave_manr","rows":2,"cols":4,"duration":300}
+                {"sheet":"main_dude_idler","rows":1,"cols":2,"duration":550}
             ],
             "jetLeft": [
-                {"sheet":"cave_man","rows":4,"cols":4,"duration":150}
+                {"sheet":"main_dude","rows":1,"cols":4,"duration":150}
             ],
             "jetRight": [
-                {"sheet":"cave_manr","rows":4,"cols":4,"duration":150}
+                {"sheet":"main_duder","rows":1,"cols":4,"duration":150}
             ],
             "deadLeft": [
-                {"sheet":"cave_man","rows":4,"cols":4,"duration":150}
+                {"sheet":"main_dude_dead","rows":3,"cols":4,"duration":100}
             ],
             "deadRight": [
-                {"sheet":"cave_manr","rows":4,"cols":4,"duration":150}
+                {"sheet":"main_dude_deadr","rows":1,"cols":2,"duration":150}
             ]
         },
         "lil_dude": {
-            "type": "PowerUp",
+            "type": "Creature",
             "default": [
                 {"img":"lil_dude1", "duration":100},
                 {"img":"lil_dude2", "duration":100},
