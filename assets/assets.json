@@ -39,7 +39,12 @@
             "medallion1": "assets/images/medallion1.png",
             "medallion2": "assets/images/medallion2.png",
             "medallion3": "assets/images/medallion3.png",
-            "medallion4": "assets/images/medallion4.png"
+            "medallion4": "assets/images/medallion4.png",
+            "lil_dude1": "assets/images/lil_dude1.png",
+            "lil_dude2": "assets/images/lil_dude2.png",
+            "lil_dude3": "assets/images/lil_dude3.png",
+            "lil_dude4": "assets/images/lil_dude4.png",
+            "lil_dude5": "assets/images/lil_dude5.png"
         },
         "text": {
             "map1": "assets/maps/map1.txt",

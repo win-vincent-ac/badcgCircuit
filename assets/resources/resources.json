@@ -39,6 +39,17 @@
                 {"sheet":"cave_manr","rows":4,"cols":4,"duration":150}
             ]
         },
+        "lil_dude": {
+            "type": "PowerUp",
+            "default": [
+                {"img":"lil_dude1", "duration":100},
+                {"img":"lil_dude2", "duration":100},
+                {"img":"lil_dude3", "duration":100},
+                {"img":"lil_dude4", "duration":100},
+                {"img":"lil_dude5", "duration":100}
+            ]
+        },
+
         "life": {
             "type": "PowerUp",
             "default": [
@@ -173,7 +184,8 @@
             "%": "end_portal",
             "-": "my_fly",
             "5": "lava_pool",
-            "p": "power"
+            "p": "power",
+            "?": "lil_dude"
 
         },
         "levels": [
