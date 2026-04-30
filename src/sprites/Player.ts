@@ -115,9 +115,11 @@ export class Player extends Creature {
      */
     jump(forceJump:boolean) {
         if (this.onGround || this.doubleJump || forceJump) {
+            if (!this.onGround) {
+                this.doubleJump=false;
+            }
             this.onGround=false;
-            this.doubleJump=false;
-            this.setVelocity(0,-this.JUMP_SPEED);
+            this.setVelocity(this.velocity.x,-this.JUMP_SPEED);
         }
     }
 
