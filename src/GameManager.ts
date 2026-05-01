@@ -149,7 +149,7 @@ export class GameManager {
                     this.inputManager.setGameAction(this.moveRight,68);
                     this.inputManager.setGameAction(this.moveLeft,65);
                     this.inputManager.setGameAction(this.jump,87);
-
+                    
                     /**
                      * sets the "R" key to restart our game
                      */
@@ -197,9 +197,11 @@ export class GameManager {
         this.map.player.setVelocity(vel.x,vel.y);
         
         if (this.jump.isPressed() && this.map.player.getState()==CreatureState.NORMAL) {
-            if (this.map.player.onGround) {
+            if ((this.map.player.onGround || this.map.player.doubleJump) && !this.map.robot_jump.isPlaying()) {
                 this.map.robot_jump.play();
             }
+            
+            
             this.map.player.jump(false);
         }
         
