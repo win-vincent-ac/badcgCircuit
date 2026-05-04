@@ -7,8 +7,8 @@ import { Sprite } from "./Sprite.js";
 export class Player extends Creature {
     /**
      * defines some of the properties of the player
-     */
-    DIE_TIME = 1800;
+     */ 
+    DIE_TIME = 2640;
     MAX_SPEED:number;
     JUMP_SPEED:number;
     MAX_FUEL:number;
