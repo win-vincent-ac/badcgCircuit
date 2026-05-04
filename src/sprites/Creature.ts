@@ -128,7 +128,7 @@ export class Creature extends Sprite {
              */
             super.update(deltaTime);
         }
-        /**
+        /** 
          * this increments the state time
          */
         this.stateTime+=deltaTime;
@@ -172,4 +172,15 @@ export class Fly extends Creature {
     getMaxSpeed() {
         return 0.15;
     }
+}
+
+export class Dangerous extends Creature {
+    /** 
+     * allows the creature to damage the player
+     * @returns 
+     */
+    isDangerous() {
+        return true;
+    }
+    
 }

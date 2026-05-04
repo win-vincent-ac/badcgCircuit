@@ -12,7 +12,7 @@ export class Sprite {
     protected position : p5.Vector;
     protected velocity : p5.Vector;
     protected animations : AnimPair;
-    protected currAnimName: string;
+    currAnimName: string;
     protected currAnimation: Animation;
     /**
      * the constructor initializes different properties of the sprite
@@ -43,6 +43,13 @@ export class Sprite {
      * @returns 
      */
     isFlying() {
+        return false;
+    }
+    /**
+     * determines if the sprite can kill the player
+     * @returns 
+     */
+    isDangerous() {
         return false;
     }
     /**
