@@ -37,6 +37,12 @@
             ],
             "deadRight": [
                 {"sheet":"main_dude_deadr","rows":3,"cols":4,"duration":150}
+            ],
+            "upies": [
+                {"sheet":"main_dude_upies","rows":1,"cols":2,"duration":150}
+            ],
+            "upiesRight": [
+                {"sheet":"main_dude_upiesr","rows":1,"cols":2,"duration":150}
             ]
         },
         "lil_dude": {
@@ -89,7 +95,6 @@
         "end_portal": {
             "type":"EndPortal",
             "default":[
-                {"img":"fort", "duration":150},
                 {"img":"fort", "duration":150}
             ]
         },
@@ -170,7 +175,12 @@
         "L": "tile_L",
         "M": "tile_M",
         "N": "tile_N",
-        "O": "tile_O"         
+        "O": "tile_O",
+        "P": "tile_P",
+        "Q": "tile_Q",
+        "R": "tile_R",
+        "S": "tile_S",
+        "T": "tile_T"
     },
     "sounds": {
     },
@@ -191,7 +201,7 @@
         "levels": [
             "map1",
             "map2",
-            "map3" 
+            "map3"
         ]
     }
     

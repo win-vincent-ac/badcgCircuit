@@ -16,6 +16,10 @@ export class Heart extends PowerUp {
     
 }
 
+export class Door extends PowerUp {
+    //add switch state for graphics door (open/closed)
+}
+
 export class Power extends PowerUp {
     
 }
