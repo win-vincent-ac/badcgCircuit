@@ -188,8 +188,8 @@ export class GameMap {
                
         this.background.forEach(bg => {
             let x = Math.trunc(offsetX * (myW - bg.width)/(myW-mapWidth));
-            let y = Math.trunc(offsetY * (myH - bg.height)/(myH-mapHeight));
-            image(bg,0,0,myW,myH,0-x,0-y,800,600);
+            let y = Math.trunc(offsetY * (myH - bg.height)/(myH-mapHeight)); 
+            image(bg,0,0,myW,myH,0-x,0-y,800,600); 
         });
         /*
          * These lines of code creates the tiles of the video game that are visible
@@ -198,8 +198,8 @@ export class GameMap {
         let lastTileX = Math.trunc(firstTileX + this.pixelsToTiles(myW) + 1);
         for (let y = 0; y < this.height; y++) {
             for(let x=firstTileX; x <= lastTileX; x++) {
-                if (this.tiles[x] && this.tiles[x][y]) {
-                    image(this.tiles[x][y],
+                if (this.tiles[x] && this.tiles[x][y]) { 
+                    image(this.tiles[x][y], 
                         this.tilesToPixels(x) + offsetX,
                         this.tilesToPixels(y) + offsetY);
                 }

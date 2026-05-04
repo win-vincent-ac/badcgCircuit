@@ -33,10 +33,10 @@
                 {"sheet":"main_duder","rows":1,"cols":4,"duration":150}
             ],
             "deadLeft": [
-                {"sheet":"main_dude_dead","rows":3,"cols":4,"duration":100}
+                {"sheet":"main_dude_dead","rows":3,"cols":4,"duration":150}
             ],
             "deadRight": [
-                {"sheet":"main_dude_deadr","rows":1,"cols":2,"duration":150}
+                {"sheet":"main_dude_deadr","rows":3,"cols":4,"duration":150}
             ]
         },
         "lil_dude": {
