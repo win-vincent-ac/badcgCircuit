@@ -39,6 +39,7 @@ export class GameMap {
     oneUp: p5.SoundFile;
     heldMedallion: Star | null = null;
     hWasDown: boolean = false;
+    womp_womp: p5.SoundFile;
 
     constructor(level:number, resources:ResourceManager, settings:Settings, game: GameManager) {
     /*
@@ -64,6 +65,7 @@ export class GameMap {
         this.dying = this.resources.getLoad("dying");
         this.robot_jump=this.resources.getLoad("robot_jump");
         this.robot_temp=this.resources.getLoad("robot_temp");
+        this.womp_womp=this.resources.getLoad("womp_womp");
         /*
          * These initialze arrays to store sprites and backgrounds 
          */
@@ -188,8 +190,8 @@ export class GameMap {
                
         this.background.forEach(bg => {
             let x = Math.trunc(offsetX * (myW - bg.width)/(myW-mapWidth));
-            let y = Math.trunc(offsetY * (myH - bg.height)/(myH-mapHeight)); 
-            image(bg,0,0,myW,myH,0-x,0-y,800,600); 
+            let y = Math.trunc(offsetY * (myH - bg.height)/(myH-mapHeight));
+            image(bg,0,0,myW,myH,0-x,0-y,800,600);
         });
         /*
          * These lines of code creates the tiles of the video game that are visible
@@ -198,8 +200,8 @@ export class GameMap {
         let lastTileX = Math.trunc(firstTileX + this.pixelsToTiles(myW) + 1);
         for (let y = 0; y < this.height; y++) {
             for(let x=firstTileX; x <= lastTileX; x++) {
-                if (this.tiles[x] && this.tiles[x][y]) { 
-                    image(this.tiles[x][y], 
+                if (this.tiles[x] && this.tiles[x][y]) {
+                    image(this.tiles[x][y],
                         this.tilesToPixels(x) + offsetX,
                         this.tilesToPixels(y) + offsetY);
                 }
@@ -229,14 +231,14 @@ export class GameMap {
 
          if (sprite === nearbyMedallion) {
             noFill();
-            stroke(255, 255, 0);
-            strokeWeight(3);
+            stroke(255, 255, 0); //color
+            strokeWeight(3); // weight of outline
 
          ellipse(
-            Math.trunc(p.x + offsetX + img.width / 2),
+            Math.trunc(p.x + offsetX + img.width / 2), //center of sprite
             Math.trunc(p.y + offsetY + img.height / 2),
-            img.width + 15,
-            img.height + 15
+            img.width - 10, // the width of the highlight
+            img.height - 10 // the height of the circle
         );
 
             strokeWeight(1);
@@ -244,6 +246,12 @@ export class GameMap {
     }
 });
     }
+
+    // there will another if statement when we have circuit objects and gate objects
+    // medallions will be replaced with gates
+    // the second if statement will have a similar highlight effect for the circuit it will jusgt be changing the shape of the highlight around the sprite
+
+
         /* OLD CODE (not needed)
          * These lines of codes draws every other sprite (fly) in the game
          *
@@ -348,21 +356,21 @@ export class GameMap {
             if (s instanceof Creature || s instanceof EnemyProjectile) {
                 if(this.lives==1){
                     p.setState(CreatureState.DYING)
-                    this.full_death.play();
+                    this.womp_womp.play();
                     this.level=0;
                     this.medallions=0;
                     this.lives+=3;
                 }
                 if(this.lives>1){
                     p.setState(CreatureState.DYING);
-                    this.dying.play();
+                    this.womp_womp.play();
                     this.medallions=0;
                     this.lives-=1;
                 }                
             }   
             else if (s instanceof Lava) {
                 p.setState(CreatureState.DYING);
-                this.dying.play();
+                this.womp_womp.play();
                 this.medallions=0;
             } 
             else if (s instanceof PowerUp) {

@@ -68,7 +68,9 @@
             "boost": "assets/sounds/boost.wav",
             "1up": "assets/sounds/1up.wav",
             "robot_jump": "assets/sounds/robot_jump.wav",
+            "womp_womp": "assets/sounds/test_death.wav",
             "robot_temp": "assets/sounds/robot_temp.wav"
+            
         },
         "json": {
             "resources": "assets/resources/resources.json"
