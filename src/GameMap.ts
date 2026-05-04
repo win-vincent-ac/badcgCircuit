@@ -229,9 +229,10 @@ export class GameMap {
                  Math.trunc(p.x + offsetX),
                 Math.trunc(p.y + offsetY));
 
-         if (sprite === nearbyMedallion) {
+         if (sprite === nearbyMedallion) { 
             noFill();
-            stroke(255, 255, 0);
+            if (this.heldMedallion == null) {stroke(255, 255, 255);}
+            else { stroke(255, 255, 255, 0);}
             strokeWeight(3);
 
          ellipse(
@@ -244,7 +245,25 @@ export class GameMap {
             strokeWeight(1);
             noStroke();
     
-};
+        };
+
+        if (sprite === nearbyMedallion) { 
+            noFill();
+            if (this.heldMedallion == null) {stroke(255, 255, 255);}
+            else { stroke(255, 255, 255, 0);}
+            strokeWeight(1);
+
+         ellipse(
+            Math.trunc(p.x + offsetX + img.width / 2),
+            Math.trunc(p.y + offsetY + img.height / 2),
+            img.width + 10,
+            img.height + 10
+        );
+
+            strokeWeight(1);
+            noStroke();
+    
+        };
     
         /* OLD CODE (not needed)
          * These lines of codes draws every other sprite (fly) in the game
@@ -263,7 +282,7 @@ export class GameMap {
             }
         });
     }
-)};
+)}
 
     /*
      * This method checks to see if there is a collision between the sprites
@@ -300,8 +319,12 @@ export class GameMap {
     getSpriteCollision(s:Sprite):Sprite {
         for (const other of this.sprites) {
             if (this.isCollision(s,other)) {
+                /*if (!other.isDangerous) {
+                    break;
+                }*/
                 return other;
             }
+            //if other is not an instance of a creature, cycle
         }
         return null;
     }
@@ -566,6 +589,24 @@ export class GameMap {
         this.updateSprite(this.player);
         this.player.update(deltaTime); 
 
+        this.sprites.forEach((sprite,index,obj) => {
+            if (sprite instanceof Creature ) {
+                if (sprite.getState() == CreatureState.DEAD) {
+                    obj.splice(index,1);
+                }
+                else {
+                    this.updateSprite(sprite);
+                    sprite.update(deltaTime);
+
+                    sprite.effectMap(this);
+                
+                }
+            }
+            else if (sprite instanceof PowerUp) {
+                sprite.update(deltaTime);
+            }
+        });
+        
         const hDown = keyIsDown(72); // H key
 
         // Press H once to pick up nearby medallion
@@ -604,8 +645,8 @@ export class GameMap {
         const playerPos = this.player.getPosition();
 
         this.heldMedallion.setPosition( //HOLDING
-            playerPos.x + 20,
-            playerPos.y - 50);
+            playerPos.x + 35,
+            playerPos.y - 64);
 }
         // Remember whether H was pressed last frame
         this.hWasDown = hDown;

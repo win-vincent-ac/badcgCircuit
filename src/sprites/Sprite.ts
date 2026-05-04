@@ -46,6 +46,13 @@ export class Sprite {
         return false;
     }
     /**
+     * determines if the sprite can kill the player
+     * @returns 
+     */
+    isDangerous() {
+        return false;
+    }
+    /**
      * clones a sprite
      * @returns 
      */ 
