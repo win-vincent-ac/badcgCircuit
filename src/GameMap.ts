@@ -38,6 +38,8 @@ export class GameMap {
     lives: number;
     oneUp: p5.SoundFile;
     heldMedallion: Star | null = null;
+    // LogicStationCenter: Locked | Unlocked;
+    // LogicStationGate: Or | Not | And | Blank;
     hWasDown: boolean = false;
 
     constructor(level:number, resources:ResourceManager, settings:Settings, game: GameManager) {
@@ -235,18 +237,18 @@ export class GameMap {
          ellipse(
             Math.trunc(p.x + offsetX + img.width / 2),
             Math.trunc(p.y + offsetY + img.height / 2),
-            img.width + 15,
-            img.height + 15
+            img.width + 0,
+            img.height + 0
         );
 
             strokeWeight(1);
             noStroke();
-    }
-});
-    }
+    
+};
+    
         /* OLD CODE (not needed)
          * These lines of codes draws every other sprite (fly) in the game
-         *
+         */
         this.sprites.forEach(sprite => {
             let p=sprite.getPosition();
             image(sprite.getImage(),
@@ -255,12 +257,13 @@ export class GameMap {
         /*
          * This if statement says if the sprites are visible on the screen, they move
          * if they aren't visible they stay still until they are on the screen 
-         *
+         */
             if (sprite instanceof Creature && p.x+offsetX> 0 && p.x+offsetX<myW) {
                 sprite.wakeUp();
             }
         });
     }
+)};
 
     /*
      * This method checks to see if there is a collision between the sprites
@@ -430,6 +433,12 @@ export class GameMap {
                 this.black_hole.play();
                 this.level+=1;
                 this.medallions=0;
+                //if rendering first game station, then
+                //Top input is Circit 1 E Unlocked
+                //Bottom input is None Locked
+                //Center is Not Locked
+                //Output is Circut 2 S Unlocked
+
                 this.initialize();
             }
         } 
@@ -571,16 +580,32 @@ export class GameMap {
 
         // Press H again to drop it
         else if (hDown && !this.hWasDown && this.heldMedallion !== null) {
-        this.heldMedallion = null;
+            const playerPos = this.player.getPosition();
+
+            if (this.player.currAnimName.toUpperCase().includes("LEFT")) {
+                this.heldMedallion.setPosition( //PUT DOWN LEFT
+                
+                playerPos.x - 40,
+                playerPos.y + 56);
+            this.heldMedallion = null;
+            }
+            else {
+                this.heldMedallion.setPosition( //PUT DOWN RIGHT
+                
+                playerPos.x + 120,
+                playerPos.y + 56);
+            this.heldMedallion = null;
+            }
+            
     }
 
         // If holding a medallion, move it with the player
         if (this.heldMedallion !== null) {
         const playerPos = this.player.getPosition();
 
-        this.heldMedallion.setPosition(
+        this.heldMedallion.setPosition( //HOLDING
             playerPos.x + 20,
-            playerPos.y - 35);
+            playerPos.y - 50);
 }
         // Remember whether H was pressed last frame
         this.hWasDown = hDown;

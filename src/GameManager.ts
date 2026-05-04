@@ -179,7 +179,7 @@ export class GameManager {
         let vel=this.map.player.getVelocity();
         vel.x=0;
 
-        //WHEN WALKING SOUND EFFECT IS MADE REPLACE robot_jump WITH robot_walk
+        
         if (this.moveRight.isPressed() && this.map.player.getState()==CreatureState.NORMAL) {
             if(this.moveRight.isPressed() && this.map.player.onGround && !this.map.robot_temp.isPlaying()) {this.map.robot_temp.play();}
             
@@ -200,8 +200,6 @@ export class GameManager {
             if ((this.map.player.onGround || this.map.player.doubleJump) && !this.map.robot_jump.isPlaying()) {
                 this.map.robot_jump.play();
             }
-            
-            
             this.map.player.jump(false);
         }
         

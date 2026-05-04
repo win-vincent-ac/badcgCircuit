@@ -14,10 +14,10 @@ AAAAAAAD  o                           o  CAAAAAAA
 AAAAAAAHBBBBF                       EBBBBGAAAAAAA
 AAAAAAANJJJJJL       ooooo         KJJJJJMAAAAAAA 
 AAAAAAAD                                 CAAAAAAA   
-AAAAAAAD                      ?          CAAAAAAA            
+AAAAAAAD                                 CAAAAAAA            
 AAAAOAAD        EBF          EBF         CAAAAAAA     
 AAAAAAAD                                 CAAAAAAA         
-AOAAAAAD  o           0               o  CAAAAAAA           
+AOAAAAAD  o          o0  ?            o  CAAAAAAA           
 AAAAAAAHBBBBF        EBBBF          EBBBBGAAAAAAA
 AAAAAAANJJJJJL       KJJJL         KJJJJJMAAAAAAA   
 AAAAAAAD                                 CAAAAAAA    
