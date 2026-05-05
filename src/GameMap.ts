@@ -18,6 +18,7 @@ export class GameMap {
     tiles: p5.Image[][];
     tile_size:number;
     sprites: Sprite[];
+    gates: Sprite[];
     player: Player;
     background: p5.Image[];
     width: number; // width in tiles
@@ -131,7 +132,7 @@ export class GameMap {
          * creates 2D tile array to assign tiles and sprites based on the analyzed level, sprite and tiles data
          */
         this.tiles=[...Array(width)].map(x=>Array(height)) 
-        let gates: Gate[];
+        
 
         for(let y=0; y<height; y++) {
             let line=lines[y];
@@ -150,22 +151,19 @@ export class GameMap {
                         this.player=s; // assign the sprite to the 'player' variable
                     } 
                     else if (ch == '!') {
-                       //gates.push(s); //push gates to 'gates' array
+                    //    this.gates.push(s); //push gates to 'gates' array //THIS BITCH DONT WORK
                         this.sprites.push(s); 
-                        
                     }
                     else {
                         this.sprites.push(s); // otherwise, add the sprite to the 'sprites' array
                     }
-                    let sTemp:Gate = (this.sprites[0] as Gate);
-                    sTemp.changeState(GateState.AND);
                 }
             }
         }
         
-        //if (this.level == 0) {
-        //    gates[0].changeState(GateState.NOT);
-        //}
+        if (this.level == 0) {
+            (this.sprites[0] as Gate).changeState(GateState.OR);
+        }
 
     }
 
