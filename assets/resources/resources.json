@@ -58,7 +58,10 @@
                 {"img":"life2", "duration":150},
                 {"img":"life3", "duration":150}
             ]
+        
+
         },
+        
         "final_boss": {
             "type": "FinalBoss",
             "left": [
@@ -151,7 +154,7 @@
                 {"img":"power1", "duration": 150},
                 {"img":"power2", "duration": 150}
             ]
-        }    
+        }
     },
     "images": {
         "background": "background",
@@ -170,7 +173,10 @@
         "L": "tile_L",
         "M": "tile_M",
         "N": "tile_N",
-        "O": "tile_O"         
+        "O": "tile_O",
+        "W": "switch_on",
+        "V": "switch_off"
+              
     },
     "sounds": {
     },
@@ -186,7 +192,6 @@
             "5": "lava_pool",
             "p": "power",
             "?": "lil_dude"
-
         },
         "levels": [
             "map1",
