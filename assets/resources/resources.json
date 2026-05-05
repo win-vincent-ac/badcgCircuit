@@ -11,6 +11,19 @@
                 {"img":"medallion2", "duration":100}
             ]
         },
+        "gate": {
+            "type": "Gate",
+            
+            "or": [
+                {"img":"life1", "duration":100}
+            ],
+            "and": [
+                {"img":"lil_dude1", "duration":100}
+            ],
+            "not": [
+                {"img":"power1", "duration":100}
+            ]
+        },
         "player": {
             "type": "Player",
 
@@ -191,7 +204,8 @@
             "-": "my_fly",
             "5": "lava_pool",
             "p": "power",
-            "?": "lil_dude"
+            "?": "lil_dude",
+            "!": "gate"
         },
         "levels": [
             "map1",

@@ -10,6 +10,7 @@ import { FinalBoss } from "./sprites/FinalBoss.js";
 import {Lava} from "./sprites/Lava.js";
 import { Fireball } from "./sprites/Fireball.js";
 import { Projectile, EnemyProjectile} from "./sprites/Projectile.js";
+import { Gate, GateState } from "./sprites/Gate.js";
 
 
 export class ResourceManager {
@@ -186,6 +187,10 @@ export class ResourceManager {
             }
             case 'Star': {
                 s = new Star();
+                break;
+            }
+            case 'Gate': {
+                s = new Gate();
                 break;
             }
             case 'Music': {

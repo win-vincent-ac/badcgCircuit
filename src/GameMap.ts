@@ -7,6 +7,7 @@ import { Heart, Music, PowerUp, Star} from "./sprites/PowerUp.js";
 import { Projectile, EnemyProjectile } from './sprites/Projectile.js';
 import { Lava } from "./sprites/Lava.js"
 import { Settings } from "./Settings.js";
+import { Gate, GateState } from "./sprites/Gate.js";
 import { Vector } from "p5";
 
 /*
@@ -130,7 +131,8 @@ export class GameMap {
          * creates 2D tile array to assign tiles and sprites based on the analyzed level, sprite and tiles data
          */
         this.tiles=[...Array(width)].map(x=>Array(height)) 
-        
+        let gates: Gate[];
+
         for(let y=0; y<height; y++) {
             let line=lines[y];
             for (let x=0; x<line.length; x++) {
@@ -146,13 +148,25 @@ export class GameMap {
                                   
                     if (ch=='0') { // check if character is '0', which denotes the player sprite
                         this.player=s; // assign the sprite to the 'player' variable
-                    } else {
+                    } 
+                    else if (ch == '!') {
+                       //gates.push(s); //push gates to 'gates' array
+                        this.sprites.push(s); 
+                        
+                    }
+                    else {
                         this.sprites.push(s); // otherwise, add the sprite to the 'sprites' array
                     }
+                    let sTemp:Gate = (this.sprites[0] as Gate);
+                    sTemp.changeState(GateState.AND);
                 }
             }
         }
         
+        //if (this.level == 0) {
+        //    gates[0].changeState(GateState.NOT);
+        //}
+
     }
 
     /*
