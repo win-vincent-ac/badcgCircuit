@@ -39,7 +39,8 @@ export class GameMap {
     oneUp: p5.SoundFile;
     heldMedallion: Star | null = null;
     hWasDown: boolean = false;
-    womp_womp: p5.SoundFile;
+    robot_death: p5.SoundFile;
+    robot_pickup: p5.SoundFile;
 
     constructor(level:number, resources:ResourceManager, settings:Settings, game: GameManager) {
     /*
@@ -65,7 +66,8 @@ export class GameMap {
         this.dying = this.resources.getLoad("dying");
         this.robot_jump=this.resources.getLoad("robot_jump");
         this.robot_temp=this.resources.getLoad("robot_temp");
-        this.womp_womp=this.resources.getLoad("womp_womp");
+        this.robot_death=this.resources.getLoad("robot_death");
+        this.robot_pickup=this.resources.getLoad("robot_pickup");
         /*
          * These initialze arrays to store sprites and backgrounds 
          */
@@ -237,8 +239,8 @@ export class GameMap {
          ellipse(
             Math.trunc(p.x + offsetX + img.width / 2), //center of sprite
             Math.trunc(p.y + offsetY + img.height / 2),
-            img.width - 10, // the width of the highlight
-            img.height - 10 // the height of the circle
+            img.width - 20, // the width of the highlight
+            img.height - 20 // the height of the circle
         );
 
             strokeWeight(1);
@@ -356,21 +358,21 @@ export class GameMap {
             if (s instanceof Creature || s instanceof EnemyProjectile) {
                 if(this.lives==1){
                     p.setState(CreatureState.DYING)
-                    this.womp_womp.play();
+                    this.robot_death.play();
                     this.level=0;
                     this.medallions=0;
                     this.lives+=3;
                 }
                 if(this.lives>1){
                     p.setState(CreatureState.DYING);
-                    this.womp_womp.play();
+                    this.robot_death.play();
                     this.medallions=0;
                     this.lives-=1;
                 }                
             }   
             else if (s instanceof Lava) {
                 p.setState(CreatureState.DYING);
-                this.womp_womp.play();
+                this.robot_death.play();
                 this.medallions=0;
             } 
             else if (s instanceof PowerUp) {
@@ -409,7 +411,7 @@ export class GameMap {
              * there will be an event sound that plays as well
              */
             if (this.settings.playEvents) {
-                this.prize.play();
+                this.robot_pickup.play();
             }
             this.medallions+=1;
         }
@@ -573,7 +575,7 @@ export class GameMap {
 
              if (nearby) {
              this.heldMedallion = nearby;
-             this.prize.play();
+             this.robot_pickup.play();
          }
         }
 
@@ -588,7 +590,7 @@ export class GameMap {
 
         this.heldMedallion.setPosition(
             playerPos.x + 20,
-            playerPos.y - 35);
+            playerPos.y - 64);
 }
         // Remember whether H was pressed last frame
         this.hWasDown = hDown;
