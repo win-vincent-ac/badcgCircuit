@@ -41,6 +41,8 @@ export class GameMap {
     // LogicStationCenter: Locked | Unlocked;
     // LogicStationGate: Or | Not | And | Blank;
     hWasDown: boolean = false;
+    robot_death: p5.SoundFile;
+    robot_pickup: p5.SoundFile;
 
     constructor(level:number, resources:ResourceManager, settings:Settings, game: GameManager) {
     /*
@@ -66,6 +68,8 @@ export class GameMap {
         this.dying = this.resources.getLoad("dying");
         this.robot_jump=this.resources.getLoad("robot_jump");
         this.robot_temp=this.resources.getLoad("robot_temp");
+        this.robot_death=this.resources.getLoad("robot_death");
+        this.robot_pickup=this.resources.getLoad("robot_pickup");
         /*
          * These initialze arrays to store sprites and backgrounds 
          */
@@ -374,21 +378,21 @@ export class GameMap {
             if (s instanceof Creature || s instanceof EnemyProjectile) {
                 if(this.lives==1){
                     p.setState(CreatureState.DYING)
-                    this.full_death.play();
+                    this.robot_death.play();
                     this.level=0;
                     this.medallions=0;
                     this.lives+=3;
                 }
                 if(this.lives>1){
                     p.setState(CreatureState.DYING);
-                    this.dying.play();
+                    this.robot_death.play();
                     this.medallions=0;
                     this.lives-=1;
                 }                
             }   
             else if (s instanceof Lava) {
                 p.setState(CreatureState.DYING);
-                this.dying.play();
+                this.robot_death.play();
                 this.medallions=0;
             } 
             else if (s instanceof PowerUp) {
@@ -427,7 +431,7 @@ export class GameMap {
              * there will be an event sound that plays as well
              */
             if (this.settings.playEvents) {
-                this.prize.play();
+                this.robot_pickup.play();
             }
             this.medallions+=1;
         }
@@ -615,7 +619,7 @@ export class GameMap {
 
              if (nearby) {
              this.heldMedallion = nearby;
-             this.prize.play();
+             this.robot_pickup.play();
          }
         }
 
