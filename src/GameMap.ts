@@ -158,7 +158,7 @@ export class GameMap {
             }
         }
         
-        //LEVEL DESIGN FOR GATES, <STATIONS>, <CIRCUITS>
+        //LEVEL DESIGN FOR GATES, STATIONS, <CIRCUITS>
         if (this.level == 0) {
             (this.sprites[0] as Station).changeState(StationState.OFF);
             (this.sprites[1] as Gate).changeState(GateState.NOT);
@@ -297,23 +297,6 @@ export class GameMap {
         });
     }
 )}
-    /*
-    stationCollision(a: Station) {
-        let s=this.getSpriteCollision(a);
-        if (s instanceof Gate || s instanceof Player) {
-            if((a as Station).getState() == StationState.OFF){
-                (a as Station).changeState(StationState.ON);
-            }
-        }
-        else {(a as Station).changeState(StationState.OFF)}
-    }
-    /*
-    checkPlayerCollision(p: Player, canKill: boolean) {
-        let s=this.getSpriteCollision(p);
-        if (s && this.pp_collision(p,s)) {
-            if (s instanceof Creature || s instanceof EnemyProjectile) {
-                if(this.lives==1){
-    */
 
     /*
      * This method checks to see if there is a collision between the sprites
@@ -591,27 +574,29 @@ export class GameMap {
         if (s instanceof Player) {
             this.checkPlayerCollision(s as Player, oldY < newPos.y);
         } 
-        /*
-         * if the object is not a player, check for collision with other sprites
-         * if they collide, bounce off of eachother and change directions
-         */
-        else {
+        else if (s instanceof Station) {
             let spriteCollided=this.getSpriteCollision(s);
-            if (s instanceof Station) {
-                if (spriteCollided instanceof Gate || spriteCollided instanceof Player) {
+                if (spriteCollided instanceof Gate || spriteCollided instanceof Star || spriteCollided instanceof Player) {
                         (s as Station).changeState(StationState.ON);   
                         //change spritecollided position to center of s
                         //get s center x and y
                         //get sc center x and y
                         //make s center match sc center
-                        this.medallions+=1;
                 }
-                else {(spriteCollided as Station).changeState(StationState.OFF)}
-                
+                else {(s as Station).changeState(StationState.OFF)} 
             }
+        
+        /*
+         * if the object is not a player, check for collision with other sprites
+         * if they collide, bounce off of eachother and change directions
+         */
+        else {
+            
+            let spriteCollided=this.getSpriteCollision(s);
             if (spriteCollided && !(spriteCollided instanceof Projectile)) {
                 let oldVel=s.getVelocity();
                 s.setVelocity(oldVel.x*-1, - oldVel.y);
+                
             }
         }
     }
@@ -639,9 +624,12 @@ export class GameMap {
 
                     sprite.effectMap(this);
                 
-                }
+                } 
             }
-            else if (sprite instanceof PowerUp) {
+            else if (sprite instanceof PowerUp || sprite instanceof Station) {
+                if (sprite instanceof Gate || sprite instanceof Station) {
+                    this.updateSprite(sprite);
+                }
                 sprite.update(deltaTime);
             }
         });
