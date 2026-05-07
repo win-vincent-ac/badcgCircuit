@@ -46,7 +46,4 @@ export class Gate extends Star {
             }
         }
     }
-    getState() {
-        return GateState;
-    }
 }

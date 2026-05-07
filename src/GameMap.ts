@@ -151,13 +151,6 @@ export class GameMap {
                     if (ch=='0') { // check if character is '0', which denotes the player sprite
                         this.player=s; // assign the sprite to the 'player' variable
                     } 
-                    else if (ch == '!') { //GATES
-                    //    this.gates.push(s); //push gates to 'gates' array //THIS BITCH DONT WORK
-                        this.sprites.push(s); 
-                    }
-                    else if (ch == '$') { //STATIONS
-                            this.sprites.push(s); 
-                        }
                     else {
                         this.sprites.push(s); // otherwise, add the sprite to the 'sprites' array
                     }
@@ -167,8 +160,9 @@ export class GameMap {
         
         //LEVEL DESIGN FOR GATES, <STATIONS>, <CIRCUITS>
         if (this.level == 0) {
-            (this.sprites[0] as Gate).changeState(GateState.NOT);
-            (this.sprites[1] as Gate).changeState(GateState.OR);
+            (this.sprites[0] as Station).changeState(StationState.OFF);
+            (this.sprites[1] as Gate).changeState(GateState.NOT);
+            (this.sprites[2] as Gate).changeState(GateState.OR);
         }
 
     }
@@ -303,16 +297,15 @@ export class GameMap {
         });
     }
 )}
-
-    checkStationCollision(a: Station) {
+    /*
+    stationCollision(a: Station) {
         let s=this.getSpriteCollision(a);
         if (s instanceof Gate || s instanceof Player) {
-            if((a as Station).getState == Station.StationState.ON){
+            if((a as Station).getState() == StationState.OFF){
                 (a as Station).changeState(StationState.ON);
             }
-            else {(a as Station).changeState(StationState.OFF)}
-            
         }
+        else {(a as Station).changeState(StationState.OFF)}
     }
     /*
     checkPlayerCollision(p: Player, canKill: boolean) {
@@ -357,12 +350,8 @@ export class GameMap {
     getSpriteCollision(s:Sprite):Sprite {
         for (const other of this.sprites) {
             if (this.isCollision(s,other)) {
-                /*if (!other.isDangerous) {
-                    break;
-                }*/
                 return other;
             }
-            //if other is not an instance of a creature, cycle
         }
         return null;
     }
@@ -576,6 +565,7 @@ export class GameMap {
         if (s instanceof Player) {
             this.checkPlayerCollision(s as Player, false);
         }
+        
         /*
          * update the y position by using old velocity and delta time
          */
@@ -607,6 +597,18 @@ export class GameMap {
          */
         else {
             let spriteCollided=this.getSpriteCollision(s);
+            if (s instanceof Station) {
+                if (spriteCollided instanceof Gate || spriteCollided instanceof Player) {
+                        (s as Station).changeState(StationState.ON);   
+                        //change spritecollided position to center of s
+                        //get s center x and y
+                        //get sc center x and y
+                        //make s center match sc center
+                        this.medallions+=1;
+                }
+                else {(spriteCollided as Station).changeState(StationState.OFF)}
+                
+            }
             if (spriteCollided && !(spriteCollided instanceof Projectile)) {
                 let oldVel=s.getVelocity();
                 s.setVelocity(oldVel.x*-1, - oldVel.y);
@@ -687,6 +689,7 @@ export class GameMap {
 }
         // Remember whether H was pressed last frame
         this.hWasDown = hDown;
+
 }
 
     /*Per-Pixel Collision Detection

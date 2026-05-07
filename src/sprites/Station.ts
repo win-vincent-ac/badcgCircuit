@@ -21,12 +21,12 @@ export class Station extends Sprite {
         switch (initialState) {
             case StationState.ON: {
                 this.state=StationState.ON;
-                this.setAnimation("siwtch_on");
+                this.setAnimation("on");
                 break;
             }
             case StationState.OFF: {
                 this.state=StationState.OFF;
-                this.setAnimation("switch_off");
+                this.setAnimation("off");
                 break;
             }
         }
