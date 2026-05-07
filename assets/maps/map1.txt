@@ -15,10 +15,10 @@ AAAAAAAHBBBBF                       EBBBBGAAAAAAA
 AAAAAAANJJJJJL                     KJJJJJMAAAAAAA 
 AAAAAAAD                                 CAAAAAAA   
 AAAAAAAD                                 CAAAAAAA           
-AAAAOAAD        EBF     !    EBF         CAAAAAAA     
-AAAAAAAD                 W               CAAAAAAA         
-AOAAAAAD  o           0  V            o  CAAAAAAA           
-AAAAAAAHBBBBF        EBBBF          EBBBBGAAAAAAA
+AAAAOAAD        EBF          EBF         CAAAAAAA     
+AAAAAAAD                                 CAAAAAAA         
+AOAAAAAD         $ ! ! $  0           o  CAAAAAAA           
+AAAAAAAHBBBBF    EBBBBBBBBBBBBF     EBBBBGAAAAAAA
 AAAAAAANJJJJJL       KJJJL         KJJJJJMAAAAAAA  
 AAAAAAAD                                 CAAAAAAA   
 AAAAAAAD                                 CAAAAAAA       

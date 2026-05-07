@@ -11,6 +11,7 @@ import {Lava} from "./sprites/Lava.js";
 import { Fireball } from "./sprites/Fireball.js";
 import { Projectile, EnemyProjectile} from "./sprites/Projectile.js";
 import { Gate, GateState } from "./sprites/Gate.js";
+import { Station, StationState } from "./sprites/Station.js";
 
 
 export class ResourceManager {
@@ -191,6 +192,11 @@ export class ResourceManager {
             }
             case 'Gate': {
                 s = new Gate();
+                break;
+                
+            }
+            case 'Station': {
+                s = new Station();
                 break;
             }
             case 'Music': {

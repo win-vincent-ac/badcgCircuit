@@ -8,6 +8,7 @@ import { Projectile, EnemyProjectile } from './sprites/Projectile.js';
 import { Lava } from "./sprites/Lava.js"
 import { Settings } from "./Settings.js";
 import { Gate, GateState } from "./sprites/Gate.js";
+import { Station, StationState } from "./sprites/Station.js";
 import { Vector } from "p5";
 
 /*
@@ -150,10 +151,13 @@ export class GameMap {
                     if (ch=='0') { // check if character is '0', which denotes the player sprite
                         this.player=s; // assign the sprite to the 'player' variable
                     } 
-                    else if (ch == '!') {
+                    else if (ch == '!') { //GATES
                     //    this.gates.push(s); //push gates to 'gates' array //THIS BITCH DONT WORK
                         this.sprites.push(s); 
                     }
+                    else if (ch == '$') { //STATIONS
+                            this.sprites.push(s); 
+                        }
                     else {
                         this.sprites.push(s); // otherwise, add the sprite to the 'sprites' array
                     }
@@ -161,11 +165,15 @@ export class GameMap {
             }
         }
         
+        //LEVEL DESIGN FOR GATES, <STATIONS>, <CIRCUITS>
         if (this.level == 0) {
-            (this.sprites[0] as Gate).changeState(GateState.OR);
+            (this.sprites[0] as Gate).changeState(GateState.NOT);
+            (this.sprites[1] as Gate).changeState(GateState.OR);
         }
 
     }
+
+    
 
     /*
      * Convert tile position to pixel position
@@ -296,6 +304,24 @@ export class GameMap {
     }
 )}
 
+    checkStationCollision(a: Station) {
+        let s=this.getSpriteCollision(a);
+        if (s instanceof Gate || s instanceof Player) {
+            if((a as Station).getState == Station.StationState.ON){
+                (a as Station).changeState(StationState.ON);
+            }
+            else {(a as Station).changeState(StationState.OFF)}
+            
+        }
+    }
+    /*
+    checkPlayerCollision(p: Player, canKill: boolean) {
+        let s=this.getSpriteCollision(p);
+        if (s && this.pp_collision(p,s)) {
+            if (s instanceof Creature || s instanceof EnemyProjectile) {
+                if(this.lives==1){
+    */
+
     /*
      * This method checks to see if there is a collision between the sprites
      * It returns a boolean if they collide or not
@@ -340,7 +366,6 @@ export class GameMap {
         }
         return null;
     }
-
 
     // this checks if there is a medallion within the radius of the play and will higlight the medallion signalling
     // that it can be picked up
