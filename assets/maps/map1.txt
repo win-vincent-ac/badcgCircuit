@@ -9,7 +9,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAANJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJMAAAAAAA   
 AAAAAAAD                                 CAAAAAAA    
 AAAAAAAD                                 CAAAAAAA      
-AAAAAAAD                                 CAAAAAAA           
+AAAAAAAD  ?                              CAAAAAAA           
 AAAAAAAD  o                           o  CAAAAAAA               
 AAAAAAAHBBBBF                       EBBBBGAAAAAAA
 AAAAAAANJJJJTR       ooooo         QSJJJJMAAAAAAA 
@@ -17,7 +17,7 @@ AAAAAAAD                                 CAAAAAAA
 AAAAAAAD         o            ?          CAAAAAAA            
 AAAAOAAD        QPR          QPR         CAAAAAAA     
 AAAAAAAD                                 CAAAAAAA         
-AOAAAAAD  o           0               o  CAAAAAAA           
+AOAAAAAD  o          o0               o  CAAAAAAA           
 AAAAAAAHBBBBF        EBBBF          EBBBBGAAAAAAA
 AAAAAAANJJJJTR       KJJJL         QSJJJJMAAAAAAA   
 AAAAAAAD                                 CAAAAAAA    

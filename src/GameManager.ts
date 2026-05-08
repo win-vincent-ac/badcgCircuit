@@ -149,7 +149,7 @@ export class GameManager {
                     this.inputManager.setGameAction(this.moveRight,68);
                     this.inputManager.setGameAction(this.moveLeft,65);
                     this.inputManager.setGameAction(this.jump,87);
-
+                    
                     /**
                      * sets the "R" key to restart our game
                      */
@@ -179,7 +179,7 @@ export class GameManager {
         let vel=this.map.player.getVelocity();
         vel.x=0;
 
-        //WHEN WALKING SOUND EFFECT IS MADE REPLACE robot_jump WITH robot_walk
+        
         if (this.moveRight.isPressed() && this.map.player.getState()==CreatureState.NORMAL) {
             if(this.moveRight.isPressed() && this.map.player.onGround && !this.map.robot_temp.isPlaying()) {this.map.robot_temp.play();}
             
@@ -197,7 +197,7 @@ export class GameManager {
         this.map.player.setVelocity(vel.x,vel.y);
         
         if (this.jump.isPressed() && this.map.player.getState()==CreatureState.NORMAL) {
-            if (this.map.player.onGround) {
+            if ((this.map.player.onGround || this.map.player.doubleJump) && !this.map.robot_jump.isPlaying()) {
                 this.map.robot_jump.play();
             }
             this.map.player.jump(false);

@@ -37,6 +37,12 @@ export class GameMap {
     ALPHALEVEL: number;
     lives: number;
     oneUp: p5.SoundFile;
+    heldMedallion: Star | null = null;
+    // LogicStationCenter: Locked | Unlocked;
+    // LogicStationGate: Or | Not | And | Blank;
+    hWasDown: boolean = false;
+    robot_death: p5.SoundFile;
+    robot_pickup: p5.SoundFile;
 
     constructor(level:number, resources:ResourceManager, settings:Settings, game: GameManager) {
     /*
@@ -62,6 +68,8 @@ export class GameMap {
         this.dying = this.resources.getLoad("dying");
         this.robot_jump=this.resources.getLoad("robot_jump");
         this.robot_temp=this.resources.getLoad("robot_temp");
+        this.robot_death=this.resources.getLoad("robot_death");
+        this.robot_pickup=this.resources.getLoad("robot_pickup");
         /*
          * These initialze arrays to store sprites and backgrounds 
          */
@@ -168,6 +176,7 @@ export class GameMap {
      * within the game 
      */
     draw() {
+    
         /*
          * These define the screen demension
          */
@@ -202,8 +211,65 @@ export class GameMap {
                 }
             }
         }
-        
         /*
+         * These lines of code creates the player and its position
+         */
+        image(this.player.getImage(),
+            Math.trunc(Math.trunc(position.x) + offsetX),
+            Math.trunc(Math.trunc(position.y) + offsetY));
+
+         // This is going to highlight the medallions and detect if they are within the player's radius
+         // - Liv
+            const nearbyMedallion = this.getNearbyMedallion(120);
+
+        this.sprites.forEach((sprite) => {
+        const p = sprite.getPosition();
+        const img = sprite.getImage();
+
+        if (!img) return;
+
+            image(
+                img,
+                 Math.trunc(p.x + offsetX),
+                Math.trunc(p.y + offsetY));
+
+         if (sprite === nearbyMedallion) { 
+            noFill();
+            if (this.heldMedallion == null) {stroke(255, 255, 255);}
+            else { stroke(255, 255, 255, 0);}
+            strokeWeight(3);
+
+         ellipse(
+            Math.trunc(p.x + offsetX + img.width / 2),
+            Math.trunc(p.y + offsetY + img.height / 2),
+            img.width + 0,
+            img.height + 0
+        );
+
+            strokeWeight(1);
+            noStroke();
+    
+        };
+
+        if (sprite === nearbyMedallion) { 
+            noFill();
+            if (this.heldMedallion == null) {stroke(255, 255, 255);}
+            else { stroke(255, 255, 255, 0);}
+            strokeWeight(1);
+
+         ellipse(
+            Math.trunc(p.x + offsetX + img.width / 2),
+            Math.trunc(p.y + offsetY + img.height / 2),
+            img.width + 10,
+            img.height + 10
+        );
+
+            strokeWeight(1);
+            noStroke();
+    
+        };
+    
+        /* OLD CODE (not needed)
          * These lines of codes draws every other sprite (fly) in the game
          */
         this.sprites.forEach(sprite => {
@@ -227,6 +293,7 @@ export class GameMap {
             }
         });
     }
+)}
 
     /*
      * This method checks to see if there is a collision between the sprites
@@ -263,12 +330,50 @@ export class GameMap {
     getSpriteCollision(s:Sprite):Sprite {
         for (const other of this.sprites) {
             if (this.isCollision(s,other)) {
+                /*if (!other.isDangerous) {
+                    break;
+                }*/
                 return other;
             }
+            //if other is not an instance of a creature, cycle
         }
         return null;
     }
 
+
+    // this checks if there is a medallion within the radius of the play and will higlight the medallion signalling
+    // that it can be picked up
+    getNearbyMedallion(radius: number): Star | null {
+    const playerPos = this.player.getPosition();
+    const playerImg = this.player.getImage();
+
+    if (!playerImg) return null;
+
+    const playerCenterX = playerPos.x + playerImg.width / 2;
+    const playerCenterY = playerPos.y + playerImg.height / 2;
+
+    for (let sprite of this.sprites) {
+        if (sprite instanceof Star) {
+            const spritePos = sprite.getPosition();
+            const spriteImg = sprite.getImage();
+
+            if (!spriteImg) continue;
+
+            const spriteCenterX = spritePos.x + spriteImg.width / 2;
+            const spriteCenterY = spritePos.y + spriteImg.height / 2;
+
+            const dx = playerCenterX - spriteCenterX;
+            const dy = playerCenterY - spriteCenterY;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance <= radius) {
+                return sprite;
+            }
+        }
+    }
+
+    return null;
+}
     /*
      * This checks to see if there is a player collision with a sprite and it initializes
      * that the player can kill the sprite
@@ -280,32 +385,39 @@ export class GameMap {
             if (s instanceof Creature || s instanceof EnemyProjectile) {
                 if(this.lives==1){
                     p.setState(CreatureState.DYING)
-                    this.full_death.play();
+                    this.robot_death.play();
                     this.level=0;
                     this.medallions=0;
                     this.lives+=3;
                 }
                 if(this.lives>1){
                     p.setState(CreatureState.DYING);
-                    this.dying.play();
+                    this.robot_death.play();
                     this.medallions=0;
                     this.lives-=1;
                 }                
             }   
             else if (s instanceof Lava) {
                 p.setState(CreatureState.DYING);
-                this.dying.play();
+                this.robot_death.play();
                 this.medallions=0;
             } 
             else if (s instanceof PowerUp) {
+                if (s instanceof Star) {
+                    return;
+                }
                 this.acquirePowerUp(s);
             }
         }
     }
     
     removeSprite(s:Sprite) {
-        let i=this.sprites.indexOf(s);
-        if (i>-1) this.sprites.splice(i,1);
+        // medallions should only be collected/held when h is pressed
+        if (s instanceof Star && !keyIsDown(72)) {
+            return;
+        }
+        this.acquirePowerUp (s);
+        
     }
 
     /*
@@ -326,7 +438,7 @@ export class GameMap {
              * there will be an event sound that plays as well
              */
             if (this.settings.playEvents) {
-                this.prize.play();
+                this.robot_pickup.play();
             }
             this.medallions+=1;
         }
@@ -347,15 +459,22 @@ export class GameMap {
                 this.initialize();
                 this.removeSprite(p);
             }
+            // door code
             /*
             * the if loop states that if the level is 1 and you have 20 medaillions, you can proceed to the next level
             * and the sound black_hole will play
             * if you don't have 20 medaillions then you cannot proceed to the next level
             */
-            if(this.level==1 && this.medallions==20) {
+            if(this.level==1 && this.medallions==10) {
                 this.black_hole.play();
                 this.level+=1;
                 this.medallions=0;
+                //if rendering first game station, then
+                //Top input is Circit 1 E Unlocked
+                //Bottom input is None Locked
+                //Center is Not Locked
+                //Output is Circut 2 S Unlocked
+
                 this.initialize();
                 this.removeSprite(p);
             }
@@ -483,24 +602,69 @@ export class GameMap {
         
         this.updateSprite(this.player);
         this.player.update(deltaTime); 
-        
+
         this.sprites.forEach((sprite,index,obj) => {
             if (sprite instanceof Creature ) {
                 if (sprite.getState() == CreatureState.DEAD) {
                     obj.splice(index,1);
-                } 
+                }
                 else {
                     this.updateSprite(sprite);
                     sprite.update(deltaTime);
 
                     sprite.effectMap(this);
+                
                 }
             }
             else if (sprite instanceof PowerUp) {
                 sprite.update(deltaTime);
-            } 
+            }
         });
+        
+        const hDown = keyIsDown(72); // H key
+
+        // Press H once to pick up nearby medallion
+        if (hDown && !this.hWasDown && this.heldMedallion === null) {
+            const nearby = this.getNearbyMedallion(120);
+
+             if (nearby) {
+             this.heldMedallion = nearby;
+             this.robot_pickup.play();
+         }
+        }
+
+        // Press H again to drop it
+        else if (hDown && !this.hWasDown && this.heldMedallion !== null) {
+            const playerPos = this.player.getPosition();
+
+            if (this.player.currAnimName.toUpperCase().includes("LEFT")) {
+                this.heldMedallion.setPosition( //PUT DOWN LEFT
+                
+                playerPos.x - 40,
+                playerPos.y + 56);
+            this.heldMedallion = null;
+            }
+            else {
+                this.heldMedallion.setPosition( //PUT DOWN RIGHT
+                
+                playerPos.x + 120,
+                playerPos.y + 56);
+            this.heldMedallion = null;
+            }
+            
     }
+
+        // If holding a medallion, move it with the player
+        if (this.heldMedallion !== null) {
+        const playerPos = this.player.getPosition();
+
+        this.heldMedallion.setPosition( //HOLDING
+            playerPos.x + 35,
+            playerPos.y - 64);
+}
+        // Remember whether H was pressed last frame
+        this.hWasDown = hDown;
+}
 
     /*Per-Pixel Collision Detection
      * Got code from https://openprocessing.org/sketch/149174/ which implements this

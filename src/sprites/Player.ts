@@ -18,6 +18,9 @@ export class Player extends Creature {
     fuel:number;
     numBullets: number;
     lives: number;
+    doubleJump:boolean;
+    doubleJumpTimer:number;
+    doubleJumpActive:boolean;
     
     /**
      * the function of the player class
@@ -33,12 +36,15 @@ export class Player extends Creature {
         this.MAX_FUEL=7500;
         this.MAX_SPEED=0.35;
         this.JUMP_SPEED=0.80;
+        this.doubleJumpTimer=0;
         this.thrusterAmount=0.003;
         this.fuel=7500;
         this.numBullets = 3;
         this.lives = 3;
         this.onGround=false;
         this.jetPackOn=false;
+        this.doubleJump=true;
+        this.doubleJumpActive=false;
     }
     /**
      * function to get the amount of fuel the jetpack is using
@@ -80,11 +86,21 @@ export class Player extends Creature {
         return this.numBullets;
     }
     /**
+     * function to check to see if player is permitted double jump
+     * @returns 
+     */
+    getDoubleJump():boolean {
+        return this.doubleJump;
+    }
+    /**
      * function that handles the collision with vertical surfaces
      */
     collideVertical() {
         if (this.velocity.y > 0) {
             this.onGround=true;
+            this.doubleJump=true;
+            this.doubleJumpActive=false;
+            this.doubleJumpTimer=0;
         }
         this.velocity.y=0;
     }
@@ -105,9 +121,13 @@ export class Player extends Creature {
      * @param forceJump
      */
     jump(forceJump:boolean) {
-        if (this.onGround || forceJump) {
+        if (this.onGround || this.doubleJump || forceJump) {
+            if (!this.onGround && this.doubleJumpActive && this.doubleJump) {
+                this.doubleJump=false;
+                this.doubleJumpActive=false;
+            }
             this.onGround=false;
-            this.setVelocity(0,-this.JUMP_SPEED);
+            this.setVelocity(this.velocity.x,-this.JUMP_SPEED);
         }
     }
 
@@ -311,7 +331,19 @@ export class Player extends Creature {
                     }
                 }
             }
-    }
+        }
+
+        /**
+         * if the player is off the ground, start a timer to when the player can double jump
+         */
+        if (!this.onGround) {
+            this.doubleJumpTimer+=deltaTime;
+            if (this.doubleJumpTimer>=210) {
+                this.doubleJumpActive = true;
+            }
+        }
+
+
     /**
      * if the animation has changed, set it
      */
