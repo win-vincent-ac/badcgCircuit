@@ -86,6 +86,8 @@
             "robot_jump": "assets/sounds/robot_jump.wav",
             "robot_pickup": "assets/sounds/robot_pickup.wav",
             "robot_death": "assets/sounds/robot_death.wav",
+            "robot_walk": "assets/sounds/robot_walk.wav",
+            "robot_putdown": "assets/sounds/robot_putdown.wav",
             "robot_temp": "assets/sounds/robot_temp.wav"
             
         },

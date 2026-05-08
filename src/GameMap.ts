@@ -43,6 +43,8 @@ export class GameMap {
     hWasDown: boolean = false;
     robot_death: p5.SoundFile;
     robot_pickup: p5.SoundFile;
+    robot_walk: p5.SoundFile;
+    robot_putdown: p5.SoundFile;
 
     constructor(level:number, resources:ResourceManager, settings:Settings, game: GameManager) {
     /*
@@ -70,6 +72,8 @@ export class GameMap {
         this.robot_temp=this.resources.getLoad("robot_temp");
         this.robot_death=this.resources.getLoad("robot_death");
         this.robot_pickup=this.resources.getLoad("robot_pickup");
+        this.robot_walk=this.resources.getLoad("robot_walk");
+        this.robot_putdown=this.resources.getLoad("robot_putdown");
         /*
          * These initialze arrays to store sprites and backgrounds 
          */
@@ -639,16 +643,16 @@ export class GameMap {
 
             if (this.player.currAnimName.toUpperCase().includes("LEFT")) {
                 this.heldMedallion.setPosition( //PUT DOWN LEFT
-                
                 playerPos.x - 40,
                 playerPos.y + 56);
+                this.robot_putdown.play();
             this.heldMedallion = null;
             }
             else {
                 this.heldMedallion.setPosition( //PUT DOWN RIGHT
-                
                 playerPos.x + 120,
                 playerPos.y + 56);
+                this.robot_putdown.play();
             this.heldMedallion = null;
             }
             
