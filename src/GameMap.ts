@@ -7,6 +7,8 @@ import { Door,Heart, Music, PowerUp, Star} from "./sprites/PowerUp.js";
 import { Projectile, EnemyProjectile } from './sprites/Projectile.js';
 import { Lava } from "./sprites/Lava.js"
 import { Settings } from "./Settings.js";
+import { Gate, GateState } from "./sprites/Gate.js";
+import { CenterState, Station, StationState } from "./sprites/Station.js";
 import { Vector } from "p5";
 
 /*
@@ -17,6 +19,7 @@ export class GameMap {
     tiles: p5.Image[][];
     tile_size:number;
     sprites: Sprite[];
+    gates: Sprite[];
     player: Player;
     background: p5.Image[];
     width: number; // width in tiles
@@ -139,6 +142,7 @@ export class GameMap {
          */
         this.tiles=[...Array(width)].map(x=>Array(height)) 
         
+
         for(let y=0; y<height; y++) {
             let line=lines[y];
             for (let x=0; x<line.length; x++) {
@@ -154,14 +158,25 @@ export class GameMap {
                                   
                     if (ch=='0') { // check if character is '0', which denotes the player sprite
                         this.player=s; // assign the sprite to the 'player' variable
-                    } else {
+                    } 
+                    else {
                         this.sprites.push(s); // otherwise, add the sprite to the 'sprites' array
                     }
                 }
             }
         }
         
+        //LEVEL DESIGN FOR GATES, STATIONS, <CIRCUITS>
+        if (this.level == 0) {
+            (this.sprites[0] as Station).changeState(StationState.OFF);
+            //(this.sprites[0] as Station).connectOne(this.sprites[4]); <<<Possible example of changing connections
+            (this.sprites[1] as Gate).changeState(GateState.NOT);
+            (this.sprites[2] as Gate).changeState(GateState.OR);
+        }
+
     }
+
+    
 
     /*
      * Convert tile position to pixel position
@@ -334,16 +349,11 @@ export class GameMap {
     getSpriteCollision(s:Sprite):Sprite {
         for (const other of this.sprites) {
             if (this.isCollision(s,other)) {
-                /*if (!other.isDangerous) {
-                    break;
-                }*/
                 return other;
             }
-            //if other is not an instance of a creature, cycle
         }
         return null;
     }
-
 
     // this checks if there is a medallion within the radius of the play and will higlight the medallion signalling
     // that it can be picked up
@@ -473,11 +483,6 @@ export class GameMap {
                 this.black_hole.play();
                 this.level+=1;
                 this.medallions=0;
-                //if rendering first game station, then
-                //Top input is Circit 1 E Unlocked
-                //Bottom input is None Locked
-                //Center is Not Locked
-                //Output is Circut 2 S Unlocked
 
                 this.initialize();
                 this.removeSprite(p);
@@ -557,6 +562,7 @@ export class GameMap {
         if (s instanceof Player) {
             this.checkPlayerCollision(s as Player, false);
         }
+        
         /*
          * update the y position by using old velocity and delta time
          */
@@ -582,15 +588,59 @@ export class GameMap {
         if (s instanceof Player) {
             this.checkPlayerCollision(s as Player, oldY < newPos.y);
         } 
+        else if (s instanceof Station) {
+            let spriteCollided=this.getSpriteCollision(s);
+                if (spriteCollided instanceof Gate) {
+                    //Controling power on/off as <is there a gate in me>
+                        if ((s as Station).getState() == StationState.OFF) {
+                        const gatePos = spriteCollided.getPosition();
+                        const gateImg = spriteCollided.getImage();
+                        const stationPos = s.getPosition();
+                        const stationImg = s.getImage();
+
+                        const gateCenterX = gatePos.x + gateImg.width / 2;
+                        const gateCenterY = gatePos.y + gateImg.height / 2;
+
+                        const stationCenterX = stationPos.x + stationImg.width / 2;
+                        const stationCenterY = stationPos.y + stationImg.height / 2;
+
+                        const dx = gateCenterX - stationCenterX;
+                        const dy = gateCenterY - stationCenterY;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+
+                        spriteCollided.setPosition((stationCenterX - (gateImg.width / 2)), (stationCenterY + (gateImg.height / 2)));
+                        
+                        (s as Station).changeState(StationState.ON);
+                        }
+
+                    //Controlling output as <what gate is in me>
+                       if ((spriteCollided as Gate).getState() == GateState.AND) {
+                        (s as Station).changeCenter(CenterState.AND);
+                       }
+                       else if ((spriteCollided as Gate).getState() == GateState.OR) {
+                        (s as Station).changeCenter(CenterState.OR);
+                       }
+                       else if ((spriteCollided as Gate).getState() == GateState.NOT) {
+                        (s as Station).changeCenter(CenterState.NOT);
+                       }
+                }
+                else {
+                    (s as Station).changeState(StationState.OFF);
+                    (s as Station).changeCenter(CenterState.EMPTY);
+                } 
+            }
+        
         /*
          * if the object is not a player, check for collision with other sprites
          * if they collide, bounce off of eachother and change directions
          */
         else {
+            
             let spriteCollided=this.getSpriteCollision(s);
             if (spriteCollided && !(spriteCollided instanceof Projectile)) {
                 let oldVel=s.getVelocity();
                 s.setVelocity(oldVel.x*-1, - oldVel.y);
+                
             }
         }
     }
@@ -618,9 +668,12 @@ export class GameMap {
 
                     sprite.effectMap(this);
                 
-                }
+                } 
             }
-            else if (sprite instanceof PowerUp) {
+            else if (sprite instanceof PowerUp || sprite instanceof Station) {
+                if (sprite instanceof Gate || sprite instanceof Station) {
+                    this.updateSprite(sprite);
+                }
                 sprite.update(deltaTime);
             }
         });
@@ -668,6 +721,7 @@ export class GameMap {
 }
         // Remember whether H was pressed last frame
         this.hWasDown = hDown;
+
 }
 
     /*Per-Pixel Collision Detection

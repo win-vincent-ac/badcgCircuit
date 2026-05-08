@@ -11,6 +11,17 @@
                 {"img":"medallion2", "duration":100}
             ]
         },
+        "gate": {
+            "type": "Gate",
+            
+            "or": [
+                {"img":"life1", "duration":100}
+            ],
+            "and": [
+                {"img":"lil_dude1", "duration":100}
+            ],
+            "not": [
+                {"img":"lava1", "duration":100}
         "start_block": {
             "type": "Star",
             "default": [
@@ -94,7 +105,10 @@
                 {"img":"life2", "duration":150},
                 {"img":"life3", "duration":150}
             ]
+        
+
         },
+        
         "final_boss": {
             "type": "FinalBoss",
             "left": [
@@ -128,6 +142,13 @@
                 {"img":"fort", "duration":150}
             ]
         },
+        "station": {
+            "type": "Station",
+            "on": [
+                {"img":"switch_on", "duration":100}
+            ],
+            "off": [
+                {"img":"switch_off", "duration":100}
         "tiny_logic": {
             "type":"EndPortal",
             "default":[
@@ -198,7 +219,7 @@
                 {"img":"power1", "duration": 150},
                 {"img":"power2", "duration": 150}
             ]
-        }    
+        }
     },
     "images": {
         "background": "background",
@@ -238,6 +259,8 @@
             "5": "lava_pool",
             "p": "power",
             "?": "lil_dude",
+            "!": "gate",
+            "$": "station"
             "#": "start_block",
             "*": "end_block",
             "a": "AND",
