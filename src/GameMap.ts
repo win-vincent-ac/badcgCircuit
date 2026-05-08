@@ -3,7 +3,7 @@ import { ResourceManager } from "./ResourceManager.js";
 import { Sprite } from "./sprites/Sprite.js";
 import { GRAVITY, STATE, GameManager } from './GameManager.js';
 import { Creature, CreatureState, Grub } from "./sprites/Creature.js";
-import { Heart, Music, PowerUp, Star} from "./sprites/PowerUp.js";
+import { Door,Heart, Music, PowerUp, Star} from "./sprites/PowerUp.js";
 import { Projectile, EnemyProjectile } from './sprites/Projectile.js';
 import { Lava } from "./sprites/Lava.js"
 import { Settings } from "./Settings.js";
@@ -277,6 +277,13 @@ export class GameMap {
             image(sprite.getImage(),
                 Math.trunc(Math.trunc(p.x) + offsetX),
                 Math.trunc(Math.trunc(p.y) + offsetY));
+
+        /*
+         * These lines of code creates the player and its position
+         */
+        image(this.player.getImage(),
+            Math.trunc(Math.trunc(position.x) + offsetX),
+            Math.trunc(Math.trunc(position.y) + offsetY));
         /*
          * This if statement says if the sprites are visible on the screen, they move
          * if they aren't visible they stay still until they are on the screen 
@@ -403,7 +410,7 @@ export class GameMap {
             }
         }
     }
-
+    
     removeSprite(s:Sprite) {
         // medallions should only be collected/held when h is pressed
         if (s instanceof Star && !keyIsDown(72)) {
@@ -421,11 +428,11 @@ export class GameMap {
         /*
          * this removes the sprite 'p' 
          */
-        this.removeSprite(p);
         /*
          * this if loop checks to see if 'p' is in instance of star
          */
         if (p instanceof Star) {
+        this.removeSprite(p);
             /*
              * this if loop states that if the player collects a star, the medallion count increases by 1
              * there will be an event sound that plays as well
@@ -438,17 +445,19 @@ export class GameMap {
         /*
             * this else if checks to see if 'p' is in instance of a Heart
             */
-        else if (p instanceof Heart) {
+        else if (p instanceof Door) {
             /*
              * the if loop states that if the level is 0 and you have 10 medaillions, you can proceed to the next level
              * and the sound black_hole will play
              * if you don't have 9 medaillions then you cannot proceed to the next level
              */
             if(this.level==0 && this.medallions==10) {
+                /* Start animation for changing door open close */
                 this.black_hole.play();
                 this.level+=1;
                 this.medallions=0;
                 this.initialize();
+                this.removeSprite(p);
             }
             // door code
             /*
@@ -467,6 +476,7 @@ export class GameMap {
                 //Output is Circut 2 S Unlocked
 
                 this.initialize();
+                this.removeSprite(p);
             }
         } 
         /*
