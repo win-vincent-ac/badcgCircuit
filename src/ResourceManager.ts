@@ -193,9 +193,12 @@ export class ResourceManager {
             case 'Gate': {
                 s = new Gate();
                 break;
-                
             }
             case 'Station': {
+                s = new Station();
+                break;
+            }
+            case 'Mailbox': {
                 s = new Station();
                 break;
             }

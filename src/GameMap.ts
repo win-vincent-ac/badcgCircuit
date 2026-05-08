@@ -41,8 +41,6 @@ export class GameMap {
     lives: number;
     oneUp: p5.SoundFile;
     heldMedallion: Star | null = null;
-    // LogicStationCenter: Locked | Unlocked;
-    // LogicStationGate: Or | Not | And | Blank;
     hWasDown: boolean = false;
     robot_death: p5.SoundFile;
     robot_pickup: p5.SoundFile;
@@ -159,6 +157,9 @@ export class GameMap {
                     if (ch=='0') { // check if character is '0', which denotes the player sprite
                         this.player=s; // assign the sprite to the 'player' variable
                     } 
+                    else if (ch=='$' || ch=='m') { // check if character is '$' or 'm', which denotes the stations
+                        this.sprites.unshift(s);
+                    }
                     else {
                         this.sprites.push(s); // otherwise, add the sprite to the 'sprites' array
                     }
@@ -167,11 +168,22 @@ export class GameMap {
         }
         
         //LEVEL DESIGN FOR GATES, STATIONS, <CIRCUITS>
+        //All stations will be drawn first and end as sprites[0], Read them right to left
+        //after all stations are drawn, then gates and other sprites are drawn at sprites[i]
         if (this.level == 0) {
+            (this.sprites[3] as Station).changeState(StationState.OFF);
+            
+            (this.sprites[2] as Station).changeState(StationState.OFF);
+            (this.sprites[1] as Station).changeState(StationState.OFF);
+            (this.sprites[1] as Station).syncInputOne((this.sprites[3] as Station));
+            (this.sprites[1] as Station).syncInputTwo((this.sprites[2] as Station));
+            (this.sprites[1] as Station).syncOutput((this.sprites[0] as Station));
             (this.sprites[0] as Station).changeState(StationState.OFF);
+
             //(this.sprites[0] as Station).connectOne(this.sprites[4]); <<<Possible example of changing connections
-            (this.sprites[1] as Gate).changeState(GateState.NOT);
-            (this.sprites[2] as Gate).changeState(GateState.OR);
+            (this.sprites[4] as Gate).changeState(GateState.AND);
+            (this.sprites[5] as Gate).changeState(GateState.NOT);
+            (this.sprites[6] as Gate).changeState(GateState.OR);
         }
 
     }
@@ -541,10 +553,17 @@ export class GameMap {
         let oldVel = s.getVelocity();
         let newPos = s.getPosition().copy();
 
-        if (!s.isFlying()) { 
+        if (s instanceof Gate) {
+            if (!(s as Gate).isPlaced()) {
+                oldVel.y=oldVel.y+GRAVITY*deltaTime;
+                s.setVelocity(oldVel.x,oldVel.y);
+            }
+        }
+        else if (!s.isFlying()) { 
             oldVel.y=oldVel.y+GRAVITY*deltaTime;
             s.setVelocity(oldVel.x,oldVel.y);
         }
+        
 
         //update the x part of position first
         newPos.x = newPos.x + oldVel.x*deltaTime;
@@ -588,9 +607,9 @@ export class GameMap {
         if (s instanceof Player) {
             this.checkPlayerCollision(s as Player, oldY < newPos.y);
         } 
-        else if (s instanceof Station) {
+        else if ((s instanceof Station) && !(s as Station).checkingIsOutput()) {
             let spriteCollided=this.getSpriteCollision(s);
-                if (spriteCollided instanceof Gate) {
+                if ((spriteCollided instanceof Gate) && this.heldMedallion == null) {
                     //Controling power on/off as <is there a gate in me>
                         if ((s as Station).getState() == StationState.OFF) {
                         const gatePos = spriteCollided.getPosition();
@@ -598,17 +617,15 @@ export class GameMap {
                         const stationPos = s.getPosition();
                         const stationImg = s.getImage();
 
-                        const gateCenterX = gatePos.x + gateImg.width / 2;
-                        const gateCenterY = gatePos.y + gateImg.height / 2;
+                        const gateHalfWidth = gateImg.width / 2;
+                        const gateHalfHeight =  gateImg.height / 2;
 
                         const stationCenterX = stationPos.x + stationImg.width / 2;
                         const stationCenterY = stationPos.y + stationImg.height / 2;
 
-                        const dx = gateCenterX - stationCenterX;
-                        const dy = gateCenterY - stationCenterY;
-                        const distance = Math.sqrt(dx * dx + dy * dy);
-
-                        spriteCollided.setPosition((stationCenterX - (gateImg.width / 2)), (stationCenterY + (gateImg.height / 2)));
+                        spriteCollided.setPosition((stationCenterX - gateHalfWidth), (stationCenterY - gateHalfHeight));
+                        (spriteCollided as Gate).stopMoving();
+                        spriteCollided.setVelocity(0,0);
                         
                         (s as Station).changeState(StationState.ON);
                         }
@@ -623,6 +640,7 @@ export class GameMap {
                        else if ((spriteCollided as Gate).getState() == GateState.NOT) {
                         (s as Station).changeCenter(CenterState.NOT);
                        }
+                       
                 }
                 else {
                     (s as Station).changeState(StationState.OFF);
@@ -653,6 +671,7 @@ export class GameMap {
             this.initialize(); //start the level over
             return;
         }
+        (this.sprites[1] as Station).checkOutput();
         
         this.updateSprite(this.player);
         this.player.update(deltaTime); 
@@ -687,6 +706,7 @@ export class GameMap {
              if (nearby) {
              this.heldMedallion = nearby;
              this.robot_pickup.play();
+             (this.heldMedallion as Gate).startMoving();
          }
         }
 

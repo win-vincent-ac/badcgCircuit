@@ -15,15 +15,15 @@ AAAAAAAHBBBBF                       EBBBBGAAAAAAA
 AAAAAAANJJJJJL                     KJJJJJMAAAAAAA 
 AAAAAAAD                                 CAAAAAAA   
 AAAAAAAD                                 CAAAAAAA           
-AAAAOAAD        EBF          EBF         CAAAAAAA     
+AAAAOAAD                     EBF         CAAAAAAA     
 AAAAAAAD                                 CAAAAAAA         
-AOAAAAAD         $ 0 !  !  $          o  CAAAAAAA           
-AAAAAAAHBBBBF    EBBBBBBBBBBBBF     EBBBBGAAAAAAA
+AOAAAAAD    $ $  m  $ ! ! !  0          o  CAAAAAAA           
+AAAAAAAHBBBBFEBBBBBBBBBBBBBBBBF     EBBBBGAAAAAAA
 AAAAAAANJJJJJL       KJJJL         KJJJJJMAAAAAAA  
 AAAAAAAD                                 CAAAAAAA  
 AAAAAAAD                                 CAAAAAAA    
 AAAAAAAD        #*                       CAAAAAAA       
-AAAAAAAD  o arn EBF   555    EBF t b %   CAAAAAAA             
+AAAAAAAD  o     EBF   555    EBF t b %   CAAAAAAA             
 AAAAAAAHBBBBBBBBGAHBBBBBBBBBBGAHBBBBBBBBBGAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
