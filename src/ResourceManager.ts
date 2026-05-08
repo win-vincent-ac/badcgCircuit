@@ -1,7 +1,7 @@
 import { SoundFile } from "p5";
 import { Player } from "./sprites/Player.js";
 import { Fly, Grub, Creature } from "./sprites/Creature.js";
-import { Heart, Music, PowerUp, Star } from "./sprites/PowerUp.js";
+import { Door, Heart, Music, PowerUp, Star } from "./sprites/PowerUp.js";
 import { Sprite } from "./sprites/Sprite.js";
 import { Bullet } from "./sprites/Bullet.js";
 import {MyFly} from "./sprites/MyFly.js";
@@ -177,7 +177,7 @@ export class ResourceManager {
                 break;
             }
             case 'EndPortal': {
-                s = new Heart();
+                s = new Door();
                 break;
             }
             case 'PowerUp': {

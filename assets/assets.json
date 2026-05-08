@@ -11,7 +11,10 @@
             "main_dude_idler": "assets/images/main_dude_idler.png",
             "main_dude_dead": "assets/images/main_dude_dead.png",
             "main_dude_deadr": "assets/images/main_dude_deadr.png",
+            "main_dude_upies": "assets/images/main_dude_upies.png",
+            "main_dude_upiesr": "assets/images/main_dude_upiesr.png",
             "fort": "assets/images/fortress.png",
+            "fort1": "assets/images/fortresscopy.png",
             "life1": "assets/images/life1.png",
             "life2": "assets/images/life2.png",
             "life3": "assets/images/life3.png",
@@ -38,6 +41,11 @@
             "tile_M": "assets/images/tile_M.png",
             "tile_N": "assets/images/tile_N.png",
             "tile_O": "assets/images/tile_O.png",
+            "tile_P": "assets/images/tile_P.png",
+            "tile_Q": "assets/images/tile_Q.png",
+            "tile_R": "assets/images/tile_R.png",
+            "tile_S": "assets/images/tile_S.png",
+            "tile_T": "assets/images/tile_T.png",
             "bg1": "assets/images/background.png",
             "bg2": "assets/images/background2.png",
             "medallion1": "assets/images/medallion1.png",
@@ -48,12 +56,20 @@
             "lil_dude2": "assets/images/lil_dude2.png",
             "lil_dude3": "assets/images/lil_dude3.png",
             "lil_dude4": "assets/images/lil_dude4.png",
-            "lil_dude5": "assets/images/lil_dude5.png"
+            "lil_dude5": "assets/images/lil_dude5.png",
+            "start_block": "assets/images/start_block.png",
+            "end_block": "assets/images/end_block.png",
+            "AND": "assets/images/AND.png",
+            "OR": "assets/images/OR.png",
+            "NOT": "assets/images/NOT.png",
+            "tiny_logic": "assets/images/tiny_logic.png",
+            "big_logic": "assets/images/big_logic.png"
         },
         "text": {
             "map1": "assets/maps/map1.txt",
             "map2": "assets/maps/map2.txt",
-            "map3": "assets/maps/map3.txt"
+            "map3": "assets/maps/map3.txt",
+            "map4": "assets/maps/map4.txt"
         },
         "sound": {
             "music": "assets/sounds/background_music.mp3",
