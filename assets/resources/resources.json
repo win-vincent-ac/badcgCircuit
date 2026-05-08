@@ -11,6 +11,36 @@
                 {"img":"medallion2", "duration":100}
             ]
         },
+        "start_block": {
+            "type": "Star",
+            "default": [
+                {"img":"start_block", "duration":100}
+            ]
+        },
+        "AND": {
+            "type": "Star",
+            "default": [
+                {"img":"AND", "duration":100}
+            ]
+        },
+        "OR": {
+            "type": "Star",
+            "default": [
+                {"img":"OR", "duration":100}
+            ]
+        },
+        "NOT": {
+            "type": "Star",
+            "default": [
+                {"img":"NOT", "duration":100}
+            ]
+        },
+        "end_block": {
+            "type": "Star",
+            "default": [
+                {"img":"end_block", "duration":100}
+            ]
+        },
         "player": {
             "type": "Player",
 
@@ -96,6 +126,18 @@
             "type":"EndPortal",
             "default":[
                 {"img":"fort", "duration":150}
+            ]
+        },
+        "tiny_logic": {
+            "type":"EndPortal",
+            "default":[
+                {"img":"tiny_logic", "duration":150}
+            ]
+        },
+        "big_logic": {
+            "type":"EndPortal",
+            "default":[
+                {"img":"big_logic", "duration":150}
             ]
         },
         "my_fly": {
@@ -195,7 +237,14 @@
             "-": "my_fly",
             "5": "lava_pool",
             "p": "power",
-            "?": "lil_dude"
+            "?": "lil_dude",
+            "#": "start_block",
+            "*": "end_block",
+            "a": "AND",
+            "r": "OR",
+            "n": "NOT",
+            "t": "tiny_logic",
+            "b": "big_logic"
 
         },
         "levels": [

@@ -56,7 +56,14 @@
             "lil_dude2": "assets/images/lil_dude2.png",
             "lil_dude3": "assets/images/lil_dude3.png",
             "lil_dude4": "assets/images/lil_dude4.png",
-            "lil_dude5": "assets/images/lil_dude5.png"
+            "lil_dude5": "assets/images/lil_dude5.png",
+            "start_block": "assets/images/start_block.png",
+            "end_block": "assets/images/end_block.png",
+            "AND": "assets/images/AND.png",
+            "OR": "assets/images/OR.png",
+            "NOT": "assets/images/NOT.png",
+            "tiny_logic": "assets/images/tiny_logic.png",
+            "big_logic": "assets/images/big_logic.png"
         },
         "text": {
             "map1": "assets/maps/map1.txt",
