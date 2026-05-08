@@ -607,6 +607,8 @@ export class GameMap {
         if (s instanceof Player) {
             this.checkPlayerCollision(s as Player, oldY < newPos.y);
         } 
+
+
         else if ((s instanceof Station) && !(s as Station).checkingIsOutput()) {
             let spriteCollided=this.getSpriteCollision(s);
                 if ((spriteCollided instanceof Gate) && this.heldMedallion == null) {
@@ -671,7 +673,11 @@ export class GameMap {
             this.initialize(); //start the level over
             return;
         }
+        
+        
         (this.sprites[1] as Station).checkOutput();
+        
+        //UPDATE THE DORE
         
         this.updateSprite(this.player);
         this.player.update(deltaTime); 
@@ -706,7 +712,9 @@ export class GameMap {
              if (nearby) {
              this.heldMedallion = nearby;
              this.robot_pickup.play();
+             if (this.heldMedallion instanceof Gate) {
              (this.heldMedallion as Gate).startMoving();
+             }
          }
         }
 
