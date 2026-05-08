@@ -3,7 +3,7 @@ import { ResourceManager } from "./ResourceManager.js";
 import { Sprite } from "./sprites/Sprite.js";
 import { GRAVITY, STATE, GameManager } from './GameManager.js';
 import { Creature, CreatureState, Grub } from "./sprites/Creature.js";
-import { Heart, Music, PowerUp, Star} from "./sprites/PowerUp.js";
+import { Door,Heart, Music, PowerUp, Star} from "./sprites/PowerUp.js";
 import { Projectile, EnemyProjectile } from './sprites/Projectile.js';
 import { Lava } from "./sprites/Lava.js"
 import { Settings } from "./Settings.js";
@@ -44,6 +44,10 @@ export class GameMap {
     // LogicStationCenter: Locked | Unlocked;
     // LogicStationGate: Or | Not | And | Blank;
     hWasDown: boolean = false;
+    robot_death: p5.SoundFile;
+    robot_pickup: p5.SoundFile;
+    robot_walk: p5.SoundFile;
+    robot_putdown: p5.SoundFile;
 
     constructor(level:number, resources:ResourceManager, settings:Settings, game: GameManager) {
     /*
@@ -69,6 +73,10 @@ export class GameMap {
         this.dying = this.resources.getLoad("dying");
         this.robot_jump=this.resources.getLoad("robot_jump");
         this.robot_temp=this.resources.getLoad("robot_temp");
+        this.robot_death=this.resources.getLoad("robot_death");
+        this.robot_pickup=this.resources.getLoad("robot_pickup");
+        this.robot_walk=this.resources.getLoad("robot_walk");
+        this.robot_putdown=this.resources.getLoad("robot_putdown");
         /*
          * These initialze arrays to store sprites and backgrounds 
          */
@@ -288,6 +296,13 @@ export class GameMap {
             image(sprite.getImage(),
                 Math.trunc(Math.trunc(p.x) + offsetX),
                 Math.trunc(Math.trunc(p.y) + offsetY));
+
+        /*
+         * These lines of code creates the player and its position
+         */
+        image(this.player.getImage(),
+            Math.trunc(Math.trunc(position.x) + offsetX),
+            Math.trunc(Math.trunc(position.y) + offsetY));
         /*
          * This if statement says if the sprites are visible on the screen, they move
          * if they aren't visible they stay still until they are on the screen 
@@ -384,21 +399,21 @@ export class GameMap {
             if (s instanceof Creature || s instanceof EnemyProjectile) {
                 if(this.lives==1){
                     p.setState(CreatureState.DYING)
-                    this.full_death.play();
+                    this.robot_death.play();
                     this.level=0;
                     this.medallions=0;
                     this.lives+=3;
                 }
                 if(this.lives>1){
                     p.setState(CreatureState.DYING);
-                    this.dying.play();
+                    this.robot_death.play();
                     this.medallions=0;
                     this.lives-=1;
                 }                
             }   
             else if (s instanceof Lava) {
                 p.setState(CreatureState.DYING);
-                this.dying.play();
+                this.robot_death.play();
                 this.medallions=0;
             } 
             else if (s instanceof PowerUp) {
@@ -409,7 +424,7 @@ export class GameMap {
             }
         }
     }
-
+    
     removeSprite(s:Sprite) {
         // medallions should only be collected/held when h is pressed
         if (s instanceof Star && !keyIsDown(72)) {
@@ -427,34 +442,36 @@ export class GameMap {
         /*
          * this removes the sprite 'p' 
          */
-        this.removeSprite(p);
         /*
          * this if loop checks to see if 'p' is in instance of star
          */
         if (p instanceof Star) {
+        this.removeSprite(p);
             /*
              * this if loop states that if the player collects a star, the medallion count increases by 1
              * there will be an event sound that plays as well
              */
             if (this.settings.playEvents) {
-                this.prize.play();
+                this.robot_pickup.play();
             }
             this.medallions+=1;
         }
         /*
             * this else if checks to see if 'p' is in instance of a Heart
             */
-        else if (p instanceof Heart) {
+        else if (p instanceof Door) {
             /*
              * the if loop states that if the level is 0 and you have 10 medaillions, you can proceed to the next level
              * and the sound black_hole will play
              * if you don't have 9 medaillions then you cannot proceed to the next level
              */
             if(this.level==0 && this.medallions==10) {
+                /* Start animation for changing door open close */
                 this.black_hole.play();
                 this.level+=1;
                 this.medallions=0;
                 this.initialize();
+                this.removeSprite(p);
             }
             // door code
             /*
@@ -468,6 +485,7 @@ export class GameMap {
                 this.medallions=0;
 
                 this.initialize();
+                this.removeSprite(p);
             }
         } 
         /*
@@ -668,7 +686,7 @@ export class GameMap {
 
              if (nearby) {
              this.heldMedallion = nearby;
-             this.prize.play();
+             this.robot_pickup.play();
          }
         }
 
@@ -678,16 +696,16 @@ export class GameMap {
 
             if (this.player.currAnimName.toUpperCase().includes("LEFT")) {
                 this.heldMedallion.setPosition( //PUT DOWN LEFT
-                
                 playerPos.x - 40,
                 playerPos.y + 56);
+                this.robot_putdown.play();
             this.heldMedallion = null;
             }
             else {
                 this.heldMedallion.setPosition( //PUT DOWN RIGHT
-                
                 playerPos.x + 120,
                 playerPos.y + 56);
+                this.robot_putdown.play();
             this.heldMedallion = null;
             }
             

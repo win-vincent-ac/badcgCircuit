@@ -22,6 +22,34 @@
             ],
             "not": [
                 {"img":"lava1", "duration":100}
+        "start_block": {
+            "type": "Star",
+            "default": [
+                {"img":"start_block", "duration":100}
+            ]
+        },
+        "AND": {
+            "type": "Star",
+            "default": [
+                {"img":"AND", "duration":100}
+            ]
+        },
+        "OR": {
+            "type": "Star",
+            "default": [
+                {"img":"OR", "duration":100}
+            ]
+        },
+        "NOT": {
+            "type": "Star",
+            "default": [
+                {"img":"NOT", "duration":100}
+            ]
+        },
+        "end_block": {
+            "type": "Star",
+            "default": [
+                {"img":"end_block", "duration":100}
             ]
         },
         "player": {
@@ -50,6 +78,12 @@
             ],
             "deadRight": [
                 {"sheet":"main_dude_deadr","rows":3,"cols":4,"duration":150}
+            ],
+            "upies": [
+                {"sheet":"main_dude_upies","rows":1,"cols":2,"duration":150}
+            ],
+            "upiesRight": [
+                {"sheet":"main_dude_upiesr","rows":1,"cols":2,"duration":150}
             ]
         },
         "lil_dude": {
@@ -105,7 +139,6 @@
         "end_portal": {
             "type":"EndPortal",
             "default":[
-                {"img":"fort", "duration":150},
                 {"img":"fort", "duration":150}
             ]
         },
@@ -116,6 +149,16 @@
             ],
             "off": [
                 {"img":"switch_off", "duration":100}
+        "tiny_logic": {
+            "type":"EndPortal",
+            "default":[
+                {"img":"tiny_logic", "duration":150}
+            ]
+        },
+        "big_logic": {
+            "type":"EndPortal",
+            "default":[
+                {"img":"big_logic", "duration":150}
             ]
         },
         "my_fly": {
@@ -196,9 +239,11 @@
         "M": "tile_M",
         "N": "tile_N",
         "O": "tile_O",
-        "W": "switch_on",
-        "V": "switch_off"
-              
+        "P": "tile_P",
+        "Q": "tile_Q",
+        "R": "tile_R",
+        "S": "tile_S",
+        "T": "tile_T"
     },
     "sounds": {
     },
@@ -216,11 +261,19 @@
             "?": "lil_dude",
             "!": "gate",
             "$": "station"
+            "#": "start_block",
+            "*": "end_block",
+            "a": "AND",
+            "r": "OR",
+            "n": "NOT",
+            "t": "tiny_logic",
+            "b": "big_logic"
+
         },
         "levels": [
             "map1",
             "map2",
-            "map3" 
+            "map3"
         ]
     }
     

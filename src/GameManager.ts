@@ -181,12 +181,12 @@ export class GameManager {
 
         
         if (this.moveRight.isPressed() && this.map.player.getState()==CreatureState.NORMAL) {
-            if(this.moveRight.isPressed() && this.map.player.onGround && !this.map.robot_temp.isPlaying()) {this.map.robot_temp.play();}
+            if(this.moveRight.isPressed() && this.map.player.onGround && !this.map.robot_walk.isPlaying()) {this.map.robot_walk.play();}
             
             vel.x=this.map.player.getMaxSpeed();
         }
         if (this.moveLeft.isPressed() && this.map.player.getState()==CreatureState.NORMAL) {
-            if(this.moveLeft.isPressed() && this.map.player.onGround && !this.map.robot_temp.isPlaying()) {this.map.robot_temp.play();}
+            if(this.moveLeft.isPressed() && this.map.player.onGround && !this.map.robot_walk.isPlaying()) {this.map.robot_walk.play();}
             
             vel.x=-this.map.player.getMaxSpeed();
         }
