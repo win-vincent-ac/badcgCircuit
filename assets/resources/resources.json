@@ -22,6 +22,8 @@
             ],
             "not": [
                 {"img":"lava1", "duration":100}
+            ]
+        },
         "start_block": {
             "type": "Star",
             "default": [
@@ -149,6 +151,8 @@
             ],
             "off": [
                 {"img":"switch_off", "duration":100}
+            ]
+        },
         "tiny_logic": {
             "type":"EndPortal",
             "default":[
@@ -260,7 +264,7 @@
             "p": "power",
             "?": "lil_dude",
             "!": "gate",
-            "$": "station"
+            "$": "station",
             "#": "start_block",
             "*": "end_block",
             "a": "AND",
