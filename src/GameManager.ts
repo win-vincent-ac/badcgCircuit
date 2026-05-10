@@ -6,7 +6,7 @@ import { ResourceManager } from "./ResourceManager.js";
 import { CreatureState } from "./sprites/Creature.js";
 import { Delay, Image, Renderer } from "p5";
 
-export const GRAVITY: number =  0.0014;
+export const GRAVITY: number =  0.0020;
 const FONT_SIZE: number = 24;
 
 export enum STATE {Loading, Menu, Running, Finished}

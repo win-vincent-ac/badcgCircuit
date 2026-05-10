@@ -77,6 +77,7 @@ export class Station extends Sprite {
         }
     }
     checkOutput () {
+        console.log("Checking Output");
         if (this.center == CenterState.EMPTY) {
             this.outputSource.changeState(StationState.OFF);
             console.log("Empty");
@@ -94,9 +95,11 @@ export class Station extends Sprite {
             console.log("turned on NOT");
         }
         else {
+            console.log("turning off");
             this.outputSource.changeState(StationState.OFF);
             console.log("turned off");
         }
+        console.log("Done Checking Output");
         
     }
     getState() {
@@ -119,5 +122,11 @@ export class Station extends Sprite {
     }
     checkingIsOutput() {
         return this.isOutput;
+    }
+    checkinghasInput() {
+        if (this.inputOneSource != null) {
+            return true;
+        }
+        else return false;
     }
 }

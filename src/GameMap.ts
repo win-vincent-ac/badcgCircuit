@@ -10,6 +10,7 @@ import { Settings } from "./Settings.js";
 import { Gate, GateState } from "./sprites/Gate.js";
 import { CenterState, Station, StationState } from "./sprites/Station.js";
 import { Vector } from "p5";
+import { Circuit, CircuitState, CircuitPower, CircuitNumber } from "./sprites/Circuit.js";
 
 /*
  * This class controls the main actions of the game for the player and the sprites
@@ -167,9 +168,9 @@ export class GameMap {
             }
         }
         
-        //LEVEL DESIGN FOR GATES, STATIONS, <CIRCUITS>
-        //All stations will be drawn first and end as sprites[0], Read them right to left
-        //after all stations are drawn, then gates and other sprites are drawn at sprites[i]
+        //LEVEL DESIGN FOR GATES, STATIONS, CIRCUITS
+        //All stations will be drawn first as sprites[i] and end as sprites[0], Read them right to left
+        //after all stations are drawn, then gates and other sprites are drawn at sprites[i+1], read left to right
         if (this.level == 0) {
             (this.sprites[3] as Station).changeState(StationState.OFF);
             
@@ -184,6 +185,10 @@ export class GameMap {
             (this.sprites[4] as Gate).changeState(GateState.AND);
             (this.sprites[5] as Gate).changeState(GateState.NOT);
             (this.sprites[6] as Gate).changeState(GateState.OR);
+
+            (this.sprites[7] as Circuit).changeState(CircuitState.START, CircuitNumber.ONE);
+            (this.sprites[8] as Circuit).changeState(CircuitState.END, CircuitNumber.ONE);
+        
         }
 
     }
@@ -611,7 +616,7 @@ export class GameMap {
 
         else if ((s instanceof Station) && !(s as Station).checkingIsOutput()) {
             let spriteCollided=this.getSpriteCollision(s);
-                if ((spriteCollided instanceof Gate) && this.heldMedallion == null) {
+                if ((spriteCollided instanceof Gate) && this.heldMedallion == null && (s as Station).checkinghasInput) {
                     //Controling power on/off as <is there a gate in me>
                         if ((s as Station).getState() == StationState.OFF) {
                         const gatePos = spriteCollided.getPosition();
@@ -644,6 +649,48 @@ export class GameMap {
                        }
                        
                 }
+                else if (spriteCollided instanceof Circuit && this.heldMedallion == null) {
+                    if((s as Station).checkingIsOutput && (spriteCollided as Circuit).getState() == CircuitState.START) {
+                        if ((s as Station).getState() == StationState.OFF) {
+                        const gatePos = spriteCollided.getPosition();
+                        const gateImg = spriteCollided.getImage();
+                        const stationPos = s.getPosition();
+                        const stationImg = s.getImage();
+
+                        const gateHalfWidth = gateImg.width / 2;
+                        const gateHalfHeight =  gateImg.height / 2;
+
+                        const stationCenterX = stationPos.x + stationImg.width / 2;
+                        const stationCenterY = stationPos.y + stationImg.height / 2;
+
+                        spriteCollided.setPosition((stationCenterX - gateHalfWidth), (stationCenterY - gateHalfHeight));
+                        (spriteCollided as Circuit).stopMoving();
+                        spriteCollided.setVelocity(0,0);
+                        
+                        (s as Station).changeState(StationState.ON);
+                        }
+                    }
+                    else if (!(s as Station).checkinghasInput && (spriteCollided as Circuit).getState() == CircuitState.END) {
+                        if ((s as Station).getState() == StationState.OFF) {
+                        const gatePos = spriteCollided.getPosition();
+                        const gateImg = spriteCollided.getImage();
+                        const stationPos = s.getPosition();
+                        const stationImg = s.getImage();
+
+                        const gateHalfWidth = gateImg.width / 2;
+                        const gateHalfHeight =  gateImg.height / 2;
+
+                        const stationCenterX = stationPos.x + stationImg.width / 2;
+                        const stationCenterY = stationPos.y + stationImg.height / 2;
+
+                        spriteCollided.setPosition((stationCenterX - gateHalfWidth), (stationCenterY - gateHalfHeight));
+                        (spriteCollided as Circuit).stopMoving();
+                        spriteCollided.setVelocity(0,0);
+                        
+                        (s as Station).changeState(StationState.ON);
+                        }
+                    }
+                }
                 else {
                     (s as Station).changeState(StationState.OFF);
                     (s as Station).changeCenter(CenterState.EMPTY);
@@ -674,9 +721,6 @@ export class GameMap {
             return;
         }
         
-        
-        (this.sprites[1] as Station).checkOutput();
-        
         //UPDATE THE DORE
         
         this.updateSprite(this.player);
@@ -695,6 +739,12 @@ export class GameMap {
                 
                 } 
             }
+            else if (sprite instanceof Station && (sprite as Station).checkinghasInput) {
+            (sprite as Station).checkOutput();
+            }
+            else if (sprite instanceof Circuit) {
+             (sprite as Circuit).checkPower();
+             }
             else if (sprite instanceof PowerUp || sprite instanceof Station) {
                 if (sprite instanceof Gate || sprite instanceof Station) {
                     this.updateSprite(sprite);

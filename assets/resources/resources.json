@@ -24,16 +24,25 @@
                 {"img":"NOT", "duration":100}
             ]
         },
-        "start_block": {
-            "type": "Star",
-            "default": [
-                {"img":"start_block", "duration":100}
-            ]
-        },
-        "end_block": {
-            "type": "Star",
-            "default": [
-                {"img":"end_block", "duration":100}
+        "circuit_block": {
+            "type": "Circuit",
+            "zero_start": [
+                {"img":"zero_start", "duration":100}
+            ],
+            "one_start": [
+                {"img":"one_start", "duration":100}
+            ],
+            "two_start": [
+                {"img":"two_start", "duration":100}
+            ],
+            "zero_end": [
+                {"img":"zero_end", "duration":100}
+            ],
+            "one_end": [
+                {"img":"one_end", "duration":100}
+            ],
+            "two_end": [
+                {"img":"two_end", "duration":100}
             ]
         },
         "player": {
@@ -256,8 +265,7 @@
             "?": "lil_dude",
             "!": "gate",
             "$": "station",
-            "#": "start_block",
-            "*": "end_block",
+            "*": "circuit_block",
             "t": "tiny_logic",
             "b": "big_logic",
             "m": "mailbox"
