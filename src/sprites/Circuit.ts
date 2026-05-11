@@ -84,6 +84,15 @@ export class Circuit extends Star {
     syncStart(s: Circuit) {
         this.source = s;
     }
+<<<<<<< Updated upstream
+=======
+    addPower () {
+        this.power = CircuitPower.ON;
+    }
+    removePower () {
+        this.power = CircuitPower.OFF;
+    }
+>>>>>>> Stashed changes
     checkPower() {
         //console.log("Checking Power");
         if (this.source != null) {
