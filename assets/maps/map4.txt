@@ -5,15 +5,23 @@
 @music music
 
 
-NJJJJJJJJMANJJJJJJJMNJJJJJJJJMANJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJM
-L        CADoo   o CD        KJL              oooo             C
-         CAHFo   EBGD                         EBBBBF           C
-0        CAAHF  EGNMD               o       o     -            C
-BBBBBF      -      CD     o         -      EBBBBF              C
-NJJJMHBBBBBF   EBBBGD    EBF      EF      EG                   C
-D o CNMAAAAHF EGAANMD             CHF     o                    C
-Do EGD -         o CD        EF         EBBF                   C
-HF CAHBBBF EBBBBBBBGD                     -             %      C
-ADo  -                  EBF    EBF    EBBF           EBBBBBF   C
-AHF    o o o o          C5555555 D555 CD5555555555555555555555 C
-AAHBBBBBBBBBBBBBBBBBBBBBGBBBBBBBBHBBBBGHBBBBBBBBBBBBBBBBBBBBBBBG
+    AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+    AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+    AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+    AAAANJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJMAAAAA
+    AAAAD                                               CAAAAA
+    AAAAD                                               CAAAAA
+    AAAAD                                               CAAAAA
+    AAAAD                                               CAAAAA
+    AAAAD           A                                   CAAAAA
+    AAAAD       EBBBBBBF                                CAAAAA
+    AAAAD       KJJJJJJL         A                  0   CAAAAA
+    AAAAD                      EBBBBF           EBBBBBBBGAAAAA
+    AAAAD                      KJJJJL           CAAAAAAAAAAAAA
+    AAAAD                                       CAAAAAAAAAAAAA
+    AAAAD                                       CAAAAAAAAAAAAA
+    AAAAD   %                           AAAA    CAAAAAAAAAAAAA
+    AAAAHBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBGAAAAAAAAAAAAA
+    AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+    AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+    AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA

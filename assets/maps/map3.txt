@@ -3,9 +3,29 @@
 @parallax-layer bg2
 @music music
 
-
-NJJJJJJJJJM
-D         C
-D         C
-0         C
-HBBBBBBBBBG
+    AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+    AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+    AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+    AAAAANAAAAAAAANJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJMAAAAAAAAAAAAAA
+    AAAAANJJJJJJJJD                                   CJJJJJJJJMAAAAA
+    AAAAANJJJJJJJJL                                   KJJJJJJJJMAAAAA
+    AAAAAD                                                     CAAAAA
+    AAAAAD                                                     CAAAAA
+    AAAAAD                                                     CAAAAA
+    AAAAAD                                AAAA                 CAAAAA
+    AAAAAD                              EBBBBBBBBF             CAAAAA
+    AAAAAD              r   a           KJJJJJJJJL             CAAAAA
+    AAAAAD             EBBBBBF                                 CAAAAA
+    AAAAAD             KJJJJJL                                 CAAAAA
+    AAAAAD                                                     CAAAAA
+    AAAAAD   A    0                                        %   CAAAAA
+    AAAAAHBBBBBBBBBBBF                              EBBBBBBBBBBGAAAAA
+    AAAAAAAAAAAAAAAAAD                              CJJJJJJJJJJMAAAAA
+    AAAAANJJJJJJJJJJJL                                   CAAAAAAAAAAA
+    AAAAAD                                             ? CAAAAAAAAAAA
+    AAAAAD                                               CAAAAAAAAAAA
+    AAAAAD     A                   AAAA              A   CAAAAAAAAAAA
+    AAAAAHBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBGAAAAAAAAAAA
+    AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+    AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+    AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA

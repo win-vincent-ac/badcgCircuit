@@ -49,7 +49,7 @@ export class GameManager {
             /*
              * if it is running, then certain things happen
              */
-            case STATE.Running: { 
+             case STATE.Running: { 
                 textStyle()
                 this.map.draw();
                 text(this.map.lives,45,70);
@@ -71,6 +71,8 @@ export class GameManager {
              */
             case STATE.Menu: {
                 this.map.draw();
+                this.settings.animateMike();
+                this.settings.updateLevelText(this.map.level);
                 this.settings.showMenu();
                 break;
             }
@@ -142,7 +144,7 @@ export class GameManager {
                  */
                 if (this.resources.isLoaded()) {                    
                     this.map=new GameMap(this.level,this.resources,this.settings,this);
-                    this.settings.setMusic(this.resources.getLoad("music"));
+                    this.settings.setMusic(this.resources.getLoad("game_music"));
                     this.inputManager.setGameAction(this.moveRight,RIGHT_ARROW);
                     this.inputManager.setGameAction(this.moveLeft,LEFT_ARROW);
                     this.inputManager.setGameAction(this.jump,UP_ARROW);
