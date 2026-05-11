@@ -79,6 +79,7 @@ export class Station extends Sprite {
     checkOutput () {
         console.log("Checking Output");
         if (this.center == CenterState.EMPTY) {
+            console.log("Starting Empty");
             this.outputSource.changeState(StationState.OFF);
             console.log("Empty");
         }
