@@ -437,13 +437,8 @@ export class GameMap {
                 if (s instanceof Star) {
                     return;
                 }
-<<<<<<< git-branch-OLIVIA
-                this.acquirePowerUp(s);
-            } 
-=======
                 //this.acquirePowerUp(s);
             }
->>>>>>> main
         }
     }
     
