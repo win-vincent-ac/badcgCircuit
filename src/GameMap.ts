@@ -344,6 +344,12 @@ export class GameMap {
 
     // this checks if there is a medallion within the radius of the play and will higlight the medallion signalling
     // that it can be picked up
+    holdingMedallion() {
+        if (this.heldMedallion != null) {
+            return true;
+        }
+        else { return false; }
+    }
     getNearbyMedallion(radius: number): Star | null {
     const playerPos = this.player.getPosition();
     const playerImg = this.player.getImage();
@@ -404,7 +410,7 @@ export class GameMap {
                 this.medallions=0;
             } 
             else if (s instanceof PowerUp) {
-                console.log("Powe");
+                //console.log("Powe");
                 if (s instanceof Star) {
                     return;
                 }
