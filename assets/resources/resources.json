@@ -125,31 +125,43 @@
         "end_portal": {
             "type":"EndPortal",
             "default":[
-                {"img":"fort", "duration":150}
+                {"img":"closed_door", "duration":150}
+            ],
+            "open":[
+                {"img":"open_door", "duration":150}
             ]
         },
         "logic": {
-            "type":"EndPortal",
+            "type":"Star",
             "default":[
                 {"img":"logic", "duration":150}
             ]
         },
         "lit_logic": {
-            "type":"EndPortal",
+            "type":"Star",
             "default":[
                 {"img":"lit_logic", "duration":150}
             ]
         },
         "block_stand": {
-            "type":"EndPortal",
+            "type":"Star",
             "default":[
                 {"img":"block_stand", "duration":150}
             ]
         },
         "circle_stand": {
-            "type":"EndPortal",
+            "type":"Star",
             "default":[
                 {"img":"circle_stand", "duration":150}
+            ]
+        },
+        "switch": {
+            "type":"Star",
+            "default":[
+                {"img":"switch_off", "duration":150}
+            ],
+            "switch_on":[
+                {"img":"switch_on", "duration":150}
             ]
         },
         "my_fly": {
@@ -258,7 +270,8 @@
             "g": "logic",
             "l": "lit_logic",
             "b": "block_stand",
-            "c": "circle_stand"
+            "c": "circle_stand",
+            "s": "switch"
 
         },
         "levels": [

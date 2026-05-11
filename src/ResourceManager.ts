@@ -1,7 +1,7 @@
 import { SoundFile } from "p5";
 import { Player } from "./sprites/Player.js";
 import { Fly, Grub, Creature } from "./sprites/Creature.js";
-import { Door, Heart, Music, PowerUp, Star } from "./sprites/PowerUp.js";
+import { Heart, Music, PowerUp, Star } from "./sprites/PowerUp.js";
 import { Sprite } from "./sprites/Sprite.js";
 import { Bullet } from "./sprites/Bullet.js";
 import {MyFly} from "./sprites/MyFly.js";
@@ -10,7 +10,7 @@ import { FinalBoss } from "./sprites/FinalBoss.js";
 import {Lava} from "./sprites/Lava.js";
 import { Fireball } from "./sprites/Fireball.js";
 import { Projectile, EnemyProjectile} from "./sprites/Projectile.js";
-
+import {Door} from "./sprites/Door.js";
 
 export class ResourceManager {
 

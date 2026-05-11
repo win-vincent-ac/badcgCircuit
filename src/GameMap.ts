@@ -3,10 +3,11 @@ import { ResourceManager } from "./ResourceManager.js";
 import { Sprite } from "./sprites/Sprite.js";
 import { GRAVITY, STATE, GameManager } from './GameManager.js';
 import { Creature, CreatureState, Grub } from "./sprites/Creature.js";
-import { Door,Heart, Music, PowerUp, Star} from "./sprites/PowerUp.js";
+import { Heart, Music, PowerUp, Star} from "./sprites/PowerUp.js";
 import { Projectile, EnemyProjectile } from './sprites/Projectile.js';
 import { Lava } from "./sprites/Lava.js"
 import { Settings } from "./Settings.js";
+import {Door} from "./sprites/Door.js";
 import { Vector } from "p5";
 
 /*
@@ -403,6 +404,7 @@ export class GameMap {
                 this.medallions=0;
             } 
             else if (s instanceof PowerUp) {
+                console.log("Powe");
                 if (s instanceof Star) {
                     return;
                 }
@@ -446,12 +448,18 @@ export class GameMap {
             * this else if checks to see if 'p' is in instance of a Heart
             */
         else if (p instanceof Door) {
+
+                console.log("I a Door a bull");
             /*
              * the if loop states that if the level is 0 and you have 10 medaillions, you can proceed to the next level
              * and the sound black_hole will play
              * if you don't have 9 medaillions then you cannot proceed to the next level
              */
-            if(this.level==0 && this.medallions==10) {
+            if(!(p as Door).isOpen()){
+                (p as Door).openDoor();
+            }
+
+            else if((p as Door).isOpen()) {
                 /* Start animation for changing door open close */
                 this.black_hole.play();
                 this.level+=1;
@@ -489,7 +497,7 @@ export class GameMap {
         else if (p instanceof PowerUp) {
             if(this.lives>0){
                 this.oneUp.play();
-                this.lives+=1;
+//                this.lives+=1;
             }
         }
     }
