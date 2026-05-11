@@ -3,7 +3,6 @@
 @parallax-layer bg2
 @music music
 
-<<<<<<< git-branch-OLIVIA
     AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
     AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
     AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -20,25 +19,3 @@
     AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
     AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
     AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-=======
-NJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJL          
-D                               C          
-D          ?                    C         
-D                       $       C             
-D       0   $           %       C              
-HBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBG  
-
-
-       NJJJJJJJJJJJJJJJJJL          
-NJJJJJJJ                 JJJJJJJL      
-D                           $   C              
-D       BBBBBB              %   C         
-D                        CBBBBBBB             
-DBBL                     C
-   D                     C 
-   D   0                 C
-   BBBBB              ?  C      
-       D                 C
-       D                 C             
-       HBBBBBBBBBBBBBBBBBG  
->>>>>>> main
