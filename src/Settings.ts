@@ -8,16 +8,24 @@ export class Settings {
     public playMusic: boolean;
     public playEvents: boolean;
 
-
-    music: p5.SoundFile;
-
-
+    game_music: p5.SoundFile;
+    mikeFrames: p5.Image[] = [];
+    mikeIndex: number = 0;
+    mikeImg: any;
+    storyText: any;
     menu:  p5.Element;
     full: p5.Element;
     
     constructor() {
 
-
+        // putting in a reference for M1K3's animation
+        this.mikeFrames = [
+        loadImage("assets/images/lil_dude1.png"),
+        loadImage("assets/images/lil_dude2.png"),
+        loadImage("assets/images/lil_dude3.png"),
+        loadImage("assets/images/lil_dude4.png"),
+        loadImage("assets/images/lil_dude5.png")
+    ];
        /*
          * all of these initialize certain things in our game to make it run smooth
          */
@@ -36,6 +44,17 @@ export class Settings {
 
         this.menu.style("line-height", "1.35");
 
+        // M1K3's placement in the menu
+        this.mikeImg = createImg("assets/images/m1k3_1.png", "M1K3");
+
+        this.mikeImg.style("position", "absolute");
+        this.mikeImg.style("top", "30px");
+        this.mikeImg.style("right", "30px");
+        this.mikeImg.style("width", "180px");
+        this.mikeImg.style("height", "180px");
+
+        this.menu.child(this.mikeImg);
+
         // M1K3's speaking section/Storyline
 
         // this separates our the top section and bottom section
@@ -52,15 +71,14 @@ export class Settings {
         storyTitle.style("margin-bottom", "5px");
 
         // M1K3's little blurb
-        const storyText = createDiv(
-        "Hello World! My name is M1K3 and I'm here to help you on your adventure, R0b3rt! " +
-        "This is the first level. You'll learn about switches, movement, and doors here.<br>" +
-        "Go ahead and try pressing 'H' on the switch, it just might open the the door for you!"
-    );
+        const storyIntro = createDiv(
+            "Hello World! My name is M1K3 and I'm here to help you on your adventure, R0b3rt!");
+        this.storyText = createDiv("...");
+
         // actually putting it on the screen
         storylineSection.child(storyTitle);
-        storylineSection.child(storyText);
-
+        storylineSection.child(storyIntro);
+        storylineSection.child(this.storyText);
         // Game Mechanics Section
 
         // this is created so the the game mechanic stuff is placed lower in the menu
@@ -143,11 +161,11 @@ export class Settings {
     togglePlayMusic() {
         this.playMusic=!this.playMusic;
         if (this.playMusic) {
-            this.music.setLoop(true);
-            this.music.playMode("restart");
-            this.music.play();
+            this.game_music.setLoop(true);
+            this.game_music.playMode("restart");
+            this.game_music.play();
         } else {
-            this.music.stop();
+            this.game_music.stop();
         }
     }
 
@@ -155,7 +173,7 @@ export class Settings {
      * this sets a certain soundfile to 'm' which is the music
      */
     setMusic(m:p5.SoundFile) {
-        this.music=m;
+        this.game_music=m;
     }
 
     /*
@@ -165,4 +183,33 @@ export class Settings {
         this.playEvents=!this.playEvents;
     }
     
+    // Set to animate mike
+    animateMike() {
+    if (frameCount % 10 == 0) {
+        this.mikeIndex++;
+        if (this.mikeIndex >= this.mikeFrames.length) {
+            this.mikeIndex = 0;
+        }
+        this.mikeImg.attribute(
+            "src",
+            "assets/images/lil_dude" + (this.mikeIndex + 1) + ".png"
+        );
+    }
+} 
+    // everytime you get to a new level the text on the menu will change
+    updateLevelText(level: number) {
+        if (level == 0) {
+            this.storyText.html(
+                "This is the first level. You'll learn about switches, movement, and doors here.<br>" +
+        "Go ahead and try pressing 'H' on the switch, it just might open the the door for you!"
+            );
+        }
+        else if (level == 1) {
+            this.storyText.html (
+            "Great Job!!!! Alright friend, this next level you will see your first gate" +
+            "Press 'H' to pick it up and move it to the logic station!"
+         );
+        }
+    }
+
 }
