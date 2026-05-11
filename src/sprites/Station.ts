@@ -79,7 +79,7 @@ export class Station extends Sprite {
         }
     }
     checkOutput () {
-        console.log("Checking Output");
+        //console.log("Checking Output");
         if (this.outputSource != null) {
             //console.log("outputSource is not null");
             if (this.center == CenterState.EMPTY) {
@@ -105,7 +105,7 @@ export class Station extends Sprite {
                 console.log("turned off");
             }
         }
-        console.log("Done Checking Output");
+        //console.log("Done Checking Output");
     }
 
     getState() {
@@ -114,9 +114,11 @@ export class Station extends Sprite {
 
     syncInputOne(s1: Station) {
         this.inputOneSource = s1;
+        s1.makeInput();
     }
     syncInputTwo(s2: Station) {
         this.inputTwoSource = s2;
+        s2.makeInput();
     }
     syncOutput(s3: Station) {
         this.outputSource = s3;
