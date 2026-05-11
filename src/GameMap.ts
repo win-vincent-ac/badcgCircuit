@@ -614,9 +614,9 @@ export class GameMap {
         } 
 
 
-        else if ((s instanceof Station) && !(s as Station).checkingIsOutput()) {
+        else if ((s instanceof Station)) {
             let spriteCollided=this.getSpriteCollision(s);
-                if ((spriteCollided instanceof Gate) && this.heldMedallion == null && (s as Station).checkinghasInput) {
+                if ((spriteCollided instanceof Gate) && this.heldMedallion == null  && (s as Station).checkingIsInput && (s as Station).checkingIsOutput()) {
                     //Controling power on/off as <is there a gate in me>
                         if ((s as Station).getState() == StationState.OFF) {
                         const gatePos = spriteCollided.getPosition();
@@ -670,7 +670,7 @@ export class GameMap {
                         (s as Station).changeState(StationState.ON);
                         }
                     }
-                    else if (!(s as Station).checkinghasInput && (spriteCollided as Circuit).getState() == CircuitState.END) {
+                    else if ((s as Station).checkingIsInput && (spriteCollided as Circuit).getState() == CircuitState.END) {
                         if ((s as Station).getState() == StationState.OFF) {
                         const gatePos = spriteCollided.getPosition();
                         const gateImg = spriteCollided.getImage();
@@ -690,13 +690,13 @@ export class GameMap {
                         (s as Station).changeState(StationState.ON);
                         }
                     }
+                    
                 }
                 else {
                     (s as Station).changeState(StationState.OFF);
                     (s as Station).changeCenter(CenterState.EMPTY);
                 } 
             }
-        
         /*
          * if the object is not a player, check for collision with other sprites
          * if they collide, bounce off of eachother and change directions
@@ -739,7 +739,7 @@ export class GameMap {
                 
                 } 
             }
-            else if (sprite instanceof Station && (sprite as Station).checkinghasInput) {
+            else if (sprite instanceof Station && (sprite as Station).checkingIsInput && !(sprite as Station).checkingIsOutput) {
             (sprite as Station).checkOutput();
             }
             else if (sprite instanceof Circuit) {

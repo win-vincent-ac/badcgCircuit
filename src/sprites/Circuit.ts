@@ -85,8 +85,19 @@ export class Circuit extends Star {
         this.source = s;
     }
     checkPower() {
-     if (this.source.getPower() == CircuitPower.ON) {
-          this.power = CircuitPower.ON;
-     }
+        //console.log("Checking Power");
+        if (this.source != null) {
+            console.log("This Power Source Not Null");
+            if (this.source.getPower() == CircuitPower.ON) {
+                //console.log("Turning Power On");
+                this.power = CircuitPower.ON;
+                console.log("Power On");
+            }
+            else {
+                this.power = CircuitPower.OFF;
+                console.log("Power Off");
+                }
+            }
+        //console.log("Done Checking Power");
     }
 }

@@ -21,6 +21,7 @@ export class Station extends Sprite {
     protected outputPower; boolean;
     protected outputSource: Station;
     protected isOutput: boolean;
+    protected isInput: boolean;
 
     constructor() { 
         super();
@@ -29,6 +30,7 @@ export class Station extends Sprite {
         this.center=CenterState.EMPTY;
         this.outputPower = false;
         this.isOutput = false;
+        this.isInput = false;
         
     }
     changeState(initialState: number) {
@@ -78,31 +80,34 @@ export class Station extends Sprite {
     }
     checkOutput () {
         console.log("Checking Output");
-        if (this.center == CenterState.EMPTY) {
-            console.log("Starting Empty");
-            this.outputSource.changeState(StationState.OFF);
-            console.log("Empty");
-        }
-        else if (this.inputOneSource.getState() == StationState.ON && this.inputTwoSource.getState() == StationState.ON && this.center == CenterState.AND) {
-            this.outputSource.changeState(StationState.ON);
-            console.log("turned on AND");
-        }
-        else if ((this.inputOneSource.getState() == StationState.ON || this.inputTwoSource.getState() == StationState.ON) && this.center == CenterState.OR) {
-            this.outputSource.changeState(StationState.ON);
-            console.log("turned on OR");
-        }
-        else if (this.inputOneSource.getState() == StationState.OFF && this.center == CenterState.NOT) {
-            this.outputSource.changeState(StationState.ON);
-            console.log("turned on NOT");
-        }
-        else {
-            console.log("turning off");
-            this.outputSource.changeState(StationState.OFF);
-            console.log("turned off");
+        if (this.outputSource != null) {
+            //console.log("outputSource is not null");
+            if (this.center == CenterState.EMPTY) {
+                //console.log("Starting Empty");
+                this.outputSource.changeState(StationState.OFF);
+                console.log("Empty");
+            }
+            else if (this.inputOneSource.getState() == StationState.ON && this.inputTwoSource.getState() == StationState.ON && this.center == CenterState.AND) {
+                this.outputSource.changeState(StationState.ON);
+                console.log("turned on AND");
+            }
+            else if ((this.inputOneSource.getState() == StationState.ON || this.inputTwoSource.getState() == StationState.ON) && this.center == CenterState.OR) {
+                this.outputSource.changeState(StationState.ON);
+                console.log("turned on OR");
+            }
+            else if (this.inputOneSource.getState() == StationState.OFF && this.center == CenterState.NOT) {
+                this.outputSource.changeState(StationState.ON);
+                console.log("turned on NOT");
+            }
+            else {
+                //console.log("turning off");
+                this.outputSource.changeState(StationState.OFF);
+                console.log("turned off");
+            }
         }
         console.log("Done Checking Output");
-        
     }
+
     getState() {
         return this.state;
     }
@@ -118,16 +123,17 @@ export class Station extends Sprite {
         s3.makeOutput();
     }
 
+    makeInput() {
+        this.isInput = true;
+    }
     makeOutput() {
         this.isOutput = true;
     }
+
     checkingIsOutput() {
         return this.isOutput;
     }
-    checkinghasInput() {
-        if (this.inputOneSource != null) {
-            return true;
-        }
-        else return false;
+    checkingIsInput() {
+        return this.isInput;
     }
 }
