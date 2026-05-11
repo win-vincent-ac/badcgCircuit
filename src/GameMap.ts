@@ -639,8 +639,9 @@ export class GameMap {
              this.heldMedallion = nearby;
              this.robot_pickup.play();
              if (this.player.currAnimName.toUpperCase().includes("LEFT")) {
-                //PUT PICKUP LEFT ANIMATION HERE
+                this.player.setAnimation("upies");
              } else {
+                this.player.setAnimation("upiesRight");
                 //PUT PICKUP RIGHT ANIMATION HERE
             }
          }
@@ -656,6 +657,7 @@ export class GameMap {
                 playerPos.x - 40,
                 playerPos.y + 56);
             this.heldMedallion = null;
+            this.player.setAnimation("upies");
                 //PUT PUTDOWN LEFT ANIMATION HERE
             }
             else {
@@ -664,6 +666,7 @@ export class GameMap {
                 playerPos.x + 120,
                 playerPos.y + 56);
             this.heldMedallion = null;
+            this.player.setAnimation("upiesRight");
                 //PUT PUTDOWN RIGHT ANIMATION HERE
                 //this.player.setAnimation("put_down_right");
             }

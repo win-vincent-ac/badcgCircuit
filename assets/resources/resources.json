@@ -73,6 +73,12 @@
             ],
             "upiesRight": [
                 {"sheet":"main_dude_upiesr","rows":1,"cols":2,"duration":150}
+            ],
+            "upies_run": [
+                {"sheet":"main_dude_upies_run","rows":1,"cols":2,"duration":150}
+            ],
+            "upies_run_right": [
+                {"sheet":"main_dude_upies_runr","rows":1,"cols":2,"duration":150}
             ]
         },
         "lil_dude": {
