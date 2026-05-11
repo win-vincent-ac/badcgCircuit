@@ -201,14 +201,30 @@ export class Settings {
         if (level == 0) {
             this.storyText.html(
                 "This is the first level. You'll learn about switches, movement, and doors here.<br>" +
-        "Go ahead and try pressing 'H' on the switch, it just might open the the door for you!"
+                "Go ahead and try pressing 'H' on the switch, it just might open the the door for you!"
             );
         }
         else if (level == 1) {
             this.storyText.html (
-            "Great Job!!!! Alright friend, this next level you will see your first gate" +
-            "Press 'H' to pick it up and move it to the logic station!"
-         );
+                "Great Job!!!! Alright friend, this next level you will see your first gate" +
+                "Press 'H' to pick it up and move it to the logic station!"
+            );
+        }
+        else if (level == 2) {
+            this.storyText.html (
+                "You're a genius! The third level you will see circuits for the first time"
+            );
+        }
+        else if (level == 3) {
+            this.storyText.html (
+                "Wow! This level will introduce 2 logic stations."
+            );
+        }
+        else if (level == 4) {
+            this.storyText.html (
+                "Awesome, this level is going to combine all the things you've learned so far" +
+                "Good Luck and Have fun! :D"
+            );
         }
     }
 
