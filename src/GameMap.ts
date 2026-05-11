@@ -437,7 +437,7 @@ export class GameMap {
                 if (s instanceof Star) {
                     return;
                 }
-                this.acquirePowerUp(s);
+                //this.acquirePowerUp(s);
             }
         }
     }
@@ -635,21 +635,21 @@ export class GameMap {
                         spriteCollided.setVelocity(0,0);
                         
                         (s as Station).changeState(StationState.ON);
-                        console.log("Gate Detected in Station");
+                        //console.log("Gate Detected in Station");
                         }
 
                     //Controlling output as <what gate is in me>
                        if ((spriteCollided as Gate).getState() == GateState.AND) {
                         (s as Station).changeCenter(CenterState.AND);
-                        console.log("Station Gate is AND");
+                        //console.log("Station Gate is AND");
                        }
                        else if ((spriteCollided as Gate).getState() == GateState.OR) {
                         (s as Station).changeCenter(CenterState.OR);
-                        console.log("Station Gate is OR");
+                        //console.log("Station Gate is OR");
                        }
                        else if ((spriteCollided as Gate).getState() == GateState.NOT) {
                         (s as Station).changeCenter(CenterState.NOT);
-                        console.log("Station Gate is NOT");
+                        //console.log("Station Gate is NOT");
                        }
                        
                 }
@@ -672,7 +672,7 @@ export class GameMap {
                         spriteCollided.setVelocity(0,0);
                         
                         (s as Station).changeState(StationState.ON);
-                        console.log("Circuit Start Detected in Station");
+                        //console.log("Circuit Start Detected in Station");
                         }
                     }
                     else if ((s as Station).checkingIsInput() && (spriteCollided as Circuit).getState() == CircuitState.END) {
@@ -693,7 +693,7 @@ export class GameMap {
                         spriteCollided.setVelocity(0,0);
                         
                         (s as Station).changeState(StationState.ON);
-                        console.log("Circuit End Detected in Station");
+                        //console.log("Circuit End Detected in Station");
                         }
                     }
                     
