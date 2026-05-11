@@ -79,8 +79,8 @@
                 {"sheet":"main_dude_upiesr","rows":1,"cols":2,"duration":150}
             ]
         },
-        "lil_dude": {
-            "type": "Creature",
+        "mike": {
+            "type": "PowerUp", 
             "default": [
                 {"img":"lil_dude1", "duration":100},
                 {"img":"lil_dude2", "duration":100},
@@ -262,7 +262,7 @@
             "-": "my_fly",
             "5": "lava_pool",
             "p": "power",
-            "?": "lil_dude",
+            "?": "mike",
             "!": "gate",
             "$": "station",
             "*": "circuit_block",

@@ -13,17 +13,23 @@ AAAAAAAD                                 CAAAAAAA
 AAAAAAAD                                 CAAAAAAA               
 AAAAAAAHBBBBF                       EBBBBGAAAAAAA
 AAAAAAANJJJJJL                     KJJJJJMAAAAAAA 
-AAAAAAAD                                 CAAAAAAA   
-AAAAAAAD                                 CAAAAAAA           
-AAAAOAAD                                 CAAAAAAA     
 AAAAAAAD                                 CAAAAAAA         
-AOAAAAAD    $ $ m $  !!!  0  **          CAAAAAAA           
+AOAAAAAD    $ $ m $  !!!     **          CAAAAAAA           
+AAAAAAAHBBBBFEBBBBBBBBBBBBBBBBF     EBBBBGAAAAAAA  
+AAAAAAAD                                 CAAAAAAA   
+AAAAAAAD                                 CAAAAAAA   
+AAAAAAAD                                 CAAAAAAA   
+AAAAAAAD                                 CAAAAAAA   
+AAAAAAAD              ?                  CAAAAAAA   
+AAAAAAAD                                 CAAAAAAA   
+AAAAAAAD                                 CAAAAAAA         
+AOAAAAAD                  0              CAAAAAAA           
 AAAAAAAHBBBBFEBBBBBBBBBBBBBBBBF     EBBBBGAAAAAAA
 AAAAAAANJJJJJL       KJJJL         KJJJJJMAAAAAAA  
 AAAAAAAD                                 CAAAAAAA  
 AAAAAAAD                                 CAAAAAAA    
 AAAAAAAD                                 CAAAAAAA       
-AAAAAAAD  o     EBF          EBF   t b % CAAAAAAA             
+AAAAAAAD        EBF          EBF   t b % CAAAAAAA             
 AAAAAAAHBBBBBBBBGAHBBBBBBBBBBGAHBBBBBBBBBGAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA

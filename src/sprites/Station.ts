@@ -85,24 +85,24 @@ export class Station extends Sprite {
             if (this.center == CenterState.EMPTY) {
                 //console.log("Starting Empty");
                 this.outputSource.changeState(StationState.OFF);
-                console.log("Empty");
+                //console.log("Empty");
             }
             else if (this.inputOneSource.getState() == StationState.ON && this.inputTwoSource.getState() == StationState.ON && this.center == CenterState.AND) {
                 this.outputSource.changeState(StationState.ON);
-                console.log("turned on AND");
+                //console.log("turned on AND");
             }
             else if ((this.inputOneSource.getState() == StationState.ON || this.inputTwoSource.getState() == StationState.ON) && this.center == CenterState.OR) {
                 this.outputSource.changeState(StationState.ON);
-                console.log("turned on OR");
+                //console.log("turned on OR");
             }
             else if (this.inputOneSource.getState() == StationState.OFF && this.center == CenterState.NOT) {
                 this.outputSource.changeState(StationState.ON);
-                console.log("turned on NOT");
+                //console.log("turned on NOT");
             }
             else {
                 //console.log("turning off");
                 this.outputSource.changeState(StationState.OFF);
-                console.log("turned off");
+                //console.log("turned off");
             }
         }
         //console.log("Done Checking Output");
