@@ -28,8 +28,6 @@ export class GameManager {
     img2: Image;
 
     constructor() {
-        this.img1 = loadImage("assets/images/medallion1.png");
-        this.img2 = loadImage("assets/images/life1.png");
         this.level=0;
         this.oldState=STATE.Loading;
         this.gameState=STATE.Loading;
@@ -49,20 +47,30 @@ export class GameManager {
             /*
              * if it is running, then certain things happen
              */
-             case STATE.Running: { 
-                textStyle()
+            case STATE.Running: { 
+                textStyle(BOLD)
                 this.map.draw();
-                text(this.map.lives,45,70);
-                fill(150,150,200,150);
-                rect(10,10,55,85);
-                fill(255,255,255);
-                image(this.img1, 15, 15, 32, 32);
-	            image(this.img2, 8, 41, 48, 48);
+                strokeWeight(10);
+                stroke(213,135,107,255); //Darker Red Outline
+
+                fill(239,166,140,255); //Lighter Red
+                rect(10,10,140,85,10,10,10,10); //in Front Rectangle
+
+
+                stroke(245,180,157,255); //Lightest Red
+                strokeWeight(5);
+                fill(0,0,0); //Text Color
+
+                 textFont('Courier New');
+                 textSize(18);
                 
-                textSize(12);
+                 if (this.jump.isPressed()) {
+                 text("Door is:\n      OPEN" /*+ this.map.lives*/,23,36);}
+                 else {text("Door is:\n    CLOSED" /*+ this.map.lives*/,23,36);}
+                 
+                 text("Level: " + this.map.level,25,80);
                 
-                text(this.map.lives,45,70);
-                text(this.map.medallions,45,36);
+                break;
                 
                 break;
             }
