@@ -62,8 +62,10 @@
             "AND": "assets/images/AND.png",
             "OR": "assets/images/OR.png",
             "NOT": "assets/images/NOT.png",
-            "tiny_logic": "assets/images/tiny_logic.png",
-            "big_logic": "assets/images/big_logic.png"
+            "logic": "assets/images/logic.png",
+            "lit_logic": "assets/images/lit_logic.png",
+            "block_stand": "assets/images/block_stand.png",
+            "circle_stand": "assets/images/circle_stand.png"
         },
         "text": {
             "map1": "assets/maps/map1.txt",

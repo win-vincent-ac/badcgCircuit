@@ -128,16 +128,28 @@
                 {"img":"fort", "duration":150}
             ]
         },
-        "tiny_logic": {
+        "logic": {
             "type":"EndPortal",
             "default":[
-                {"img":"tiny_logic", "duration":150}
+                {"img":"logic", "duration":150}
             ]
         },
-        "big_logic": {
+        "lit_logic": {
             "type":"EndPortal",
             "default":[
-                {"img":"big_logic", "duration":150}
+                {"img":"lit_logic", "duration":150}
+            ]
+        },
+        "block_stand": {
+            "type":"EndPortal",
+            "default":[
+                {"img":"block_stand", "duration":150}
+            ]
+        },
+        "circle_stand": {
+            "type":"EndPortal",
+            "default":[
+                {"img":"circle_stand", "duration":150}
             ]
         },
         "my_fly": {
@@ -243,8 +255,10 @@
             "a": "AND",
             "r": "OR",
             "n": "NOT",
-            "t": "tiny_logic",
-            "b": "big_logic"
+            "g": "logic",
+            "l": "lit_logic",
+            "b": "block_stand",
+            "c": "circle_stand"
 
         },
         "levels": [
