@@ -30,7 +30,7 @@ export class GameMap {
     game: GameManager;
     settings: Settings;
     prize: p5.SoundFile;
-    music: p5.SoundFile;
+    game_music: p5.SoundFile;
     boop: p5.SoundFile;
     robot_temp: p5.SoundFile;
     black_hole: p5.SoundFile;
@@ -65,7 +65,7 @@ export class GameMap {
     initialize() {
         this.oneUp=this.resources.getLoad("1up");
         this.prize=this.resources.getLoad("prize");
-        this.music=this.resources.getLoad("music");
+        this.game_music=this.resources.getLoad("game_music");
         this.boop=this.resources.getLoad("boop2");
         this.full_death=this.resources.getLoad("full_death");
         this.black_hole=this.resources.getLoad("blackHole");
@@ -115,7 +115,7 @@ export class GameMap {
                          * this loads the music
                          */
                         case "@music": {
-                            this.music=this.resources.getLoad(parts[1]);
+                            this.game_music=this.resources.getLoad(parts[1]);
                             break;
                         }
                         default: {
@@ -437,8 +437,13 @@ export class GameMap {
                 if (s instanceof Star) {
                     return;
                 }
+<<<<<<< git-branch-OLIVIA
+                this.acquirePowerUp(s);
+            } 
+=======
                 //this.acquirePowerUp(s);
             }
+>>>>>>> main
         }
     }
     
@@ -472,7 +477,7 @@ export class GameMap {
                 this.robot_pickup.play();
             }
             this.medallions+=1;
-        }
+        } 
         /*
             * this else if checks to see if 'p' is in instance of a Heart
             */
@@ -516,8 +521,9 @@ export class GameMap {
             if(this.lives>0){
                 this.oneUp.play();
                 this.lives+=1;
-            }
+            } 
         }
+
     }
 
     /*
@@ -797,7 +803,7 @@ export class GameMap {
                 this.robot_putdown.play();
             this.heldMedallion = null;
             }
-            
+
     }
 
         // If holding a medallion, move it with the player
