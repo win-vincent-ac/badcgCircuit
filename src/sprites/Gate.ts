@@ -5,27 +5,13 @@ export enum GateState { AND, OR, NOT };
 export class Gate extends Star {
 
     protected state: number;
+    protected locked: boolean;
+    protected placed: boolean;
 
     constructor() {
         super();
-        // switch (initialState) {
-        //     case GateState.AND: {
-        //         this.state=GateState.AND;
-        //         this.currAnimName = "and";
-        //         this.setAnimation("and");
-        //         break;
-        //     }
-        //     case GateState.OR: {
-        //         this.state=GateState.OR;
-        //         this.currAnimName = "or";
-        //         break;
-        //     }
-        //     case GateState.NOT: {
-        //         this.state=GateState.NOT;
-        //         this.currAnimName = "not";
-        //         break;
-        //     }
-        // }
+        this.locked = false;
+        this.placed = false;
     }
     changeState(initialState: number) {
         switch (initialState) {
@@ -48,5 +34,17 @@ export class Gate extends Star {
     }
     getState() {
         return this.state;
+    }
+    lockGate(){
+        this.locked = true;
+    }
+    stopMoving() {
+        this.placed = true;
+    }
+    startMoving() {
+        this.placed = false;
+    }
+    isPlaced() {
+        return this.placed;
     }
 }

@@ -10,6 +10,7 @@ import { Settings } from "./Settings.js";
 import { Gate, GateState } from "./sprites/Gate.js";
 import { CenterState, Station, StationState } from "./sprites/Station.js";
 import { Vector } from "p5";
+import { Circuit, CircuitState, CircuitPower, CircuitNumber } from "./sprites/Circuit.js";
 
 /*
  * This class controls the main actions of the game for the player and the sprites
@@ -41,8 +42,6 @@ export class GameMap {
     lives: number;
     oneUp: p5.SoundFile;
     heldMedallion: Star | null = null;
-    // LogicStationCenter: Locked | Unlocked;
-    // LogicStationGate: Or | Not | And | Blank;
     hWasDown: boolean = false;
     robot_death: p5.SoundFile;
     robot_pickup: p5.SoundFile;
@@ -159,6 +158,9 @@ export class GameMap {
                     if (ch=='0') { // check if character is '0', which denotes the player sprite
                         this.player=s; // assign the sprite to the 'player' variable
                     } 
+                    else if (ch=='$' || ch=='m') { // check if character is '$' or 'm', which denotes the stations
+                        this.sprites.unshift(s);
+                    }
                     else {
                         this.sprites.push(s); // otherwise, add the sprite to the 'sprites' array
                     }
@@ -166,12 +168,27 @@ export class GameMap {
             }
         }
         
-        //LEVEL DESIGN FOR GATES, STATIONS, <CIRCUITS>
+        //LEVEL DESIGN FOR GATES, STATIONS, CIRCUITS
+        //All stations will be drawn first as sprites[i] and end as sprites[0], Read them right to left
+        //after all stations are drawn, then gates and other sprites are drawn at sprites[i+1], read left to right
         if (this.level == 0) {
+            (this.sprites[3] as Station).changeState(StationState.OFF);
+            
+            (this.sprites[2] as Station).changeState(StationState.OFF);
+            (this.sprites[1] as Station).changeState(StationState.OFF);
+            (this.sprites[1] as Station).syncInputOne((this.sprites[3] as Station));
+            (this.sprites[1] as Station).syncInputTwo((this.sprites[2] as Station));
+            (this.sprites[1] as Station).syncOutput((this.sprites[0] as Station));
             (this.sprites[0] as Station).changeState(StationState.OFF);
+
             //(this.sprites[0] as Station).connectOne(this.sprites[4]); <<<Possible example of changing connections
-            (this.sprites[1] as Gate).changeState(GateState.NOT);
-            (this.sprites[2] as Gate).changeState(GateState.OR);
+            (this.sprites[4] as Gate).changeState(GateState.AND);
+            (this.sprites[5] as Gate).changeState(GateState.NOT);
+            (this.sprites[6] as Gate).changeState(GateState.OR);
+
+            (this.sprites[7] as Circuit).changeState(CircuitState.START, CircuitNumber.ONE);
+            (this.sprites[8] as Circuit).changeState(CircuitState.END, CircuitNumber.ONE);
+        
         }
 
     }
@@ -541,10 +558,17 @@ export class GameMap {
         let oldVel = s.getVelocity();
         let newPos = s.getPosition().copy();
 
-        if (!s.isFlying()) { 
+        if (s instanceof Gate) {
+            if (!(s as Gate).isPlaced()) {
+                oldVel.y=oldVel.y+GRAVITY*deltaTime;
+                s.setVelocity(oldVel.x,oldVel.y);
+            }
+        }
+        else if (!s.isFlying()) { 
             oldVel.y=oldVel.y+GRAVITY*deltaTime;
             s.setVelocity(oldVel.x,oldVel.y);
         }
+        
 
         //update the x part of position first
         newPos.x = newPos.x + oldVel.x*deltaTime;
@@ -588,9 +612,11 @@ export class GameMap {
         if (s instanceof Player) {
             this.checkPlayerCollision(s as Player, oldY < newPos.y);
         } 
-        else if (s instanceof Station) {
+
+
+        else if ((s instanceof Station)) {
             let spriteCollided=this.getSpriteCollision(s);
-                if (spriteCollided instanceof Gate) {
+                if ((spriteCollided instanceof Gate) && this.heldMedallion == null  && !(s as Station).checkingIsInput() && !(s as Station).checkingIsOutput()) {
                     //Controling power on/off as <is there a gate in me>
                         if ((s as Station).getState() == StationState.OFF) {
                         const gatePos = spriteCollided.getPosition();
@@ -598,38 +624,85 @@ export class GameMap {
                         const stationPos = s.getPosition();
                         const stationImg = s.getImage();
 
-                        const gateCenterX = gatePos.x + gateImg.width / 2;
-                        const gateCenterY = gatePos.y + gateImg.height / 2;
+                        const gateHalfWidth = gateImg.width / 2;
+                        const gateHalfHeight =  gateImg.height / 2;
 
                         const stationCenterX = stationPos.x + stationImg.width / 2;
                         const stationCenterY = stationPos.y + stationImg.height / 2;
 
-                        const dx = gateCenterX - stationCenterX;
-                        const dy = gateCenterY - stationCenterY;
-                        const distance = Math.sqrt(dx * dx + dy * dy);
-
-                        spriteCollided.setPosition((stationCenterX - (gateImg.width / 2)), (stationCenterY + (gateImg.height / 2)));
+                        spriteCollided.setPosition((stationCenterX - gateHalfWidth), (stationCenterY - gateHalfHeight));
+                        (spriteCollided as Gate).stopMoving();
+                        spriteCollided.setVelocity(0,0);
                         
                         (s as Station).changeState(StationState.ON);
+                        console.log("Gate Detected in Station");
                         }
 
                     //Controlling output as <what gate is in me>
                        if ((spriteCollided as Gate).getState() == GateState.AND) {
                         (s as Station).changeCenter(CenterState.AND);
+                        console.log("Station Gate is AND");
                        }
                        else if ((spriteCollided as Gate).getState() == GateState.OR) {
                         (s as Station).changeCenter(CenterState.OR);
+                        console.log("Station Gate is OR");
                        }
                        else if ((spriteCollided as Gate).getState() == GateState.NOT) {
                         (s as Station).changeCenter(CenterState.NOT);
+                        console.log("Station Gate is NOT");
                        }
+                       
+                }
+                else if (spriteCollided instanceof Circuit && this.heldMedallion == null) {
+                    if((s as Station).checkingIsOutput() && (spriteCollided as Circuit).getState() == CircuitState.START) {
+                        if ((s as Station).getState() == StationState.OFF) {
+                        const gatePos = spriteCollided.getPosition();
+                        const gateImg = spriteCollided.getImage();
+                        const stationPos = s.getPosition();
+                        const stationImg = s.getImage();
+
+                        const gateHalfWidth = gateImg.width / 2;
+                        const gateHalfHeight =  gateImg.height / 2;
+
+                        const stationCenterX = stationPos.x + stationImg.width / 2;
+                        const stationCenterY = stationPos.y + stationImg.height / 2;
+
+                        spriteCollided.setPosition((stationCenterX - gateHalfWidth), (stationCenterY - gateHalfHeight));
+                        (spriteCollided as Circuit).stopMoving();
+                        spriteCollided.setVelocity(0,0);
+                        
+                        (s as Station).changeState(StationState.ON);
+                        console.log("Circuit Start Detected in Station");
+                        }
+                    }
+                    else if ((s as Station).checkingIsInput() && (spriteCollided as Circuit).getState() == CircuitState.END) {
+                        if ((s as Station).getState() == StationState.OFF) {
+                        const gatePos = spriteCollided.getPosition();
+                        const gateImg = spriteCollided.getImage();
+                        const stationPos = s.getPosition();
+                        const stationImg = s.getImage();
+
+                        const gateHalfWidth = gateImg.width / 2;
+                        const gateHalfHeight =  gateImg.height / 2;
+
+                        const stationCenterX = stationPos.x + stationImg.width / 2;
+                        const stationCenterY = stationPos.y + stationImg.height / 2;
+
+                        spriteCollided.setPosition((stationCenterX - gateHalfWidth), (stationCenterY - gateHalfHeight));
+                        (spriteCollided as Circuit).stopMoving();
+                        spriteCollided.setVelocity(0,0);
+                        
+                        (s as Station).changeState(StationState.ON);
+                        console.log("Circuit End Detected in Station");
+                        }
+                    }
+                    
                 }
                 else {
                     (s as Station).changeState(StationState.OFF);
                     (s as Station).changeCenter(CenterState.EMPTY);
                 } 
             }
-        
         /*
          * if the object is not a player, check for collision with other sprites
          * if they collide, bounce off of eachother and change directions
@@ -654,7 +727,20 @@ export class GameMap {
             return;
         }
         
-        this.updateSprite(this.player);
+        this.sprites.forEach((sprite,index,obj) => {
+            //console.log("Entering Station/Circuit Checking Loop");
+            if ((sprite instanceof Station) && !(sprite as Station).checkingIsInput() && !(sprite as Station).checkingIsOutput()) {
+                //console.log("Entered Station Check");
+                (sprite as Station).checkOutput();
+            }
+            else if (sprite instanceof Circuit) {
+                //console.log("Entered Circuit Check");
+                (sprite as Circuit).checkPower();
+            }
+        });
+        //UPDATE THE DORE
+        
+        this.updateSprite(this.player)
         this.player.update(deltaTime); 
 
         this.sprites.forEach((sprite,index,obj) => {
@@ -671,7 +757,7 @@ export class GameMap {
                 } 
             }
             else if (sprite instanceof PowerUp || sprite instanceof Station) {
-                if (sprite instanceof Gate || sprite instanceof Station) {
+                if (sprite instanceof Gate  || sprite instanceof Circuit || sprite instanceof Station) {
                     this.updateSprite(sprite);
                 }
                 sprite.update(deltaTime);
@@ -687,6 +773,9 @@ export class GameMap {
              if (nearby) {
              this.heldMedallion = nearby;
              this.robot_pickup.play();
+             if (this.heldMedallion instanceof Gate) {
+             (this.heldMedallion as Gate).startMoving();
+             }
          }
         }
 
