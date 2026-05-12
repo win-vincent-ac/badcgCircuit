@@ -150,8 +150,8 @@ export class GameMap {
         //LEVEL DESIGN FOR GATES, STATIONS, CIRCUITS
         //All stations will be drawn first as sprites[i] and end as sprites[0], Read them right to left
         //after all stations are drawn, then gates and other sprites are drawn at sprites[i+1], read left to right
-        if (this.level == 0) {
-            console.log("level == Zero ");
+        if (this.level == 1) {
+            console.log("level == One ");
             (this.sprites[3] as Station).changeState(StationState.OFF);
             
             (this.sprites[2] as Station).changeState(StationState.OFF);
