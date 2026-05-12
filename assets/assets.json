@@ -64,9 +64,9 @@
             "robot_jump": "assets/sounds/robot_jump.wav",
             "robot_pickup": "assets/sounds/robot_pickup.wav",
             "robot_putdown": "assets/sounds/robot_putdown.wav",
+            "door_open": "assets/sounds/door_open.wav",
+            "new_level": "assets/sounds/new_level.wav",
             "robot_walk": "assets/sounds/robot_walk.wav"
-           
-            
         },
         "json": {
             "resources": "assets/resources/resources.json"

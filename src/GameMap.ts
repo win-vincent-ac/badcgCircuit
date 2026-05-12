@@ -2,10 +2,9 @@ import { Player } from "./sprites/Player.js";
 import { ResourceManager } from "./ResourceManager.js";
 import { Sprite } from "./sprites/Sprite.js";
 import { GRAVITY, STATE, GameManager } from './GameManager.js';
-import { Creature, CreatureState, Grub } from "./sprites/Creature.js";
+import { Creature, CreatureState } from "./sprites/Creature.js";
 import { Door,Heart, Music, PowerUp, Star} from "./sprites/PowerUp.js";
-import { Projectile, EnemyProjectile } from './sprites/Projectile.js';
-import { Lava } from "./sprites/Lava.js"
+import { Spike } from "./sprites/Spike.js"
 import { Settings } from "./Settings.js";
 import { Gate, GateState } from "./sprites/Gate.js";
 import { CenterState, Station, StationState } from "./sprites/Station.js";
@@ -29,19 +28,12 @@ export class GameMap {
     resources: ResourceManager;
     game: GameManager;
     settings: Settings;
-    prize: p5.SoundFile;
     game_music: p5.SoundFile;
-    boop: p5.SoundFile;
-    robot_temp: p5.SoundFile;
-    black_hole: p5.SoundFile;
-    dying: p5.SoundFile;
     robot_jump: p5.SoundFile;
-    full_death: p5.SoundFile;
     medallions: number;
     ALPHALEVEL: number;
     lives: number;
-    oneUp: p5.SoundFile;
-    heldMedallion: Star | null = null;
+    heldItem: Star | null = null;
     hWasDown: boolean = false;
     robot_death: p5.SoundFile;
     robot_pickup: p5.SoundFile;
@@ -49,9 +41,7 @@ export class GameMap {
     robot_putdown: p5.SoundFile;
 
     constructor(level:number, resources:ResourceManager, settings:Settings, game: GameManager) {
-    /*
-     * This initializes different aspects of the game
-     */    
+    // This initializes different aspects of the game
         this.ALPHALEVEL=20;
         this.settings=settings;
         this.level=level;
@@ -63,27 +53,18 @@ export class GameMap {
     }
 
     initialize() {
-        this.oneUp=this.resources.getLoad("1up");
-        this.prize=this.resources.getLoad("prize");
         this.game_music=this.resources.getLoad("game_music");
-        this.boop=this.resources.getLoad("boop2");
-        this.full_death=this.resources.getLoad("full_death");
-        this.black_hole=this.resources.getLoad("blackHole");
-        this.dying = this.resources.getLoad("dying");
         this.robot_jump=this.resources.getLoad("robot_jump");
-        this.robot_temp=this.resources.getLoad("robot_temp");
         this.robot_death=this.resources.getLoad("robot_death");
         this.robot_pickup=this.resources.getLoad("robot_pickup");
         this.robot_walk=this.resources.getLoad("robot_walk");
         this.robot_putdown=this.resources.getLoad("robot_putdown");
-        /*
-         * These initialze arrays to store sprites and backgrounds 
-         */
+
+        // These initialze arrays to store sprites and backgrounds 
         this.sprites=[];
         this.background=[];
-        /*
-         * These get the tile size and the level map data
-         */
+
+        //These get the tile size and the level map data
         this.tile_size=this.resources.get("TILE_SIZE");
         let mappings=this.resources.get("mappings");
         let map=this.resources.getLoad(this.resources.get("levels")[this.level]);
@@ -93,9 +74,8 @@ export class GameMap {
             this.game.gameState=STATE.Finished;
             map=this.resources.getLoad(this.resources.get("levels")[this.level]);
         }
-        /*
-         * The analyze the level data and draw the sprites, tiles, 
-         */
+
+        // The analyze the level data and draw the sprites, tiles, 
         let lines=[];
         let width=0;
         let height=0;
@@ -111,9 +91,7 @@ export class GameMap {
                             this.background.push(this.resources.getLoad(parts[1]));
                             break;
                         }
-                        /**
-                         * this loads the music
-                         */
+                        // this loads the music
                         case "@music": {
                             this.game_music=this.resources.getLoad(parts[1]);
                             break;
@@ -129,16 +107,12 @@ export class GameMap {
             }
         });
 
-        /*
-         * Calculates the level height and width based on the analyzed level data 
-         */
+        // Calculates the level height and width based on the analyzed level data
         height=lines.length;
         this.width=width;
         this.height=height;
         
-        /*
-         * creates 2D tile array to assign tiles and sprites based on the analyzed level, sprite and tiles data
-         */
+        // creates 2D tile array to assign tiles and sprites based on the analyzed level, sprite and tiles data
         this.tiles=[...Array(width)].map(x=>Array(height)) 
         
 
@@ -193,8 +167,6 @@ export class GameMap {
 
     }
 
-    
-
     /*
      * Convert tile position to pixel position
      */
@@ -213,9 +185,7 @@ export class GameMap {
      */
     draw() {
     
-        /*
-         * These define the screen demension
-         */
+        // These define the screen demension
         let myW=800;
         let myH=600;
         
@@ -233,9 +203,7 @@ export class GameMap {
             let y = Math.trunc(offsetY * (myH - bg.height)/(myH-mapHeight)); 
             image(bg,0,0,myW,myH,0-x,0-y,800,600); 
         });
-        /*
-         * These lines of code creates the tiles of the video game that are visible
-         */
+        // These lines of code creates the tiles of the video game that are visible
         let firstTileX = Math.trunc(this.pixelsToTiles(-offsetX));
         let lastTileX = Math.trunc(firstTileX + this.pixelsToTiles(myW) + 1);
         for (let y = 0; y < this.height; y++) {
@@ -247,49 +215,40 @@ export class GameMap {
                 }
             }
         }
-        /*
-         * These lines of code creates the player and its position
-         */
+        // These lines of code creates the player and its position
         image(this.player.getImage(),
             Math.trunc(Math.trunc(position.x) + offsetX),
             Math.trunc(Math.trunc(position.y) + offsetY));
 
          // This is going to highlight the medallions and detect if they are within the player's radius
          // - Liv
-            const nearbyMedallion = this.getNearbyMedallion(120);
+        const nearbyItem = this.getNearbyItem(120);
 
         this.sprites.forEach((sprite) => {
         const p = sprite.getPosition();
         const img = sprite.getImage();
 
         if (!img) return;
-
-            image(
-                img,
-                 Math.trunc(p.x + offsetX),
-                Math.trunc(p.y + offsetY));
-
-         if (sprite === nearbyMedallion) { 
+            image(img, Math.trunc(p.x + offsetX), Math.trunc(p.y + offsetY));
+        if (sprite === nearbyItem) { 
             noFill();
-            if (this.heldMedallion == null) {stroke(255, 255, 255);}
-            else { stroke(255, 255, 255, 0);}
+            if (this.heldItem == null) {stroke(255, 255, 255);}
+            else {stroke(255, 255, 255, 0);}
             strokeWeight(3);
 
-         ellipse(
+            ellipse( 
             Math.trunc(p.x + offsetX + img.width / 2),
             Math.trunc(p.y + offsetY + img.height / 2),
             img.width + 0,
             img.height + 0
         );
-
             strokeWeight(1);
             noStroke();
-    
         };
 
-        if (sprite === nearbyMedallion) { 
+        if (sprite === nearbyItem) { 
             noFill();
-            if (this.heldMedallion == null) {stroke(255, 255, 255);}
+            if (this.heldItem == null) {stroke(255, 255, 255);}
             else { stroke(255, 255, 255, 0);}
             strokeWeight(1);
 
@@ -299,15 +258,12 @@ export class GameMap {
             img.width + 10,
             img.height + 10
         );
-
             strokeWeight(1);
             noStroke();
     
         };
     
-        /* OLD CODE (not needed)
-         * These lines of codes draws every other sprite (fly) in the game
-         */
+        // These lines of codes draws every other sprite in the game
         this.sprites.forEach(sprite => {
             let p=sprite.getPosition();
             image(sprite.getImage(),
@@ -374,7 +330,7 @@ export class GameMap {
 
     // this checks if there is a medallion within the radius of the play and will higlight the medallion signalling
     // that it can be picked up
-    getNearbyMedallion(radius: number): Star | null {
+    getNearbyItem(radius: number): Star | null {
     const playerPos = this.player.getPosition();
     const playerImg = this.player.getImage();
 
@@ -406,38 +362,21 @@ export class GameMap {
     return null;
 }
     /*
-     * This checks to see if there is a player collision with a sprite and it initializes
-     * that the player can kill the sprite
+     * This checks to see if there is a player collision and if
+     * the player can get killed by it
      */
-    checkPlayerCollision(p: Player, canKill: boolean) {
+    checkPlayerCollision(p: Player) {
         if (p.getState()!=CreatureState.NORMAL) return;
         let s=this.getSpriteCollision(p);
         if (s && this.pp_collision(p,s)) {
-            if (s instanceof Creature || s instanceof EnemyProjectile) {
-                if(this.lives==1){
-                    p.setState(CreatureState.DYING)
-                    this.robot_death.play();
-                    this.level=0;
-                    this.medallions=0;
-                    this.lives+=3;
-                }
-                if(this.lives>1){
-                    p.setState(CreatureState.DYING);
-                    this.robot_death.play();
-                    this.medallions=0;
-                    this.lives-=1;
-                }                
-            }   
-            else if (s instanceof Lava) {
+            if (s instanceof Spike) {
                 p.setState(CreatureState.DYING);
                 this.robot_death.play();
-                this.medallions=0;
-            } 
+            }   
             else if (s instanceof PowerUp) {
                 if (s instanceof Star) {
                     return;
-                }
-                //this.acquirePowerUp(s);
+                } 
             }
         }
     }
@@ -447,9 +386,14 @@ export class GameMap {
         if (s instanceof Star && !keyIsDown(72)) {
             return;
         }
-        this.acquirePowerUp (s);
-        
+       // this.acquirePowerUp (s); 
     }
+
+
+    /* I dont think we need this code below, but I know makala is working on door,
+    * so I didnt want to change/delete a bunch of things
+    * - Olivia
+    /*
 
     /*
      * This method checks to see if the player aquires a power up or not. 
@@ -484,7 +428,6 @@ export class GameMap {
              */
             if(this.level==0 && this.medallions==10) {
                 /* Start animation for changing door open close */
-                this.black_hole.play();
                 this.level+=1;
                 this.medallions=0;
                 this.initialize();
@@ -497,7 +440,6 @@ export class GameMap {
             * if you don't have 20 medaillions then you cannot proceed to the next level
             */
             if(this.level==1 && this.medallions==10) {
-                this.black_hole.play();
                 this.level+=1;
                 this.medallions=0;
 
@@ -514,7 +456,6 @@ export class GameMap {
         */
         else if (p instanceof PowerUp) {
             if(this.lives>0){
-                this.oneUp.play();
                 this.lives+=1;
             } 
         }
@@ -585,7 +526,7 @@ export class GameMap {
         }
         s.setPosition(newPos.x,newPos.y);
         if (s instanceof Player) {
-            this.checkPlayerCollision(s as Player, false);
+            this.checkPlayerCollision(s as Player);
         }
         
         /*
@@ -611,13 +552,13 @@ export class GameMap {
          * if the object is a player, check for collision with objects and other sprites
          */
         if (s instanceof Player) {
-            this.checkPlayerCollision(s as Player, oldY < newPos.y);
+            this.checkPlayerCollision(s as Player);
         } 
 
 
         else if ((s instanceof Station)) {
             let spriteCollided=this.getSpriteCollision(s);
-                if ((spriteCollided instanceof Gate) && this.heldMedallion == null  && !(s as Station).checkingIsInput() && !(s as Station).checkingIsOutput()) {
+                if ((spriteCollided instanceof Gate) && this.heldItem == null  && !(s as Station).checkingIsInput() && !(s as Station).checkingIsOutput()) {
                     //Controling power on/off as <is there a gate in me>
                         if ((s as Station).getState() == StationState.OFF) {
                         const gatePos = spriteCollided.getPosition();
@@ -654,7 +595,7 @@ export class GameMap {
                        }
                        
                 }
-                else if (spriteCollided instanceof Circuit && this.heldMedallion == null) {
+                else if (spriteCollided instanceof Circuit && this.heldItem == null) {
                     if((s as Station).checkingIsOutput() && (spriteCollided as Circuit).getState() == CircuitState.START) {
                         if ((s as Station).getState() == StationState.OFF) {
                         const gatePos = spriteCollided.getPosition();
@@ -711,7 +652,7 @@ export class GameMap {
         else {
             
             let spriteCollided=this.getSpriteCollision(s);
-            if (spriteCollided && !(spriteCollided instanceof Projectile)) {
+            if (spriteCollided) {
                 let oldVel=s.getVelocity();
                 s.setVelocity(oldVel.x*-1, - oldVel.y);
                 
@@ -767,45 +708,45 @@ export class GameMap {
         
         const hDown = keyIsDown(72); // H key
 
-        // Press H once to pick up nearby medallion
-        if (hDown && !this.hWasDown && this.heldMedallion === null) {
-            const nearby = this.getNearbyMedallion(120);
+        // Press H once to pick up nearby item
+        if (hDown && !this.hWasDown && this.heldItem === null) {
+            const nearby = this.getNearbyItem(120);
 
              if (nearby) {
-             this.heldMedallion = nearby;
+             this.heldItem = nearby;
              this.robot_pickup.play();
-             if (this.heldMedallion instanceof Gate) {
-             (this.heldMedallion as Gate).startMoving();
+             if (this.heldItem instanceof Gate) {
+             (this.heldItem as Gate).startMoving();
              }
          }
         }
 
         // Press H again to drop it
-        else if (hDown && !this.hWasDown && this.heldMedallion !== null) {
+        else if (hDown && !this.hWasDown && this.heldItem !== null) {
             const playerPos = this.player.getPosition();
 
             if (this.player.currAnimName.toUpperCase().includes("LEFT")) {
-                this.heldMedallion.setPosition( //PUT DOWN LEFT
+                this.heldItem.setPosition( //PUT DOWN LEFT
                 playerPos.x - 40,
                 playerPos.y + 56);
                 this.robot_putdown.play();
-            this.heldMedallion = null;
+            this.heldItem = null;
             }
             else {
-                this.heldMedallion.setPosition( //PUT DOWN RIGHT
+                this.heldItem.setPosition( //PUT DOWN RIGHT
                 playerPos.x + 120,
                 playerPos.y + 56);
                 this.robot_putdown.play();
-            this.heldMedallion = null;
+            this.heldItem = null;
             }
 
     }
 
         // If holding a medallion, move it with the player
-        if (this.heldMedallion !== null) {
+        if (this.heldItem !== null) {
         const playerPos = this.player.getPosition();
 
-        this.heldMedallion.setPosition( //HOLDING
+        this.heldItem.setPosition( //HOLDING
             playerPos.x + 35,
             playerPos.y - 64);
 }

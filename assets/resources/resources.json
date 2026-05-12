@@ -116,27 +116,27 @@
             ]
         },
         
-        "lava_pool": {
-            "type":"Lava",
+        "spike": {
+            "type":"Spike",
             "default":[
-                {"img":"lava1", "duration":75},
-                {"img":"lava2", "duration":75}
+                {"img":"spike1", "duration":75},
+                {"img":"spike2", "duration":75}
             ],
             "deadLeft":[
-                {"img":"lava1", "duration":75},
-                {"img":"lava2", "duration":75}
+                {"img":"spike1", "duration":75},
+                {"img":"spike2", "duration":75}
             ],
             "deadRight":[
-                {"img":"lava1", "duration":75},
-                {"img":"lava2", "duration":150}
+                {"img":"spike1", "duration":75},
+                {"img":"spike2", "duration":150}
             ],
             "left":[
-                {"img":"lava1", "duration":75},
-                {"img":"lava2", "duration":75}
+                {"img":"spike1", "duration":75},
+                {"img":"spike2", "duration":75}
             ],
             "right":[
-                {"img":"lava1", "duration":75},
-                {"img":"lava2", "duration":75}
+                {"img":"spike1", "duration":75},
+                {"img":"spike2", "duration":75}
             ]
         },
         "power":{
@@ -182,7 +182,7 @@
             "^": "life",
             "%": "end_portal",
             "-": "my_fly",
-            "5": "lava_pool",
+            "5": "spike",
             "p": "power",
             "?": "mike",
             "!": "gate",
