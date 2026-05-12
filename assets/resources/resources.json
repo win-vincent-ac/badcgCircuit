@@ -90,7 +90,7 @@
         "energy_terminal": {
             "type": "EnergyTerminal",
             "default": [
-                {"img":"tiny_logic", "duration":50}
+                {"img":"energy_terminal", "duration":50}
             ]
         },
 

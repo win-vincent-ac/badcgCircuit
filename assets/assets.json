@@ -40,8 +40,6 @@
             "lil_dude3": "assets/images/lil_dude3.png",
             "lil_dude4": "assets/images/lil_dude4.png",
             "lil_dude5": "assets/images/lil_dude5.png",
-            "switch_on": "assets/images/switch_on.png",
-            "switch_off": "assets/images/switch_off.png",
             "start_block_zero": "assets/images/all_dem/start_block_zero.png",
             "end_block_zero": "assets/images/all_dem/end_block_zero.png",
             "start_block_one": "assets/images/all_dem/start_block_one.png",
@@ -55,8 +53,7 @@
             "lit_logic": "assets/images/lit_logic.png",
             "block_stand": "assets/images/block_stand.png",
             "circle_stand": "assets/images/circle_stand.png",
-            "switch_on": "assets/images/switch_on.png",
-            "switch_off": "assets/images/switch_off.png"
+            "energy_terminal": "assets/images/energy_terminal.png"
         },
         "text": {
             "map1": "assets/maps/map1.txt",
