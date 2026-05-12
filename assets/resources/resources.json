@@ -1,16 +1,5 @@
 {
     "sprites": {
-        "star": {
-            "type": "Star",
-            "default": [
-                {"img":"medallion1", "duration":100},
-                {"img":"medallion2", "duration":100},
-                {"img":"medallion3", "duration":100},
-                {"img":"medallion4", "duration":100},
-                {"img":"medallion3", "duration":100},
-                {"img":"medallion2", "duration":100}
-            ]
-        },
         "gate": {
             "type": "Gate",
             
@@ -90,45 +79,6 @@
             ]
         },
 
-        "life": {
-            "type": "PowerUp",
-            "default": [
-                {"img":"life1", "duration":150},
-                {"img":"life3", "duration":150},
-                {"img":"life2", "duration":150},
-                {"img":"life3", "duration":150}
-            ]
-        
-
-        },
-        
-        "final_boss": {
-            "type": "FinalBoss",
-            "left": [
-                {"img":"final_boss1", "duration":150},
-                {"img":"final_boss2", "duration":150},
-                {"img":"final_boss3", "duration":150},
-                {"img":"final_boss4", "duration":150}
-            ],
-            "right": [
-                {"img":"final_boss1", "operators":["mirror"], "duration":150},
-                {"img":"final_boss2" , "operators":["mirror"], "duration":150},
-                {"img":"final_boss3", "operators":["mirror"], "duration":150},
-                {"img":"final_boss4" , "operators":["mirror"], "duration":150}
-            ],
-            "deadLeft": [
-                {"img":"final_boss1", "duration":50},
-                {"img":"final_boss_dead1", "duration":50},
-                {"img":"final_boss_dead2", "duration":50},
-                {"img":"final_boss_dead3", "duration":50}
-            ],
-            "deadRight": [                
-                {"img":"final_boss1", "duration":50},
-                {"img":"final_boss_dead1", "duration":50},
-                {"img":"final_boss_dead2", "duration":50},
-                {"img":"final_boss_dead3", "duration":50}
-            ]
-        },
         "end_portal": {
             "type":"EndPortal",
             "default":[
@@ -165,35 +115,7 @@
                 {"img":"big_logic", "duration":150}
             ]
         },
-        "my_fly": {
-            "type":"MyFly",
-            "default":[
-                {"img":"fly1", "duration":150},
-                {"img":"fly2", "duration":150},
-                {"img":"fly3", "duration":150},
-                {"img":"fly2", "duration":150}
-            ],
-            "deadLeft":[
-                {"img":"fly1", "operators":["flip"], "duration":100},
-                {"img":"fly2", "operators":["flip"], "duration":100}
-            ],
-            "deadRight":[
-                {"img":"fly1", "operators":["mirror","flip"], "duration":100},
-                {"img":"fly2", "operators":["mirror","flip"], "duration":100}
-            ],
-            "left":[
-                {"img":"fly1", "duration":150},
-                {"img":"fly2", "duration":150},
-                {"img":"fly3", "duration":150},
-                {"img":"fly2", "duration":150}
-            ],
-            "right":[
-                {"img":"fly1","operators":["mirror"], "duration":150},
-                {"img":"fly2","operators":["mirror"], "duration":150},
-                {"img":"fly3","operators":["mirror"], "duration":150},
-                {"img":"fly2","operators":["mirror"], "duration":150}
-            ]
-        },
+        
         "lava_pool": {
             "type":"Lava",
             "default":[

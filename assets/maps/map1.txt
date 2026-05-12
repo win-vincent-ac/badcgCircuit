@@ -15,9 +15,7 @@ AAAAAAAHBBBBF                       EBBBBGAAAAAAA
 AAAAAAANJJJJJL                     KJJJJJMAAAAAAA 
 AAAAAAAD                                 CAAAAAAA         
 AOAAAAAD    $ $ m $  !!!     **          CAAAAAAA           
-AAAAAAAHBBBBFEBBBBBBBBBBBBBBBBF     EBBBBGAAAAAAA  
-AAAAAAAD                                 CAAAAAAA   
-AAAAAAAD                                 CAAAAAAA   
+AAAAAAAHBBBBFEBBBBBBBBBBBBBBBBF     EBBBBGAAAAAAA     
 AAAAAAAD                                 CAAAAAAA   
 AAAAAAAD                                 CAAAAAAA   
 AAAAAAAD              ?                  CAAAAAAA   
