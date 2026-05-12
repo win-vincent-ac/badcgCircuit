@@ -93,7 +93,7 @@ export class Station extends Sprite {
             }
             else if ((this.inputOneSource.getState() == StationState.ON || this.inputTwoSource.getState() == StationState.ON) && this.center == CenterState.OR) {
                 this.outputSource.changeState(StationState.ON);
-                //console.log("turned on OR");
+                console.log("turned on OR");
             }
             else if (this.inputOneSource.getState() == StationState.OFF && this.center == CenterState.NOT) {
                 this.outputSource.changeState(StationState.ON);

@@ -2,11 +2,11 @@ import { Star } from "./PowerUp.js";
 import { Switch, SwitchState } from "./Switch.js";
 import { Station, StationState } from "./Station.js";
 
-export enum CircuitState { START, END };
+export enum CircuitState {START, END };
 
 export enum CircuitNumber { ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE };
 
-export enum CircuitPower { ON, OFF };
+export enum CircuitPower { FILLER, ON, OFF };
 
 export class Circuit extends Star {
 
@@ -15,7 +15,7 @@ export class Circuit extends Star {
     protected number: number;
     protected locked: boolean;
     protected placed: boolean;
-    protected source: Circuit | Station | Switch;
+    protected source: Circuit | Station | Switch | null;
 
     constructor() {
         super();
@@ -26,13 +26,15 @@ export class Circuit extends Star {
     changeState(initialState: number, initialNumber: number) {
         switch (initialState) {
             case CircuitState.START: {
-                this.state=CircuitState.START;
+                this.state = CircuitState.START;
                 switch (initialNumber) {
                     case CircuitNumber.ONE: {
+                    this.number = CircuitNumber.ONE;
                     this.setAnimation("one_start");
                     break;
                     }
                     case CircuitNumber.TWO: {
+                        this.number = CircuitNumber.TWO;
                     this.setAnimation("two_start");
                     break;
                     }
@@ -45,13 +47,15 @@ export class Circuit extends Star {
                 break;
             }
             case CircuitState.END: {
-                this.state=CircuitState.END;
+                this.state = CircuitState.END;
                 switch (initialNumber) {
                     case CircuitNumber.ONE: {
+                    this.number = CircuitNumber.ONE;
                     this.setAnimation("one_end");
                     break;
                     }
                     case CircuitNumber.TWO: {
+                        this.number = CircuitNumber.TWO;
                     this.setAnimation("two_end");
                     break;
                     }
@@ -71,6 +75,39 @@ export class Circuit extends Star {
     getPower() {
         return this.power;
     }
+    getNumber() {
+        if (this.number == CircuitNumber.ZERO) {
+                return "zero";
+            } 
+        else if (this.number == CircuitNumber.ONE) {
+            return "one";
+        } 
+        else if (this.number == CircuitNumber.TWO) {
+            return "two";
+        } 
+        else if (this.number == CircuitNumber.THREE) {
+            return "three";
+        } 
+        else if (this.number == CircuitNumber.FOUR) {
+            return "four";
+        } 
+        else if (this.number == CircuitNumber.FIVE) {
+            return "five";
+        } 
+        else if (this.number == CircuitNumber.SIX) {
+            return "six";
+        } 
+        else if (this.number == CircuitNumber.SEVEN) {
+            return "seven";
+        } 
+        else if (this.number == CircuitNumber.EIGHT) {
+            return "eight";
+        } 
+        else if (this.number == CircuitNumber.NINE) {
+            return "nine";
+        } 
+        
+    }
     lockCircuit(){
         this.locked = true;
     }
@@ -85,6 +122,8 @@ export class Circuit extends Star {
     }
     syncStart(s: Circuit) {
         this.source = s;
+        //s.removePower();
+        this.power = s.getPower();
     }
     syncSwitch(s: Switch) {
         this.source = s
@@ -111,28 +150,30 @@ export class Circuit extends Star {
                     }
             } else if (this.source instanceof Switch) {
                 if ((this.source as Switch).getState() == SwitchState.ON) {
-                   //console.log("Sw.Turning Power On");
+                   console.log("Sw.Turning Power On" + this.getNumber());
                     this.power = CircuitPower.ON;
-                   //console.log("Sw.Power On");
+                   console.log("Sw.Power On" + this.getNumber());
                 }
                 else {
                     this.power = CircuitPower.OFF;
-                  //console.log("Sw.Power Off");
+                  console.log("Sw.Power Off" + this.getNumber());
                     }
             } else if (this.source instanceof Circuit) {
                 if ((this.source as Circuit ).getState() == CircuitPower.ON) {
-                   console.log("Cr.Turning Power On");
+                    console.log("Cr.Turning Power On Circuit: " + this.getNumber());
                     this.power = CircuitPower.ON;
-                  console.log("Cr.Power On");
+                    console.log("Cr.Power On");
                 }
                 else {
                     this.power = CircuitPower.OFF;
-                  console.log("Cr.Power Off");
+                  console.log("Cr.Power Off Circuit: " + this.getNumber());
                     }
             }
            //console.log("Done Checking Power");
         }
-        else {//console.log("Circuit was Null");}
+        else {
+            console.log("Circuit was Null");
+            this.power = CircuitPower.OFF;
         }
     }
 } 

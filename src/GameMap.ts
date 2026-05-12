@@ -190,6 +190,10 @@ export class GameMap {
             (this.sprites[8] as Circuit).changeState(CircuitState.START, CircuitNumber.ONE);
             (this.sprites[9] as Circuit).changeState(CircuitState.END, CircuitNumber.ONE);
             (this.sprites[9] as Circuit).syncStart((this.sprites[8] as Circuit));
+
+            (this.sprites[10] as Circuit).changeState(CircuitState.START, CircuitNumber.TWO);
+            (this.sprites[11] as Circuit).changeState(CircuitState.END, CircuitNumber.TWO);
+            (this.sprites[11] as Circuit).syncStart((this.sprites[10] as Circuit));
         
         }
 
@@ -620,7 +624,7 @@ export class GameMap {
         else if (s instanceof Switch) {
            //console.log("!!!!!!!!!!!!Switch Found"); //HIT
             let spriteCollided=this.getSpriteCollision(s);
-            if ((spriteCollided instanceof Circuit) /*&& this.heldMedallion == null && (spriteCollided as Circuit).getState() == CircuitState.START*/) {
+            if ((spriteCollided instanceof Circuit) && this.heldMedallion == null && (spriteCollided as Circuit).getState() == CircuitState.START) {
                 //Controlling Full/Empty
                 //console.log("Switch Interacted with Circuit");
                     if (!(s as Switch).getSource != null) {
@@ -630,13 +634,13 @@ export class GameMap {
                     const switchImg = s.getImage();
 
                     const circuitHalfWidth = circuitImg.width / 2;
-                    const circuitHalfHeight =  circuitImg.height / 2;
+                    const circuitHalfHeight =  (circuitImg.height / 8)*7;
 
                     const switchCenterX = switchPos.x + switchImg.width / 2;
                     const switchCenterY = switchPos.y + switchImg.height / 2;
 
                     spriteCollided.setPosition((switchCenterX - circuitHalfWidth), 
-                                            (switchCenterY - circuitImg.height));
+                                            (switchCenterY - circuitHalfHeight));
                     (spriteCollided as Circuit).stopMoving();
                     spriteCollided.setVelocity(0,0);
                     
@@ -646,6 +650,7 @@ export class GameMap {
                     //}
                 }
                 else {
+                    console.log("SWITCH IS NULL");
                     (s as Switch).syncOutput(null);
                 }
             }
