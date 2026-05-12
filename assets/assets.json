@@ -53,7 +53,9 @@
             "lit_logic": "assets/images/lit_logic.png",
             "block_stand": "assets/images/block_stand.png",
             "circle_stand": "assets/images/circle_stand.png",
-            "energy_terminal": "assets/images/energy_terminal.png"
+            "energy_terminal": "assets/images/energy_terminal.png",
+            "switch_on": "assets/images/switch_on.png",
+            "switch_off": "assets/images/switch_off.png"
         },
         "text": {
             "map1": "assets/maps/map1.txt",
