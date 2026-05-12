@@ -3,11 +3,12 @@ import { ResourceManager } from "./ResourceManager.js";
 import { Sprite } from "./sprites/Sprite.js";
 import { GRAVITY, STATE, GameManager } from './GameManager.js';
 import { Creature, CreatureState } from "./sprites/Creature.js";
-import { Door,Heart, Music, PowerUp, Star} from "./sprites/PowerUp.js";
-import { Spike } from "./sprites/Spike.js"
+import { Heart, Music, PowerUp, Star} from "./sprites/PowerUp.js";
+import { Spike } from "./sprites/Spike.js";
 import { Settings } from "./Settings.js";
 import { Gate, GateState } from "./sprites/Gate.js";
 import { CenterState, Station, StationState } from "./sprites/Station.js";
+import {Door} from "./sprites/Door.js";
 import { Vector } from "p5";
 import { Circuit, CircuitState, CircuitPower, CircuitNumber } from "./sprites/Circuit.js";
 import { EnergyTerminal } from "./sprites/EnergyTerminal.js";
@@ -40,6 +41,8 @@ export class GameMap {
     robot_pickup: p5.SoundFile;
     robot_walk: p5.SoundFile;
     robot_putdown: p5.SoundFile;
+    facingLeft: boolean = false;
+    
 
     constructor(level:number, resources:ResourceManager, settings:Settings, game: GameManager) {
     // This initializes different aspects of the game
@@ -126,6 +129,7 @@ export class GameMap {
                 if (ch.match(/[A-Z]/)) { 
                     this.tiles[x][y]=this.resources.get(ch);
                 } else {//it's a sprite
+                    console.log(ch);
                     let s = this.resources.get(mappings[ch]).clone();
                     console.log("Issue Start " + s.getImage());
                     console.log("Issue Mid");
@@ -149,8 +153,8 @@ export class GameMap {
         //LEVEL DESIGN FOR GATES, STATIONS, CIRCUITS
         //All stations will be drawn first as sprites[i] and end as sprites[0], Read them right to left
         //after all stations are drawn, then gates and other sprites are drawn at sprites[i+1], read left to right
-        if (this.level == 0) {
-            console.log("level == Zero ");
+        if (this.level == 1) {
+          console.log("level == One ");
             (this.sprites[3] as Station).changeState(StationState.OFF);
             
             (this.sprites[2] as Station).changeState(StationState.OFF);
@@ -340,6 +344,12 @@ export class GameMap {
 
     // this checks if there is a medallion within the radius of the play and will higlight the medallion signalling
     // that it can be picked up
+    holdingItem() {
+        if (this.heldItem != null) {
+            return true;
+        }
+        else { return false; }
+    }
     getNearbyItem(radius: number): Star | null {
     const playerPos = this.player.getPosition();
     const playerImg = this.player.getImage();
@@ -384,6 +394,7 @@ export class GameMap {
                 this.robot_death.play();
             }   
             else if (s instanceof PowerUp) {
+                //console.log("Powe");
                 if (s instanceof Star) {
                     return;
                 } 
@@ -431,12 +442,18 @@ export class GameMap {
             * this else if checks to see if 'p' is in instance of a Heart
             */
         else if (p instanceof Door) {
+
             /*
              * the if loop states that if the level is 0 and you have 10 medaillions, you can proceed to the next level
              * and the sound black_hole will play
              * if you don't have 9 medaillions then you cannot proceed to the next level
              */
-            if(this.level==0 && this.medallions==10) {
+            if(!(p as Door).isOpen()){
+                (p as Door).openDoor();
+                this.level+=1;
+            }
+
+            else if((p as Door).isOpen()) {
                 /* Start animation for changing door open close */
                 this.level+=1;
                 this.medallions=0;
@@ -790,12 +807,14 @@ export class GameMap {
              else if (this.heldItem instanceof Circuit) {
                 (this.heldItem as Circuit).startMoving
              }
+             this.player.playerPickedItem();
          }
         }
 
         // Press H again to drop it
         else if (hDown && !this.hWasDown && this.heldItem !== null) {
             const playerPos = this.player.getPosition();
+            this.player.holdingItem = false;
 
             if (this.player.currAnimName.toUpperCase().includes("LEFT")) {
                 this.heldItem.setPosition( //PUT DOWN LEFT
@@ -811,12 +830,22 @@ export class GameMap {
                 this.robot_putdown.play();
             this.heldItem = null;
             }
-
+            
     }
 
-        // If holding a medallion, move it with the player
+        // If holding a item, move it with the player
         if (this.heldItem !== null) {
-        const playerPos = this.player.getPosition();
+            const playerPos = this.player.getPosition();
+            let oldVel = this.player.getVelocity();
+            //oldVel.x < 0 && ?? Messes idle pick up 
+            if ( this.player.currAnimName.toUpperCase().includes("LEFT")){
+                this.player.holdingItem = true;
+                //this.player.setAnimation("upies_run_Left");
+            //oldVel.x > 0 &&
+            } else if (this.player.currAnimName.toUpperCase().includes("RIGHT")){
+                this.player.holdingItem = true;
+                //this.player.setAnimation("upies_run_Right");
+            }
 
         this.heldItem.setPosition( //HOLDING
             playerPos.x + 35,
