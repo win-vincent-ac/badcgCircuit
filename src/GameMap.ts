@@ -127,8 +127,11 @@ export class GameMap {
                     this.tiles[x][y]=this.resources.get(ch);
                 } else {//it's a sprite
                     let s = this.resources.get(mappings[ch]).clone();
-                    s.setPosition(this.tilesToPixels(x)+this.tile_size-s.getImage().width/2,
-                                  this.tilesToPixels(y)+this.tile_size-s.getImage().height);
+                    console.log("Issue Start " + s.getImage());
+                    console.log("Issue Mid");
+                    s.setPosition((this.tilesToPixels(x)+this.tile_size-s.getImage().width/2),
+                                  (this.tilesToPixels(y)+this.tile_size-s.getImage().height));
+                    console.log("Issue End");
                                   
                     if (ch=='0') { // check if character is '0', which denotes the player sprite
                         this.player=s; // assign the sprite to the 'player' variable
@@ -147,6 +150,7 @@ export class GameMap {
         //All stations will be drawn first as sprites[i] and end as sprites[0], Read them right to left
         //after all stations are drawn, then gates and other sprites are drawn at sprites[i+1], read left to right
         if (this.level == 0) {
+            console.log("level == Zero ");
             (this.sprites[3] as Station).changeState(StationState.OFF);
             
             (this.sprites[2] as Station).changeState(StationState.OFF);
@@ -161,13 +165,13 @@ export class GameMap {
             (this.sprites[5] as Gate).changeState(GateState.NOT);
             (this.sprites[6] as Gate).changeState(GateState.OR);
 
-            (this.sprites[8] as Circuit).changeState(CircuitState.START, CircuitNumber.ONE);
-            (this.sprites[9] as Circuit).changeState(CircuitState.END, CircuitNumber.ONE);
-            (this.sprites[9] as Circuit).syncStart((this.sprites[8] as Circuit));
+            (this.sprites[9] as Circuit).changeState(CircuitState.START, CircuitNumber.ONE);
+            (this.sprites[10] as Circuit).changeState(CircuitState.END, CircuitNumber.ONE);
+            (this.sprites[10] as Circuit).syncStart((this.sprites[9] as Circuit));
 
-            (this.sprites[10] as Circuit).changeState(CircuitState.START, CircuitNumber.TWO);
-            (this.sprites[11] as Circuit).changeState(CircuitState.END, CircuitNumber.TWO);
-            (this.sprites[11] as Circuit).syncStart((this.sprites[10] as Circuit));
+            (this.sprites[11] as Circuit).changeState(CircuitState.START, CircuitNumber.TWO);
+            (this.sprites[12] as Circuit).changeState(CircuitState.END, CircuitNumber.TWO);
+            (this.sprites[12] as Circuit).syncStart((this.sprites[11] as Circuit));
         
         }
 

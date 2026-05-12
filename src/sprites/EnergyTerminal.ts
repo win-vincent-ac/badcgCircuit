@@ -8,6 +8,8 @@ export class EnergyTerminal extends Sprite {
 
     constructor() { 
         super();
+        this.setAnimation("default");
+        console.log("Energy");
     }
     
     checkEnergy () {
