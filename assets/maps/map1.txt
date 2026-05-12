@@ -14,11 +14,11 @@ AAAAAAAD                                 CAAAAAAA
 AAAAAAAHBBBBF                       EBBBBGAAAAAAA
 AAAAAAANJJJJJL                     KJJJJJMAAAAAAA 
 AAAAAAAD                                 CAAAAAAA         
-AOAAAAAD    $ $ m $  !!!     **          CAAAAAAA           
+AOAAAAAD                                 CAAAAAAA           
 AAAAAAAHBBBBFEBBBBBBBBBBBBBBBBF     EBBBBGAAAAAAA     
 AAAAAAAD                                 CAAAAAAA   
 AAAAAAAD                                 CAAAAAAA   
-AAAAAAAD              ?                  CAAAAAAA   
+AAAAAAAD                                 CAAAAAAA   
 AAAAAAAD                                 CAAAAAAA   
 AAAAAAAD                                 CAAAAAAA         
 AOAAAAAD                  0              CAAAAAAA           
@@ -26,8 +26,8 @@ AAAAAAAHBBBBFEBBBBBBBBBBBBBBBBF     EBBBBGAAAAAAA
 AAAAAAANJJJJJL       KJJJL         KJJJJJMAAAAAAA  
 AAAAAAAD                                 CAAAAAAA  
 AAAAAAAD                                 CAAAAAAA    
-AAAAAAAD        #*                       CAAAAAAA       
-AAAAAAAD  o arn EBF   555    EBF t b %   CAAAAAAA             
+AAAAAAAD                                 CAAAAAAA       
+AAAAAAAD        EBF          EBF         CAAAAAAA             
 AAAAAAAHBBBBBBBBGAHBBBBBBBBBBGAHBBBBBBBBBGAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA

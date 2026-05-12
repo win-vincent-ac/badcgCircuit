@@ -128,6 +128,7 @@ export class GameMap {
                 if (ch.match(/[A-Z]/)) { 
                     this.tiles[x][y]=this.resources.get(ch);
                 } else {//it's a sprite
+                    console.log(ch);
                     let s = this.resources.get(mappings[ch]).clone();
                     s.setPosition(this.tilesToPixels(x)+this.tile_size-s.getImage().width/2,
                                   this.tilesToPixels(y)+this.tile_size-s.getImage().height);
@@ -734,7 +735,7 @@ export class GameMap {
              if (this.heldItem instanceof Gate) {
              (this.heldItem as Gate).startMoving();
              }
-             this.player.playerPickedUpMedallion();
+             this.player.playerPickedItem();
              /*if (this.player.currAnimName.toUpperCase().includes("LEFT")) {
                 this.player.setAnimation("upiesLeft");
              } else {
@@ -747,7 +748,7 @@ export class GameMap {
         // Press H again to drop it
         else if (hDown && !this.hWasDown && this.heldItem !== null) {
             const playerPos = this.player.getPosition();
-            this.player.holdingMedallion = false;
+            this.player.holdingItem = false;
 
             if (this.player.currAnimName.toUpperCase().includes("LEFT")) {
                 this.heldItem.setPosition( //PUT DOWN LEFT
@@ -766,17 +767,17 @@ export class GameMap {
             
     }
 
-        // If holding a medallion, move it with the player
+        // If holding a item, move it with the player
         if (this.heldItem !== null) {
             const playerPos = this.player.getPosition();
             let oldVel = this.player.getVelocity();
             //oldVel.x < 0 && ?? Messes idle pick up 
             if ( this.player.currAnimName.toUpperCase().includes("LEFT")){
-                this.player.holdingMedallion = true;
+                this.player.holdingItem = true;
                 //this.player.setAnimation("upies_run_Left");
             //oldVel.x > 0 &&
             } else if (this.player.currAnimName.toUpperCase().includes("RIGHT")){
-                this.player.holdingMedallion = true;
+                this.player.holdingItem = true;
                 //this.player.setAnimation("upies_run_Right");
             }
 

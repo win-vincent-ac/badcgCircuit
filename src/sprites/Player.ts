@@ -21,7 +21,7 @@ export class Player extends Creature {
     doubleJump:boolean;
     doubleJumpTimer:number;
     doubleJumpActive:boolean;
-    holdingMedallion: boolean = false;
+    holdingItem: boolean = false;
     
     /**
      * the function of the player class
@@ -47,11 +47,11 @@ export class Player extends Creature {
         this.doubleJumpActive=false;
     }
 
-    playerPickedUpMedallion() {
-        this.holdingMedallion = true;
+    playerPickedItem() {
+        this.holdingItem = true;
     }
-    playerPutDownMedallion() {
-        this.holdingMedallion = false;
+    playerPutDownItem() {
+        this.holdingItem = false;
     }
     /**
      * function to get the number of lives the player has
@@ -297,7 +297,7 @@ export class Player extends Creature {
             if ((this.velocity.x<0)) {
                 if (this.jetPackOn) {
                     newAnim="jetLeft";
-                } else if (this.holdingMedallion) {
+                } else if (this.holdingItem) {
                     newAnim="upies_run_Left";
                 } else {
                     newAnim="left";
@@ -305,20 +305,20 @@ export class Player extends Creature {
             } else if ((this.velocity.x>0)) {
                 if (this.jetPackOn) {
                     newAnim="jetRight"; 
-                } else if (this.holdingMedallion) {
+                } else if (this.holdingItem) {
                     newAnim="upies_run_Right";
                 } else {
                     newAnim="right";
                 }
             } else {
                 if (this.currAnimName.toUpperCase().includes("LEFT")) {
-                    if (this.holdingMedallion) {
+                    if (this.holdingItem) {
                         newAnim="upiesLeft";
                     } else {
                     newAnim="stillLeft";
                     }
                 } else {
-                    if (this.holdingMedallion) {
+                    if (this.holdingItem) {
                         newAnim="upiesRight";
                     } else {
                     newAnim="stillRight";
