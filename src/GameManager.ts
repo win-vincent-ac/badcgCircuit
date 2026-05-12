@@ -6,7 +6,7 @@ import { ResourceManager } from "./ResourceManager.js";
 import { CreatureState } from "./sprites/Creature.js";
 import { Delay, Image, Renderer } from "p5";
 
-export const GRAVITY: number =  0.0014;
+export const GRAVITY: number =  0.0020;
 const FONT_SIZE: number = 24;
 
 export enum STATE {Loading, Menu, Running, Finished}
@@ -28,8 +28,6 @@ export class GameManager {
     img2: Image;
 
     constructor() {
-        this.img1 = loadImage("assets/images/medallion1.png");
-        this.img2 = loadImage("assets/images/life1.png");
         this.level=0;
         this.oldState=STATE.Loading;
         this.gameState=STATE.Loading;
@@ -46,43 +44,47 @@ export class GameManager {
     
     draw() {
         switch (this.gameState) {
-            /*
-             * if it is running, then certain things happen
-             */
+            // if it is running, then certain things happen
             case STATE.Running: { 
-                textStyle()
+                textStyle(BOLD)
                 this.map.draw();
-                text(this.map.lives,45,70);
-                fill(150,150,200,150);
-                rect(10,10,55,85);
-                fill(255,255,255);
-                image(this.img1, 15, 15, 32, 32);
-	            image(this.img2, 8, 41, 48, 48);
+                strokeWeight(10);
+                stroke(213,135,107,255); //Darker Red Outline
+
+                fill(239,166,140,255); //Lighter Red
+                rect(10,10,140,85,10,10,10,10); //in Front Rectangle
+
+
+                stroke(245,180,157,255); //Lightest Red
+                strokeWeight(5);
+                fill(0,0,0); //Text Color
+
+                 textFont('Courier New');
+                 textSize(18);
                 
-                textSize(12);
+                 if (this.jump.isPressed()) {
+                 text("Door is:\n      OPEN" /*+ this.map.lives*/,23,36);}
+                 else {text("Door is:\n    CLOSED" /*+ this.map.lives*/,23,36);}
+                 
+                 text("Level: " + this.map.level,25,80);
                 
-                text(this.map.lives,45,70);
-                text(this.map.medallions,45,36);
+                break;
                 
                 break;
             }
-            /*
-             * draws an overlay which is an menu that has a description of the game
-             */
+            // Draws the menu from settings
             case STATE.Menu: {
                 this.map.draw();
+                this.settings.animateMike();
+                this.settings.updateLevelText(this.map.level);
                 this.settings.showMenu();
                 break;
             }
-            /*
-             * this is the state of our game which means its loading
-             */
+            // this is the state of our game which means its loading
             case STATE.Loading: {
                 break;
             }
-            /*
-             * the code is done, not doing anything
-             */
+            // the code is done, the game is finished!
             case STATE.Finished: {
                 fill(255,0,0);
                 rect(0,0,800,600);
@@ -104,22 +106,16 @@ export class GameManager {
                 break;
             }
             default: {
-                /**
-                 * should never happen
-                 */
+                // should never happen
                 break;
             }
         }
     }
     
     update() {
-        /*
-         * checks to see if the game is running
-         */
+         // checks to see if the game is running
         switch (this.gameState) {
-            /*
-             * if the game is running then certain actions happen
-             */
+            // if the game is running then certain actions happen
             case STATE.Running: {
                 /*
                  * This is the main steps as the game is running to play the game
@@ -137,12 +133,10 @@ export class GameManager {
                 break;
             }
             case STATE.Loading: {
-                /*
-                 * Setup the listeners and game by constructing the GameMap and assigning input to functions
-                 */
+                // Setup the listeners and game by constructing the GameMap and assigning input to functions
                 if (this.resources.isLoaded()) {                    
                     this.map=new GameMap(this.level,this.resources,this.settings,this);
-                    this.settings.setMusic(this.resources.getLoad("music"));
+                    this.settings.setMusic(this.resources.getLoad("game_music"));
                     this.inputManager.setGameAction(this.moveRight,RIGHT_ARROW);
                     this.inputManager.setGameAction(this.moveLeft,LEFT_ARROW);
                     this.inputManager.setGameAction(this.jump,UP_ARROW);
@@ -150,9 +144,7 @@ export class GameManager {
                     this.inputManager.setGameAction(this.moveLeft,65);
                     this.inputManager.setGameAction(this.jump,87);
                     
-                    /**
-                     * sets the "R" key to restart our game
-                     */
+                    // sets the "R" key to restart our game
                     this.inputManager.setGameAction(this.restart,82);
 
                     this.oldState=STATE.Running;
@@ -169,40 +161,32 @@ export class GameManager {
             }
         }
     }
-    /*
-    * Processes the player's input actions and updates the game state accordingly.
-    */
+    // Processes the player's input actions and updates the game state accordingly.
     processActions() {
-        /*
-         * gets the players current velocity as an x and y "vector"
-         */
+        // gets the players current velocity as an x and y "vector"
         let vel=this.map.player.getVelocity();
         vel.x=0;
 
-        
         if (this.moveRight.isPressed() && this.map.player.getState()==CreatureState.NORMAL) {
-            if(this.moveRight.isPressed() && this.map.player.onGround && !this.map.robot_temp.isPlaying()) {this.map.robot_temp.play();}
+            if(this.moveRight.isPressed() && this.map.player.onGround && !this.map.robot_walk.isPlaying()) {this.map.robot_walk.play();}
             
             vel.x=this.map.player.getMaxSpeed();
         }
         if (this.moveLeft.isPressed() && this.map.player.getState()==CreatureState.NORMAL) {
-            if(this.moveLeft.isPressed() && this.map.player.onGround && !this.map.robot_temp.isPlaying()) {this.map.robot_temp.play();}
+            if(this.moveLeft.isPressed() && this.map.player.onGround && !this.map.robot_walk.isPlaying()) {this.map.robot_walk.play();}
             
             vel.x=-this.map.player.getMaxSpeed();
         }
-        /*
-         * updates the players velocity based on key press
-         */
 
+        // updates the players velocity based on key press
         this.map.player.setVelocity(vel.x,vel.y);
-        
+
         if (this.jump.isPressed() && this.map.player.getState()==CreatureState.NORMAL) {
             if ((this.map.player.onGround || this.map.player.doubleJump) && !this.map.robot_jump.isPlaying()) {
                 this.map.robot_jump.play();
             }
             this.map.player.jump(false);
         }
-        
         if(this.restart.isBeginPress()){
             this.level==0;
             this.map.initialize();
@@ -212,13 +196,12 @@ export class GameManager {
 
     }
     
+    // this toggles full screen
     toggleFullScreen() {
         this.settings.toggleFullScreen();
     }
 
-    /*
-     * this method allows the user to toggle the begining menu
-     */
+    // this method allows the user to toggle the beginning menu
     toggleMenu() {        
         if (this.gameState==STATE.Menu) {
             this.gameState=this.oldState;

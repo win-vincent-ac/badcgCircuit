@@ -8,56 +8,128 @@ export class Settings {
     public playMusic: boolean;
     public playEvents: boolean;
 
-    music: p5.SoundFile;
-
-
+    game_music: p5.SoundFile;
+    mikeFrames: p5.Image[] = [];
+    mikeIndex: number = 0;
+    mikeImg: any;
+    storyText: any;
     menu:  p5.Element;
     full: p5.Element;
     
     constructor() {
-        /*
+
+        // putting in a reference for M1K3's animation
+        this.mikeFrames = [
+        loadImage("assets/images/lil_dude1.png"),
+        loadImage("assets/images/lil_dude2.png"),
+        loadImage("assets/images/lil_dude3.png"),
+        loadImage("assets/images/lil_dude4.png"),
+        loadImage("assets/images/lil_dude5.png")
+    ];
+       /*
          * all of these initialize certain things in our game to make it run smooth
          */
         this.playMusic=false;
         this.playEvents=true;
 
         this.menu=createDiv();
-        this.menu.style("background-color","rgba(27,212,121,0.60)");
+        this.menu.position(30, 30);
+
+        this.menu.style("background-color","rgba(80, 142, 156, 0.88)");
         this.menu.position(30,30);
         this.menu.style("color","#000000");
+        this.menu.style("box-sizing", "border-box");
+        this.menu.style("font-family", "Courier New, monospace");
+        this.menu.style("font-size", "18px");
 
+        this.menu.style("line-height", "1.35");
 
-        let myDivt = createDiv("Welcome to an example game based on Apollo 18!");
-        this.menu.child(myDivt);
+        // M1K3's placement in the menu
+        this.mikeImg = createImg("assets/images/m1k3_1.png", "M1K3");
 
-        let music=createCheckbox("Play Music",this.playMusic);
+        this.mikeImg.style("position", "absolute");
+        this.mikeImg.style("top", "30px");
+        this.mikeImg.style("right", "30px");
+        this.mikeImg.style("width", "180px");
+        this.mikeImg.style("height", "180px");
+
+        this.menu.child(this.mikeImg);
+
+        // M1K3's speaking section/Storyline
+
+        // this separates our the top section and bottom section
+        const storylineSection = createDiv();
+        storylineSection.style("height", "50");
+        storylineSection.style("width", "70%");
+        storylineSection.style("border-bottom", "3px dashed black");
+        storylineSection.style("padding-bottom", "15px");
+
+        // Creating the Title of the game on the menu
+        const storyTitle = createDiv("R0b3rt's Circuit Adventure!");
+        storyTitle.style("font-size", "32px");
+        storyTitle.style("font-weight", "bold");
+        storyTitle.style("margin-bottom", "5px");
+
+        // M1K3's little blurb
+        const storyIntro = createDiv(
+            "Hello World! My name is M1K3 and I'm here to help you on your adventure, R0b3rt!");
+        this.storyText = createDiv("...");
+
+        // actually putting it on the screen
+        storylineSection.child(storyTitle);
+        storylineSection.child(storyIntro);
+        storylineSection.child(this.storyText);
+        // Game Mechanics Section
+
+        // this is created so the the game mechanic stuff is placed lower in the menu
+        const mechanicsSection = createDiv();
+        mechanicsSection.style("height", "50%");
+        mechanicsSection.style("padding-top", "5px");
+
+        // creating the game mechanics title to be similar size to the game title
+        const mechanicsTitle = createDiv("Game Mechanics");
+        mechanicsTitle.style("font-size", "32px");
+        mechanicsTitle.style("font-weight", "bold");
+        mechanicsTitle.style("margin-bottom", "5px");
+
+        /* making the game controls into an easier bigger statement, and using line breaks so
+        it is properly formatted on the menu */
+        const controls = createDiv(
+        "W / ↑ : Jump<br>" +
+        "A / ← : Move Left<br>" +
+        "D / → : Move Right<br>" +
+        "H: Hold nearby items<br>" +
+        "R: Restart the level<br>" +
+        "You can always press 'M' to bring this menu back up!"
+        ); 
+
+        // creating the check box for playing music
+        const music = createCheckbox(" Play Music", this.playMusic);
         music.mousePressed(this.togglePlayMusic.bind(this));
-        this.menu.child(music);
 
-        let events=createCheckbox("Play Event Sounds",true);
-        events.mousePressed(this.toogleEventSounds.bind(this));
-        this.menu.child(events);
+        // creating the check box for playing event sounds
+        const events = createCheckbox(" Play Event Sounds", true);
+        events.mousePressed(this.toggleEventSounds.bind(this));
 
-        this.full = createCheckbox("Full Screen",false);
+        // creating the check box for full screen
+        this.full = createCheckbox(" Full Screen", false);
         this.full.mousePressed(this.toggleFullScreen.bind(this));
-        this.menu.child(this.full);
 
-        let myDiv = createDiv("Up: Jump");
-        let myDiv1 = createDiv("Left: Left");
-        let myDiv2 = createDiv("Right: Right");
-        let myDiv3 = createDiv("R: Restart the level");
-        let myDiv4 = createDiv("Objective: Collect all of the medallions on each level to advance to the next. You can collect ammo packs and shoot bullets at enemies. You can also thrust upwards with your jetpack and collect fuel packs to fly longer. If you lose all of you lives you are taken back to the beginning of the game.");
-		let myDiv5 = createDiv("====== Press M to toggle this menu! ======");
-        this.menu.child(myDiv);
-        this.menu.child(myDiv1);
-        this.menu.child(myDiv2);
-        this.menu.child(myDiv3);
-        this.menu.child(myDiv4);
-        this.menu.child(myDiv5);
+        /* this is how it is visually on the menu, 
+        I moved it all together instead of how it was before */
+        mechanicsSection.child(mechanicsTitle);
+        mechanicsSection.child(controls);
+        mechanicsSection.child(music);
+        mechanicsSection.child(events);
+        mechanicsSection.child(this.full);
+
+        // displaying
+        this.menu.child(storylineSection);
+        this.menu.child(mechanicsSection);
+
         this.menu.hide();
-        
-    }
-    /*
+} 
+     /*   
      * this shows the menu 
      * it sets it to a certain width and height as well
      */
@@ -89,11 +161,11 @@ export class Settings {
     togglePlayMusic() {
         this.playMusic=!this.playMusic;
         if (this.playMusic) {
-            this.music.setLoop(true);
-            this.music.playMode("restart");
-            this.music.play();
+            this.game_music.setLoop(true);
+            this.game_music.playMode("restart");
+            this.game_music.play();
         } else {
-            this.music.stop();
+            this.game_music.stop();
         }
     }
 
@@ -101,13 +173,59 @@ export class Settings {
      * this sets a certain soundfile to 'm' which is the music
      */
     setMusic(m:p5.SoundFile) {
-        this.music=m;
+        this.game_music=m;
     }
 
     /*
      * this toggles event sounds, to see if they are played or not
      */
-    toogleEventSounds() {
+    toggleEventSounds() {
         this.playEvents=!this.playEvents;
     }
+    
+    // Set to animate mike
+    animateMike() {
+    if (frameCount % 10 == 0) {
+        this.mikeIndex++;
+        if (this.mikeIndex >= this.mikeFrames.length) {
+            this.mikeIndex = 0;
+        }
+        this.mikeImg.attribute(
+            "src",
+            "assets/images/lil_dude" + (this.mikeIndex + 1) + ".png"
+        );
+    }
+} 
+    // everytime you get to a new level the text on the menu will change
+    updateLevelText(level: number) {
+        if (level == 0) {
+            this.storyText.html(
+                "This is the first level. You'll learn about switches, movement, and doors here.<br>" +
+                "Go ahead and try pressing 'H' on the switch, it just might open the the door for you!"
+            );
+        }
+        else if (level == 1) {
+            this.storyText.html (
+                "Great Job!!!! Alright friend, this next level you will see your first gate" +
+                "Press 'H' to pick it up and move it to the logic station!"
+            );
+        }
+        else if (level == 2) {
+            this.storyText.html (
+                "You're a genius! The third level you will see circuits for the first time"
+            );
+        }
+        else if (level == 3) {
+            this.storyText.html (
+                "Wow! This level will introduce 2 logic stations."
+            );
+        }
+        else if (level == 4) {
+            this.storyText.html (
+                "Awesome, this level is going to combine all the things you've learned so far" +
+                "Good Luck and Have fun! :D"
+            );
+        }
+    }
+
 }

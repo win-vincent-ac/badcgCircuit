@@ -2,14 +2,15 @@ import { Player } from "./sprites/Player.js";
 import { ResourceManager } from "./ResourceManager.js";
 import { Sprite } from "./sprites/Sprite.js";
 import { GRAVITY, STATE, GameManager } from './GameManager.js';
-import { Creature, CreatureState, Grub } from "./sprites/Creature.js";
+import { Creature, CreatureState } from "./sprites/Creature.js";
 import { Heart, Music, PowerUp, Star} from "./sprites/PowerUp.js";
-import { Projectile, EnemyProjectile } from './sprites/Projectile.js';
-import { Lava } from "./sprites/Lava.js"
+import { Spike } from "./sprites/Spike.js";
 import { Settings } from "./Settings.js";
+import { Gate, GateState } from "./sprites/Gate.js";
+import { CenterState, Station, StationState } from "./sprites/Station.js";
 import {Door} from "./sprites/Door.js";
 import { Vector } from "p5";
-import { Velocity } from "./sprites/Player.js"
+import { Circuit, CircuitState, CircuitPower, CircuitNumber } from "./sprites/Circuit.js";
 
 /*
  * This class controls the main actions of the game for the player and the sprites
@@ -19,6 +20,7 @@ export class GameMap {
     tiles: p5.Image[][];
     tile_size:number;
     sprites: Sprite[];
+    gates: Sprite[];
     player: Player;
     background: p5.Image[];
     width: number; // width in tiles
@@ -27,31 +29,22 @@ export class GameMap {
     resources: ResourceManager;
     game: GameManager;
     settings: Settings;
-    prize: p5.SoundFile;
-    music: p5.SoundFile;
-    boop: p5.SoundFile;
-    robot_temp: p5.SoundFile;
-    black_hole: p5.SoundFile;
-    dying: p5.SoundFile;
+    game_music: p5.SoundFile;
     robot_jump: p5.SoundFile;
-    full_death: p5.SoundFile;
     medallions: number;
     ALPHALEVEL: number;
     lives: number;
-    oneUp: p5.SoundFile;
-    heldMedallion: Star | null = null;
-    // LogicStationCenter: Locked | Unlocked;
-    // LogicStationGate: Or | Not | And | Blank;
+    heldItem: Star | null = null;
     hWasDown: boolean = false;
     robot_death: p5.SoundFile;
     robot_pickup: p5.SoundFile;
+    robot_walk: p5.SoundFile;
+    robot_putdown: p5.SoundFile;
     facingLeft: boolean = false;
     
 
     constructor(level:number, resources:ResourceManager, settings:Settings, game: GameManager) {
-    /*
-     * This initializes different aspects of the game
-     */    
+    // This initializes different aspects of the game
         this.ALPHALEVEL=20;
         this.settings=settings;
         this.level=level;
@@ -63,25 +56,18 @@ export class GameMap {
     }
 
     initialize() {
-        this.oneUp=this.resources.getLoad("1up");
-        this.prize=this.resources.getLoad("prize");
-        this.music=this.resources.getLoad("music");
-        this.boop=this.resources.getLoad("boop2");
-        this.full_death=this.resources.getLoad("full_death");
-        this.black_hole=this.resources.getLoad("blackHole");
-        this.dying = this.resources.getLoad("dying");
+        this.game_music=this.resources.getLoad("game_music");
         this.robot_jump=this.resources.getLoad("robot_jump");
-        this.robot_temp=this.resources.getLoad("robot_temp");
         this.robot_death=this.resources.getLoad("robot_death");
         this.robot_pickup=this.resources.getLoad("robot_pickup");
-        /*
-         * These initialze arrays to store sprites and backgrounds 
-         */
+        this.robot_walk=this.resources.getLoad("robot_walk");
+        this.robot_putdown=this.resources.getLoad("robot_putdown");
+
+        // These initialze arrays to store sprites and backgrounds 
         this.sprites=[];
         this.background=[];
-        /*
-         * These get the tile size and the level map data
-         */
+
+        //These get the tile size and the level map data
         this.tile_size=this.resources.get("TILE_SIZE");
         let mappings=this.resources.get("mappings");
         let map=this.resources.getLoad(this.resources.get("levels")[this.level]);
@@ -91,9 +77,8 @@ export class GameMap {
             this.game.gameState=STATE.Finished;
             map=this.resources.getLoad(this.resources.get("levels")[this.level]);
         }
-        /*
-         * The analyze the level data and draw the sprites, tiles, 
-         */
+
+        // The analyze the level data and draw the sprites, tiles, 
         let lines=[];
         let width=0;
         let height=0;
@@ -109,11 +94,9 @@ export class GameMap {
                             this.background.push(this.resources.getLoad(parts[1]));
                             break;
                         }
-                        /**
-                         * this loads the music
-                         */
+                        // this loads the music
                         case "@music": {
-                            this.music=this.resources.getLoad(parts[1]);
+                            this.game_music=this.resources.getLoad(parts[1]);
                             break;
                         }
                         default: {
@@ -127,18 +110,15 @@ export class GameMap {
             }
         });
 
-        /*
-         * Calculates the level height and width based on the analyzed level data 
-         */
+        // Calculates the level height and width based on the analyzed level data
         height=lines.length;
         this.width=width;
         this.height=height;
         
-        /*
-         * creates 2D tile array to assign tiles and sprites based on the analyzed level, sprite and tiles data
-         */
+        // creates 2D tile array to assign tiles and sprites based on the analyzed level, sprite and tiles data
         this.tiles=[...Array(width)].map(x=>Array(height)) 
         
+
         for(let y=0; y<height; y++) {
             let line=lines[y];
             for (let x=0; x<line.length; x++) {
@@ -154,13 +134,40 @@ export class GameMap {
                                   
                     if (ch=='0') { // check if character is '0', which denotes the player sprite
                         this.player=s; // assign the sprite to the 'player' variable
-                    } else {
+                    } 
+                    else if (ch=='$' || ch=='m') { // check if character is '$' or 'm', which denotes the stations
+                        this.sprites.unshift(s);
+                    }
+                    else {
                         this.sprites.push(s); // otherwise, add the sprite to the 'sprites' array
                     }
                 }
             }
         }
         
+        //LEVEL DESIGN FOR GATES, STATIONS, CIRCUITS
+        //All stations will be drawn first as sprites[i] and end as sprites[0], Read them right to left
+        //after all stations are drawn, then gates and other sprites are drawn at sprites[i+1], read left to right
+        if (this.level == 0) {
+            (this.sprites[3] as Station).changeState(StationState.OFF);
+            
+            (this.sprites[2] as Station).changeState(StationState.OFF);
+            (this.sprites[1] as Station).changeState(StationState.OFF);
+            (this.sprites[1] as Station).syncInputOne((this.sprites[3] as Station));
+            (this.sprites[1] as Station).syncInputTwo((this.sprites[2] as Station));
+            (this.sprites[1] as Station).syncOutput((this.sprites[0] as Station));
+            (this.sprites[0] as Station).changeState(StationState.OFF);
+
+            //(this.sprites[0] as Station).connectOne(this.sprites[4]); <<<Possible example of changing connections
+            (this.sprites[4] as Gate).changeState(GateState.AND);
+            (this.sprites[5] as Gate).changeState(GateState.NOT);
+            (this.sprites[6] as Gate).changeState(GateState.OR);
+
+            (this.sprites[7] as Circuit).changeState(CircuitState.START, CircuitNumber.ONE);
+            (this.sprites[8] as Circuit).changeState(CircuitState.END, CircuitNumber.ONE);
+        
+        }
+
     }
 
     /*
@@ -181,9 +188,7 @@ export class GameMap {
      */
     draw() {
     
-        /*
-         * These define the screen demension
-         */
+        // These define the screen demension
         let myW=800;
         let myH=600;
         
@@ -201,9 +206,7 @@ export class GameMap {
             let y = Math.trunc(offsetY * (myH - bg.height)/(myH-mapHeight)); 
             image(bg,0,0,myW,myH,0-x,0-y,800,600); 
         });
-        /*
-         * These lines of code creates the tiles of the video game that are visible
-         */
+        // These lines of code creates the tiles of the video game that are visible
         let firstTileX = Math.trunc(this.pixelsToTiles(-offsetX));
         let lastTileX = Math.trunc(firstTileX + this.pixelsToTiles(myW) + 1);
         for (let y = 0; y < this.height; y++) {
@@ -215,49 +218,40 @@ export class GameMap {
                 }
             }
         }
-        /*
-         * These lines of code creates the player and its position
-         */
+        // These lines of code creates the player and its position
         image(this.player.getImage(),
             Math.trunc(Math.trunc(position.x) + offsetX),
             Math.trunc(Math.trunc(position.y) + offsetY));
 
          // This is going to highlight the medallions and detect if they are within the player's radius
          // - Liv
-            const nearbyMedallion = this.getNearbyMedallion(120);
+        const nearbyItem = this.getNearbyItem(120);
 
         this.sprites.forEach((sprite) => {
         const p = sprite.getPosition();
         const img = sprite.getImage();
 
         if (!img) return;
-
-            image(
-                img,
-                 Math.trunc(p.x + offsetX),
-                Math.trunc(p.y + offsetY));
-
-         if (sprite === nearbyMedallion) { 
+            image(img, Math.trunc(p.x + offsetX), Math.trunc(p.y + offsetY));
+        if (sprite === nearbyItem) { 
             noFill();
-            if (this.heldMedallion == null) {stroke(255, 255, 255);}
-            else { stroke(255, 255, 255, 0);}
+            if (this.heldItem == null) {stroke(255, 255, 255);}
+            else {stroke(255, 255, 255, 0);}
             strokeWeight(3);
 
-         ellipse(
+            ellipse( 
             Math.trunc(p.x + offsetX + img.width / 2),
             Math.trunc(p.y + offsetY + img.height / 2),
             img.width + 0,
             img.height + 0
         );
-
             strokeWeight(1);
             noStroke();
-    
         };
 
-        if (sprite === nearbyMedallion) { 
+        if (sprite === nearbyItem) { 
             noFill();
-            if (this.heldMedallion == null) {stroke(255, 255, 255);}
+            if (this.heldItem == null) {stroke(255, 255, 255);}
             else { stroke(255, 255, 255, 0);}
             strokeWeight(1);
 
@@ -267,15 +261,12 @@ export class GameMap {
             img.width + 10,
             img.height + 10
         );
-
             strokeWeight(1);
             noStroke();
     
         };
     
-        /* OLD CODE (not needed)
-         * These lines of codes draws every other sprite (fly) in the game
-         */
+        // These lines of codes draws every other sprite in the game
         this.sprites.forEach(sprite => {
             let p=sprite.getPosition();
             image(sprite.getImage(),
@@ -334,26 +325,21 @@ export class GameMap {
     getSpriteCollision(s:Sprite):Sprite {
         for (const other of this.sprites) {
             if (this.isCollision(s,other)) {
-                /*if (!other.isDangerous) {
-                    break;
-                }*/
                 return other;
             }
-            //if other is not an instance of a creature, cycle
         }
         return null;
     }
 
-
     // this checks if there is a medallion within the radius of the play and will higlight the medallion signalling
     // that it can be picked up
-    holdingMedallion() {
-        if (this.heldMedallion != null) {
+    holdingItem() {
+        if (this.heldItem != null) {
             return true;
         }
         else { return false; }
     }
-    getNearbyMedallion(radius: number): Star | null {
+    getNearbyItem(radius: number): Star | null {
     const playerPos = this.player.getPosition();
     const playerImg = this.player.getImage();
 
@@ -385,39 +371,22 @@ export class GameMap {
     return null;
 }
     /*
-     * This checks to see if there is a player collision with a sprite and it initializes
-     * that the player can kill the sprite
+     * This checks to see if there is a player collision and if
+     * the player can get killed by it
      */
-    checkPlayerCollision(p: Player, canKill: boolean) {
+    checkPlayerCollision(p: Player) {
         if (p.getState()!=CreatureState.NORMAL) return;
         let s=this.getSpriteCollision(p);
         if (s && this.pp_collision(p,s)) {
-            if (s instanceof Creature || s instanceof EnemyProjectile) {
-                if(this.lives==1){
-                    p.setState(CreatureState.DYING)
-                    this.robot_death.play();
-                    this.level=0;
-                    this.medallions=0;
-                    this.lives+=3;
-                }
-                if(this.lives>1){
-                    p.setState(CreatureState.DYING);
-                    this.robot_death.play();
-                    this.medallions=0;
-                    this.lives-=1;
-                }                
-            }   
-            else if (s instanceof Lava) {
+            if (s instanceof Spike) {
                 p.setState(CreatureState.DYING);
                 this.robot_death.play();
-                this.medallions=0;
-            } 
+            }   
             else if (s instanceof PowerUp) {
                 //console.log("Powe");
                 if (s instanceof Star) {
                     return;
-                }
-                this.acquirePowerUp(s);
+                } 
             }
         }
     }
@@ -427,9 +396,14 @@ export class GameMap {
         if (s instanceof Star && !keyIsDown(72)) {
             return;
         }
-        this.acquirePowerUp (s);
-        
+       // this.acquirePowerUp (s); 
     }
+
+
+    /* I dont think we need this code below, but I know makala is working on door,
+    * so I didnt want to change/delete a bunch of things
+    * - Olivia
+    /*
 
     /*
      * This method checks to see if the player aquires a power up or not. 
@@ -452,7 +426,7 @@ export class GameMap {
                 this.robot_pickup.play();
             }
             this.medallions+=1;
-        }
+        } 
         /*
             * this else if checks to see if 'p' is in instance of a Heart
             */
@@ -470,7 +444,6 @@ export class GameMap {
 
             else if((p as Door).isOpen()) {
                 /* Start animation for changing door open close */
-                this.black_hole.play();
                 this.level+=1;
                 this.medallions=0;
                 this.initialize();
@@ -483,14 +456,8 @@ export class GameMap {
             * if you don't have 20 medaillions then you cannot proceed to the next level
             */
             if(this.level==1 && this.medallions==10) {
-                this.black_hole.play();
                 this.level+=1;
                 this.medallions=0;
-                //if rendering first game station, then
-                //Top input is Circit 1 E Unlocked
-                //Bottom input is None Locked
-                //Center is Not Locked
-                //Output is Circut 2 S Unlocked
 
                 this.initialize();
                 this.removeSprite(p);
@@ -505,10 +472,10 @@ export class GameMap {
         */
         else if (p instanceof PowerUp) {
             if(this.lives>0){
-                this.oneUp.play();
-//                this.lives+=1;
-            }
+                this.lives+=1;
+            } 
         }
+
     }
 
     /*
@@ -549,10 +516,17 @@ export class GameMap {
         let oldVel = s.getVelocity();
         let newPos = s.getPosition().copy();
 
-        if (!s.isFlying()) { 
+        if (s instanceof Gate) {
+            if (!(s as Gate).isPlaced()) {
+                oldVel.y=oldVel.y+GRAVITY*deltaTime;
+                s.setVelocity(oldVel.x,oldVel.y);
+            }
+        }
+        else if (!s.isFlying()) { 
             oldVel.y=oldVel.y+GRAVITY*deltaTime;
             s.setVelocity(oldVel.x,oldVel.y);
         }
+        
 
         //update the x part of position first
         newPos.x = newPos.x + oldVel.x*deltaTime;
@@ -568,8 +542,9 @@ export class GameMap {
         }
         s.setPosition(newPos.x,newPos.y);
         if (s instanceof Player) {
-            this.checkPlayerCollision(s as Player, false);
+            this.checkPlayerCollision(s as Player);
         }
+        
         /*
          * update the y position by using old velocity and delta time
          */
@@ -593,17 +568,110 @@ export class GameMap {
          * if the object is a player, check for collision with objects and other sprites
          */
         if (s instanceof Player) {
-            this.checkPlayerCollision(s as Player, oldY < newPos.y);
+            this.checkPlayerCollision(s as Player);
         } 
+
+
+        else if ((s instanceof Station)) {
+            let spriteCollided=this.getSpriteCollision(s);
+                if ((spriteCollided instanceof Gate) && this.heldItem == null  && !(s as Station).checkingIsInput() && !(s as Station).checkingIsOutput()) {
+                    //Controling power on/off as <is there a gate in me>
+                        if ((s as Station).getState() == StationState.OFF) {
+                        const gatePos = spriteCollided.getPosition();
+                        const gateImg = spriteCollided.getImage();
+                        const stationPos = s.getPosition();
+                        const stationImg = s.getImage();
+
+                        const gateHalfWidth = gateImg.width / 2;
+                        const gateHalfHeight =  gateImg.height / 2;
+
+                        const stationCenterX = stationPos.x + stationImg.width / 2;
+                        const stationCenterY = stationPos.y + stationImg.height / 2;
+
+                        spriteCollided.setPosition((stationCenterX - gateHalfWidth), (stationCenterY - gateHalfHeight));
+                        (spriteCollided as Gate).stopMoving();
+                        spriteCollided.setVelocity(0,0);
+                        
+                        (s as Station).changeState(StationState.ON);
+                        //console.log("Gate Detected in Station");
+                        }
+
+                    //Controlling output as <what gate is in me>
+                       if ((spriteCollided as Gate).getState() == GateState.AND) {
+                        (s as Station).changeCenter(CenterState.AND);
+                        //console.log("Station Gate is AND");
+                       }
+                       else if ((spriteCollided as Gate).getState() == GateState.OR) {
+                        (s as Station).changeCenter(CenterState.OR);
+                        //console.log("Station Gate is OR");
+                       }
+                       else if ((spriteCollided as Gate).getState() == GateState.NOT) {
+                        (s as Station).changeCenter(CenterState.NOT);
+                        //console.log("Station Gate is NOT");
+                       }
+                       
+                }
+                else if (spriteCollided instanceof Circuit && this.heldItem == null) {
+                    if((s as Station).checkingIsOutput() && (spriteCollided as Circuit).getState() == CircuitState.START) {
+                        if ((s as Station).getState() == StationState.OFF) {
+                        const gatePos = spriteCollided.getPosition();
+                        const gateImg = spriteCollided.getImage();
+                        const stationPos = s.getPosition();
+                        const stationImg = s.getImage();
+
+                        const gateHalfWidth = gateImg.width / 2;
+                        const gateHalfHeight =  gateImg.height / 2;
+
+                        const stationCenterX = stationPos.x + stationImg.width / 2;
+                        const stationCenterY = stationPos.y + stationImg.height / 2;
+
+                        spriteCollided.setPosition((stationCenterX - gateHalfWidth), (stationCenterY - gateHalfHeight));
+                        (spriteCollided as Circuit).stopMoving();
+                        spriteCollided.setVelocity(0,0);
+                        
+                        (s as Station).changeState(StationState.ON);
+                        //console.log("Circuit Start Detected in Station");
+                        }
+                    }
+                    else if ((s as Station).checkingIsInput() && (spriteCollided as Circuit).getState() == CircuitState.END) {
+                        if ((s as Station).getState() == StationState.OFF) {
+                        const gatePos = spriteCollided.getPosition();
+                        const gateImg = spriteCollided.getImage();
+                        const stationPos = s.getPosition();
+                        const stationImg = s.getImage();
+
+                        const gateHalfWidth = gateImg.width / 2;
+                        const gateHalfHeight =  gateImg.height / 2;
+
+                        const stationCenterX = stationPos.x + stationImg.width / 2;
+                        const stationCenterY = stationPos.y + stationImg.height / 2;
+
+                        spriteCollided.setPosition((stationCenterX - gateHalfWidth), (stationCenterY - gateHalfHeight));
+                        (spriteCollided as Circuit).stopMoving();
+                        spriteCollided.setVelocity(0,0);
+                        
+                        (s as Station).changeState(StationState.ON);
+                        //console.log("Circuit End Detected in Station");
+                        }
+                    }
+                    
+                }
+                else {
+                    (s as Station).changeState(StationState.OFF);
+                    (s as Station).changeCenter(CenterState.EMPTY);
+                } 
+            }
         /*
          * if the object is not a player, check for collision with other sprites
          * if they collide, bounce off of eachother and change directions
          */
         else {
+            
             let spriteCollided=this.getSpriteCollision(s);
-            if (spriteCollided && !(spriteCollided instanceof Projectile)) {
+            if (spriteCollided) {
                 let oldVel=s.getVelocity();
                 s.setVelocity(oldVel.x*-1, - oldVel.y);
+                
             }
         }
     }
@@ -617,7 +685,20 @@ export class GameMap {
             return;
         }
         
-        this.updateSprite(this.player);
+        this.sprites.forEach((sprite,index,obj) => {
+            //console.log("Entering Station/Circuit Checking Loop");
+            if ((sprite instanceof Station) && !(sprite as Station).checkingIsInput() && !(sprite as Station).checkingIsOutput()) {
+                //console.log("Entered Station Check");
+                (sprite as Station).checkOutput();
+            }
+            else if (sprite instanceof Circuit) {
+                //console.log("Entered Circuit Check");
+                (sprite as Circuit).checkPower();
+            }
+        });
+        //UPDATE THE DORE
+        
+        this.updateSprite(this.player)
         this.player.update(deltaTime); 
 
         this.sprites.forEach((sprite,index,obj) => {
@@ -631,22 +712,28 @@ export class GameMap {
 
                     sprite.effectMap(this);
                 
-                }
+                } 
             }
-            else if (sprite instanceof PowerUp) {
+            else if (sprite instanceof PowerUp || sprite instanceof Station) {
+                if (sprite instanceof Gate  || sprite instanceof Circuit || sprite instanceof Station) {
+                    this.updateSprite(sprite);
+                }
                 sprite.update(deltaTime);
             }
         });
         
         const hDown = keyIsDown(72); // H key
 
-        // Press H once to pick up nearby medallion
-        if (hDown && !this.hWasDown && this.heldMedallion === null) {
-            const nearby = this.getNearbyMedallion(120);
+        // Press H once to pick up nearby item
+        if (hDown && !this.hWasDown && this.heldItem === null) {
+            const nearby = this.getNearbyItem(120);
 
              if (nearby) {
-             this.heldMedallion = nearby;
+             this.heldItem = nearby;
              this.robot_pickup.play();
+             if (this.heldItem instanceof Gate) {
+             (this.heldItem as Gate).startMoving();
+             }
              this.player.playerPickedUpMedallion();
              /*if (this.player.currAnimName.toUpperCase().includes("LEFT")) {
                 this.player.setAnimation("upiesLeft");
@@ -658,31 +745,29 @@ export class GameMap {
         }
 
         // Press H again to drop it
-        else if (hDown && !this.hWasDown && this.heldMedallion !== null) {
+        else if (hDown && !this.hWasDown && this.heldItem !== null) {
             const playerPos = this.player.getPosition();
             this.player.holdingMedallion = false;
 
             if (this.player.currAnimName.toUpperCase().includes("LEFT")) {
-                this.heldMedallion.setPosition( //PUT DOWN LEFT
-                
+                this.heldItem.setPosition( //PUT DOWN LEFT
                 playerPos.x - 40,
                 playerPos.y + 56);
-            this.heldMedallion = null;
-            //this.player.setAnimation("upiesLeft");
-                //PUT DOWN ANIMATION?
+                this.robot_putdown.play();
+            this.heldItem = null;
             }
             else {
-                this.heldMedallion.setPosition( //PUT DOWN RIGHT
-                
+                this.heldItem.setPosition( //PUT DOWN RIGHT
                 playerPos.x + 120,
                 playerPos.y + 56);
-            this.heldMedallion = null;
-            //this.player.setAnimation("upiesRight");
+                this.robot_putdown.play();
+            this.heldItem = null;
             }
+            
     }
 
         // If holding a medallion, move it with the player
-        if (this.heldMedallion !== null) {
+        if (this.heldItem !== null) {
             const playerPos = this.player.getPosition();
             let oldVel = this.player.getVelocity();
             //oldVel.x < 0 && ?? Messes idle pick up 
@@ -695,12 +780,13 @@ export class GameMap {
                 //this.player.setAnimation("upies_run_Right");
             }
 
-        this.heldMedallion.setPosition( //HOLDING
+        this.heldItem.setPosition( //HOLDING
             playerPos.x + 35,
             playerPos.y - 64);
 }
         // Remember whether H was pressed last frame
         this.hWasDown = hDown;
+
 }
 
     /*Per-Pixel Collision Detection

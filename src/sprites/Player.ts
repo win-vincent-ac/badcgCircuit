@@ -17,7 +17,6 @@ export class Player extends Creature {
     jetPackOn:boolean;
     thrusterAmount:number;
     fuel:number;
-    numBullets: number;
     lives: number;
     doubleJump:boolean;
     doubleJumpTimer:number;
@@ -41,7 +40,6 @@ export class Player extends Creature {
         this.doubleJumpTimer=0;
         this.thrusterAmount=0.003;
         this.fuel=7500;
-        this.numBullets = 3;
         this.lives = 3;
         this.onGround=false;
         this.jetPackOn=false;
@@ -54,17 +52,6 @@ export class Player extends Creature {
     }
     playerPutDownMedallion() {
         this.holdingMedallion = false;
-    }
-    /**
-     * function to get the amount of fuel the jetpack is using
-     * @returns 
-     */
-    getThursterAmount():number {
-        if (this.jetPackOn) {
-            this.fuel-=this.thrusterAmount;
-            return this.thrusterAmount
-        }
-        return 0.0;
     }
     /**
      * function to get the number of lives the player has
@@ -86,13 +73,6 @@ export class Player extends Creature {
      */
     getMaxSpeed():number {
         return this.MAX_SPEED;
-    }
-    /**
-     * function to get the number of bullets the player has
-     * @returns 
-     */
-    getnumBullets():number {
-        return this.numBullets;
     }
     /**
      * function to check to see if player is permitted double jump

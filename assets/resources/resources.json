@@ -1,44 +1,37 @@
 {
     "sprites": {
-        "star": {
-            "type": "Star",
-            "default": [
-                {"img":"medallion1", "duration":100},
-                {"img":"medallion2", "duration":100},
-                {"img":"medallion3", "duration":100},
-                {"img":"medallion4", "duration":100},
-                {"img":"medallion3", "duration":100},
-                {"img":"medallion2", "duration":100}
-            ]
-        },
-        "start_block": {
-            "type": "Star",
-            "default": [
-                {"img":"start_block", "duration":100}
-            ]
-        },
-        "AND": {
-            "type": "Star",
-            "default": [
-                {"img":"AND", "duration":100}
-            ]
-        },
-        "OR": {
-            "type": "Star",
-            "default": [
+        "gate": {
+            "type": "Gate",
+            
+            "or": [
                 {"img":"OR", "duration":100}
-            ]
-        },
-        "NOT": {
-            "type": "Star",
-            "default": [
+            ],
+            "and": [
+                {"img":"AND", "duration":100}
+            ],
+            "not": [
                 {"img":"NOT", "duration":100}
             ]
         },
-        "end_block": {
-            "type": "Star",
-            "default": [
-                {"img":"end_block", "duration":100}
+        "circuit_block": {
+            "type": "Circuit",
+            "zero_start": [
+                {"img":"zero_start", "duration":100}
+            ],
+            "one_start": [
+                {"img":"one_start", "duration":100}
+            ],
+            "two_start": [
+                {"img":"two_start", "duration":100}
+            ],
+            "zero_end": [
+                {"img":"zero_end", "duration":100}
+            ],
+            "one_end": [
+                {"img":"one_end", "duration":100}
+            ],
+            "two_end": [
+                {"img":"two_end", "duration":100}
             ]
         },
         "player": {
@@ -81,8 +74,8 @@
                 {"sheet":"main_dude_upies_runr","rows":1,"cols":4,"duration":150}
             ]
         },
-        "lil_dude": {
-            "type": "Creature",
+        "mike": {
+            "type": "PowerUp", 
             "default": [
                 {"img":"lil_dude1", "duration":100},
                 {"img":"lil_dude2", "duration":100},
@@ -92,42 +85,6 @@
             ]
         },
 
-        "life": {
-            "type": "PowerUp",
-            "default": [
-                {"img":"life1", "duration":150},
-                {"img":"life3", "duration":150},
-                {"img":"life2", "duration":150},
-                {"img":"life3", "duration":150}
-            ]
-        },
-        "final_boss": {
-            "type": "FinalBoss",
-            "left": [
-                {"img":"final_boss1", "duration":150},
-                {"img":"final_boss2", "duration":150},
-                {"img":"final_boss3", "duration":150},
-                {"img":"final_boss4", "duration":150}
-            ],
-            "right": [
-                {"img":"final_boss1", "operators":["mirror"], "duration":150},
-                {"img":"final_boss2" , "operators":["mirror"], "duration":150},
-                {"img":"final_boss3", "operators":["mirror"], "duration":150},
-                {"img":"final_boss4" , "operators":["mirror"], "duration":150}
-            ],
-            "deadLeft": [
-                {"img":"final_boss1", "duration":50},
-                {"img":"final_boss_dead1", "duration":50},
-                {"img":"final_boss_dead2", "duration":50},
-                {"img":"final_boss_dead3", "duration":50}
-            ],
-            "deadRight": [                
-                {"img":"final_boss1", "duration":50},
-                {"img":"final_boss_dead1", "duration":50},
-                {"img":"final_boss_dead2", "duration":50},
-                {"img":"final_boss_dead3", "duration":50}
-            ]
-        },
         "end_portal": {
             "type":"EndPortal",
             "default":[
@@ -137,6 +94,25 @@
                  {"sheet":"open_door","rows":1,"cols":5,"duration":150}
             ]
         },
+        "station": {
+            "type": "Station",
+            "on": [
+                {"img":"switch_on", "duration":100}
+            ],
+            "off": [
+                {"img":"switch_off", "duration":100}
+            ]
+        },
+        "mailbox": {
+            "type": "Mailbox",
+            "on": [
+                {"img":"big_logic", "duration":100}
+            ],
+            "off": [
+                {"img":"big_logic", "duration":100}
+            ]
+        },
+       
         "logic": {
             "type":"Star",
             "default":[
@@ -164,33 +140,27 @@
         "switch": {
             "type":"Star",
             "default":[
-                {"img":"switch_off", "duration":150}
-            ],
-            "switch_on":[
-                {"img":"switch_on", "duration":150}
+                {"img":"big_logic", "duration":150}
             ]
         },
-        "my_fly": {
-            "type":"MyFly",
+        
+        "spike": {
+            "type":"Spike",
             "default":[
-                {"img":"fly1", "duration":150},
-                {"img":"fly2", "duration":150},
-                {"img":"fly3", "duration":150},
-                {"img":"fly2", "duration":150}
+                {"img":"spike1", "duration":75},
+                {"img":"spike2", "duration":75}
             ],
             "deadLeft":[
                 {"img":"fly1", "operators":["flip"], "duration":100},
                 {"img":"fly2", "operators":["flip"], "duration":100}
             ],
             "deadRight":[
-                {"img":"fly1", "operators":["mirror","flip"], "duration":100},
-                {"img":"fly2", "operators":["mirror","flip"], "duration":100}
+                {"img":"spike1", "duration":75},
+                {"img":"spike2", "duration":150}
             ],
             "left":[
-                {"img":"fly1", "duration":150},
-                {"img":"fly2", "duration":150},
-                {"img":"fly3", "duration":150},
-                {"img":"fly2", "duration":150}
+                {"img":"spike1", "duration":75},
+                {"img":"spike2", "duration":75}
             ],
             "right":[
                 {"img":"fly1","operators":["mirror"], "duration":150},
@@ -202,24 +172,24 @@
         "lava_pool": {
             "type":"Lava",
             "default":[
-                {"img":"lava1", "duration":75},
-                {"img":"lava2", "duration":75}
+                {"img":"spike1", "duration":75},
+                {"img":"spike2", "duration":75}
             ],
             "deadLeft":[
-                {"img":"lava1", "duration":75},
-                {"img":"lava2", "duration":75}
+                {"img":"spike1", "duration":75},
+                {"img":"spike2", "duration":75}
             ],
             "deadRight":[
-                {"img":"lava1", "duration":75},
-                {"img":"lava2", "duration":150}
+                {"img":"spike1", "duration":75},
+                {"img":"spike2", "duration":150}
             ],
             "left":[
-                {"img":"lava1", "duration":75},
-                {"img":"lava2", "duration":75}
+                {"img":"spike1", "duration":75},
+                {"img":"spike2", "duration":75}
             ],
             "right":[
-                {"img":"lava1", "duration":75},
-                {"img":"lava2", "duration":75}
+                {"img":"spike1", "duration":75},
+                {"img":"spike2", "duration":75}
             ]
         },
         "power":{
@@ -228,7 +198,7 @@
                 {"img":"power1", "duration": 150},
                 {"img":"power2", "duration": 150}
             ]
-        }    
+        }
     },
     "images": {
         "background": "background",
@@ -265,9 +235,15 @@
             "^": "life",
             "%": "end_portal",
             "-": "my_fly",
-            "5": "lava_pool",
+            "5": "spike",
             "p": "power",
-            "?": "lil_dude",
+            "?": "mike",
+            "!": "gate",
+            "$": "station",
+            "*": "circuit_block",
+            "t": "tiny_logic",
+            "b": "big_logic",
+            "m": "mailbox",
             "#": "start_block",
             "*": "end_block",
             "a": "AND",
