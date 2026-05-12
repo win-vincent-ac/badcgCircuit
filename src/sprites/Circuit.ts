@@ -1,4 +1,6 @@
 import { Star } from "./PowerUp.js";
+import { Switch, SwitchState } from "./Switch.js";
+import { Station, StationState } from "./Station.js";
 
 export enum CircuitState { START, END };
 
@@ -13,7 +15,7 @@ export class Circuit extends Star {
     protected number: number;
     protected locked: boolean;
     protected placed: boolean;
-    protected source: Circuit;
+    protected source: Circuit | Station | Switch;
 
     constructor() {
         super();
@@ -84,29 +86,53 @@ export class Circuit extends Star {
     syncStart(s: Circuit) {
         this.source = s;
     }
-<<<<<<< Updated upstream
-=======
+    syncSwitch(s: Switch) {
+        this.source = s
+    }
     addPower () {
         this.power = CircuitPower.ON;
     }
     removePower () {
         this.power = CircuitPower.OFF;
     }
->>>>>>> Stashed changes
     checkPower() {
-        //console.log("Checking Power");
+       //console.log("Checking Power");
         if (this.source != null) {
-            console.log("This Power Source Not Null");
-            if (this.source.getPower() == CircuitPower.ON) {
-                //console.log("Turning Power On");
-                this.power = CircuitPower.ON;
-                console.log("Power On");
-            }
-            else {
-                this.power = CircuitPower.OFF;
-                console.log("Power Off");
+           //console.log("This Power Source Not Null");
+            if (this.source instanceof Station) {
+                if ((this.source as Station ).getState() == StationState.ON) {
+                   //console.log("St.Turning Power On");
+                    this.power = CircuitPower.ON;
+                  //console.log("St.Power On");
                 }
+                else {
+                    this.power = CircuitPower.OFF;
+                  //console.log("St.Power Off");
+                    }
+            } else if (this.source instanceof Switch) {
+                if ((this.source as Switch).getState() == SwitchState.ON) {
+                   //console.log("Sw.Turning Power On");
+                    this.power = CircuitPower.ON;
+                   //console.log("Sw.Power On");
+                }
+                else {
+                    this.power = CircuitPower.OFF;
+                  //console.log("Sw.Power Off");
+                    }
+            } else if (this.source instanceof Circuit) {
+                if ((this.source as Circuit ).getState() == CircuitPower.ON) {
+                   console.log("Cr.Turning Power On");
+                    this.power = CircuitPower.ON;
+                  console.log("Cr.Power On");
+                }
+                else {
+                    this.power = CircuitPower.OFF;
+                  console.log("Cr.Power Off");
+                    }
             }
-        //console.log("Done Checking Power");
+           //console.log("Done Checking Power");
+        }
+        else {//console.log("Circuit was Null");}
+        }
     }
-}
+} 

@@ -13,6 +13,7 @@ import { Projectile, EnemyProjectile} from "./sprites/Projectile.js";
 import { Gate, GateState } from "./sprites/Gate.js";
 import { Station, StationState } from "./sprites/Station.js";
 import { Circuit, CircuitState, CircuitPower, CircuitNumber } from "./sprites/Circuit.js";
+import { Switch, SwitchState } from "./sprites/Switch.js";
 
 
 export class ResourceManager {
@@ -205,6 +206,10 @@ export class ResourceManager {
             }
             case 'Circuit': {
                 s = new Circuit();
+                break;
+            }
+            case 'Switch': {
+                s = new Switch();
                 break;
             }
             case 'Music': {

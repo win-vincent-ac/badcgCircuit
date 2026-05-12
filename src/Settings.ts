@@ -9,9 +9,9 @@ export class Settings {
     public playEvents: boolean;
 
     game_music: p5.SoundFile;
-    mikeFrames: p5.Image[] = [];
-    mikeIndex: number = 0;
-    mikeImg: any;
+    //mikeFrames: p5.Image[] = [];
+    //mikeIndex: number = 0;
+    //mikeImg: any;
     storyText: any;
     menu:  p5.Element;
     full: p5.Element;
@@ -19,7 +19,7 @@ export class Settings {
     constructor() {
 
         // putting in a reference for M1K3's animation
-        this.mikeFrames = [
+        /*this.mikeFrames = [
         loadImage("assets/images/lil_dude1.png"),
         loadImage("assets/images/lil_dude2.png"),
         loadImage("assets/images/lil_dude3.png"),
@@ -45,15 +45,15 @@ export class Settings {
         this.menu.style("line-height", "1.35");
 
         // M1K3's placement in the menu
-        this.mikeImg = createImg("assets/images/m1k3_1.png", "M1K3");
+        //this.mikeImg = createImg("assets/images/m1k3_1.png", "M1K3");
 
-        this.mikeImg.style("position", "absolute");
+        /*this.mikeImg.style("position", "absolute");
         this.mikeImg.style("top", "30px");
         this.mikeImg.style("right", "30px");
         this.mikeImg.style("width", "180px");
-        this.mikeImg.style("height", "180px");
+        this.mikeImg.style("height", "180px");*/
 
-        this.menu.child(this.mikeImg);
+        //this.menu.child(this.mikeImg);
 
         // M1K3's speaking section/Storyline
 
@@ -184,7 +184,7 @@ export class Settings {
     }
     
     // Set to animate mike
-    animateMike() {
+    /*animateMike() {
     if (frameCount % 10 == 0) {
         this.mikeIndex++;
         if (this.mikeIndex >= this.mikeFrames.length) {
@@ -195,7 +195,7 @@ export class Settings {
             "assets/images/lil_dude" + (this.mikeIndex + 1) + ".png"
         );
     }
-} 
+} */
     // everytime you get to a new level the text on the menu will change
     updateLevelText(level: number) {
         if (level == 0) {

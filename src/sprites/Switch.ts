@@ -4,15 +4,16 @@
 
 import { Circuit, CircuitPower } from "./Circuit.js";
 import { Sprite } from "./Sprite.js";
+import { Star } from "./PowerUp.js";
 
 
 export enum SwitchState { ON, OFF }; 
 
-export class Switch extends Sprite {
+export class Switch extends Star {
 
     protected state: number;
     protected full: boolean;
-    protected source: Circuit;
+    protected output: Circuit;
     protected locked: boolean;
 
     constructor() { 
@@ -23,32 +24,36 @@ export class Switch extends Sprite {
         
     }
     changeState(initialState: number) {
+        //console.log("Switch State Changing");
         switch (initialState) {
             case SwitchState.ON: {
                 this.state=SwitchState.ON;
                 this.setAnimation("on");
+                //console.log("Switch State Change On");
                 break;
             }
             case SwitchState.OFF: {
                 this.state=SwitchState.OFF;
                 this.setAnimation("off");
+                //console.log("Switch State Change Off");
                 break;
             }
         }
     }
 
-    checkPower() {
-        //console.log("Checking Power");
-        if (this.source != null) {
-            console.log("This Power Source Not Null");
-            if (this.source.getPower() == CircuitPower.ON) {
+    checkSwitch() {
+       //console.log("Checking Power"); //Checks Power
+        if (this.output != null) {
+           //console.log("Switch Not Null"); 
+            if (this.output.getPower() == CircuitPower.ON) {
                 //console.log("Turning Power On");
-                this.power = CircuitPower.ON;
-                console.log("Power On");
+                this.output.addPower();
+                //console.log("Switch Gives Power");
             }
             else {
-                this.power = CircuitPower.OFF;
-                console.log("Power Off");
+                if (this.output != null) {
+                this.output.removePower(); }
+               //console.log("Switch unPower");
                 }
             }
         //console.log("Done Checking Power");
@@ -59,15 +64,25 @@ export class Switch extends Sprite {
     }
 
     syncOutput(c: Circuit) {
-        this.source = c;
-        if (SwitchState.ON) {
-            c.addPower();
-        } else {
-            c.removePower();
+        if (this.output != null) {
+            this.output = c;
+            if (SwitchState.ON) {
+                c.addPower();
+            } else {
+                c.removePower();
+            }
         }
     }
 
     getSource() {
-        return this.source;
+        return this.output;
+    }
+
+    isLocked () {
+        return this.locked;
+    }
+
+    isFull() {
+        return this.full;
     }
 }

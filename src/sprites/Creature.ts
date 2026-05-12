@@ -72,7 +72,7 @@ export class Creature extends Sprite {
             if (this.state == CreatureState.DYING) {
                 this.setVelocity(0,0);
                 if (this.currAnimName.toUpperCase().includes("LEFT")) {
-                    console.log("deadLeft");
+                   //console.log("deadLeft");
                     this.setAnimation("deadLeft");
                 }
                  /**
@@ -80,7 +80,7 @@ export class Creature extends Sprite {
              * and if it is facing right, the animation deadRight will play
              */
                 if (this.currAnimName.toUpperCase().includes("RIGHT")) {
-                    console.log("deadRight");
+                   //console.log("deadRight");
                     this.setAnimation("deadRight");
                 }
             }

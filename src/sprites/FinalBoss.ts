@@ -60,13 +60,13 @@ export class FinalBoss extends Creature {
     }
 
     update(deltaTime:number) {
-        console.log("IN FINALBOSS UPDATE");
+       //console.log("IN FINALBOSS UPDATE");
         super.update(deltaTime);
         if (this.state==CreatureState.DEAD) {
-            console.log("DECREMENTING LIVES");
+           //console.log("DECREMENTING LIVES");
             this.numLives--;
             if (this.numLives>0) {
-                console.log("SETTING STATE BACK TO NORMAL");
+               //console.log("SETTING STATE BACK TO NORMAL");
                 this.state=CreatureState.NORMAL;
                 this.setAnimation("left");
             }

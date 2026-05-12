@@ -90,13 +90,16 @@
             ]
         },
 
-        "life": {
-            "type": "PowerUp",
-            "default": [
-                {"img":"life1", "duration":150},
-                {"img":"life3", "duration":150},
-                {"img":"life2", "duration":150},
-                {"img":"life3", "duration":150}
+        "switch_block": {
+            "type": "Switch",
+            "on": [
+                {"img":"life1", "duration":50},
+                {"img":"life3", "duration":50},
+                {"img":"life2", "duration":50},
+                {"img":"life3", "duration":50}
+            ],
+            "off": [
+                {"img":"life1", "duration":50}
             ]
         
 
@@ -268,7 +271,8 @@
             "*": "circuit_block",
             "t": "tiny_logic",
             "b": "big_logic",
-            "m": "mailbox"
+            "m": "mailbox",
+            "s": "switch_block"
 
         },
         "levels": [
