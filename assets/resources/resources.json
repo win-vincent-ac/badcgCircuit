@@ -78,19 +78,14 @@
                 {"img":"lil_dude5", "duration":100}
             ]
         },
-        "switch_block": {
-            "type": "Switch",
-            "on": [
+        "energy_terminal": {
+            "type": "EnergyTerminal",
+            "default": [
                 {"img":"life1", "duration":50},
                 {"img":"life3", "duration":50},
                 {"img":"life2", "duration":50},
                 {"img":"life3", "duration":50}
-            ],
-            "off": [
-                {"img":"life1", "duration":50}
             ]
-        
-
         },
 
         "end_portal": {
@@ -205,7 +200,7 @@
             "t": "tiny_logic",
             "b": "big_logic",
             "m": "mailbox",
-            "s": "switch_block"
+            "s": "energy_terminal"
 
         },
         "levels": [

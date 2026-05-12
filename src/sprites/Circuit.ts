@@ -1,5 +1,5 @@
+import { EnergyTerminal } from "./EnergyTerminal.js";
 import { Star } from "./PowerUp.js";
-import { Switch, SwitchState } from "./Switch.js";
 import { Station, StationState } from "./Station.js";
 
 export enum CircuitState {START, END };
@@ -15,7 +15,7 @@ export class Circuit extends Star {
     protected number: number;
     protected locked: boolean;
     protected placed: boolean;
-    protected source: Circuit | Station | Switch | null;
+    protected source: Circuit | Station | EnergyTerminal | null;
 
     constructor() {
         super();
@@ -125,8 +125,13 @@ export class Circuit extends Star {
         //s.removePower();
         this.power = s.getPower();
     }
-    syncSwitch(s: Switch) {
-        this.source = s
+    syncEnergy(t: EnergyTerminal) {
+        this.source = t;
+        this.power = CircuitPower.ON;
+    }
+    unsyncEnergy(t: EnergyTerminal) {
+        this.source = null;
+        this.power = CircuitPower.OFF;
     }
     addPower () {
         this.power = CircuitPower.ON;
@@ -147,16 +152,6 @@ export class Circuit extends Star {
                 else {
                     this.power = CircuitPower.OFF;
                   //console.log("St.Power Off");
-                    }
-            } else if (this.source instanceof Switch) {
-                if ((this.source as Switch).getState() == SwitchState.ON) {
-                   console.log("Sw.Turning Power On" + this.getNumber());
-                    this.power = CircuitPower.ON;
-                   console.log("Sw.Power On" + this.getNumber());
-                }
-                else {
-                    this.power = CircuitPower.OFF;
-                  console.log("Sw.Power Off" + this.getNumber());
                     }
             } else if (this.source instanceof Circuit) {
                 if ((this.source as Circuit ).getState() == CircuitPower.ON) {

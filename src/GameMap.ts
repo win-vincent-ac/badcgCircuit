@@ -10,7 +10,7 @@ import { Gate, GateState } from "./sprites/Gate.js";
 import { CenterState, Station, StationState } from "./sprites/Station.js";
 import { Vector } from "p5";
 import { Circuit, CircuitState, CircuitPower, CircuitNumber } from "./sprites/Circuit.js";
-import { Switch, SwitchState } from "./sprites/Switch.js";
+import { EnergyTerminal } from "./sprites/EnergyTerminal";
 
 /*
  * This class controls the main actions of the game for the player and the sprites
@@ -562,13 +562,12 @@ export class GameMap {
         } 
 
         
-        else if (s instanceof Switch) {
-           //console.log("!!!!!!!!!!!!Switch Found"); //HIT
+        else if (s instanceof EnergyTerminal) {
+           //console.log("!!!!!!!!!!!!TERNIMAL Found"); //HIT
             let spriteCollided=this.getSpriteCollision(s);
             if ((spriteCollided instanceof Circuit) && this.heldItem == null && (spriteCollided as Circuit).getState() == CircuitState.START) {
                 //Controlling Full/Empty
-                //console.log("Switch Interacted with Circuit");
-                    if (!(s as Switch).getSource != null) {
+                    if (!(s as EnergyTerminal).getPathway != null) {
                     const circuitPos = spriteCollided.getPosition();
                     const circuitImg = spriteCollided.getImage();
                     const switchPos = s.getPosition();
@@ -585,14 +584,14 @@ export class GameMap {
                     (spriteCollided as Circuit).stopMoving();
                     spriteCollided.setVelocity(0,0);
                     
-                    //(spriteCollided as Circuit).syncSwitch((s as Switch));
-                    (s as Switch).syncOutput(spriteCollided as Circuit);
-                    //console.log("Gate Detected in Station");
-                    //}
+                    (s as EnergyTerminal).syncPathway(spriteCollided as Circuit);
+                    (spriteCollided as Circuit).syncEnergy(s);
                 }
                 else {
                     console.log("SWITCH IS NULL");
-                    (s as Switch).syncOutput(null);
+                    (spriteCollided as Circuit).removePower;
+                    (s as EnergyTerminal).unsyncPathway(spriteCollided);
+                    (spriteCollided as Circuit).unsyncEnergy(s);
                 }
             }
         }
@@ -722,9 +721,9 @@ export class GameMap {
                 //console.log("Entered Circuit Check");
                 (sprite as Circuit).checkPower();
             }
-            else if (sprite instanceof Switch) {
-                //console.log("Entered Switch Check");
-                (sprite as Switch).checkSwitch();
+            else if (sprite instanceof EnergyTerminal) {
+                //console.log("Entered Energy Check");
+                (sprite as EnergyTerminal).checkEnergy();
             }
         });
         //UPDATE THE DORE
@@ -745,8 +744,8 @@ export class GameMap {
                 
                 } 
             }
-            else if (sprite instanceof PowerUp || sprite instanceof Station || sprite instanceof Switch) {
-                if (sprite instanceof Gate  || sprite instanceof Circuit || sprite instanceof Station || sprite instanceof Switch) {
+            else if (sprite instanceof PowerUp || sprite instanceof Station || sprite instanceof EnergyTerminal) {
+                if (sprite instanceof Gate  || sprite instanceof Circuit || sprite instanceof Station || sprite instanceof EnergyTerminal) {
                     this.updateSprite(sprite);
                 }
                 sprite.update(deltaTime);
