@@ -3,11 +3,12 @@ import { ResourceManager } from "./ResourceManager.js";
 import { Sprite } from "./sprites/Sprite.js";
 import { GRAVITY, STATE, GameManager } from './GameManager.js';
 import { Creature, CreatureState } from "./sprites/Creature.js";
-import { Door,Heart, Music, PowerUp, Star} from "./sprites/PowerUp.js";
-import { Spike } from "./sprites/Spike.js"
+import { Heart, Music, PowerUp, Star} from "./sprites/PowerUp.js";
+import { Spike } from "./sprites/Spike.js";
 import { Settings } from "./Settings.js";
 import { Gate, GateState } from "./sprites/Gate.js";
 import { CenterState, Station, StationState } from "./sprites/Station.js";
+import {Door} from "./sprites/Door.js";
 import { Vector } from "p5";
 import { Circuit, CircuitState, CircuitPower, CircuitNumber } from "./sprites/Circuit.js";
 
@@ -39,6 +40,8 @@ export class GameMap {
     robot_pickup: p5.SoundFile;
     robot_walk: p5.SoundFile;
     robot_putdown: p5.SoundFile;
+    facingLeft: boolean = false;
+    
 
     constructor(level:number, resources:ResourceManager, settings:Settings, game: GameManager) {
     // This initializes different aspects of the game
@@ -330,6 +333,12 @@ export class GameMap {
 
     // this checks if there is a medallion within the radius of the play and will higlight the medallion signalling
     // that it can be picked up
+    holdingItem() {
+        if (this.heldItem != null) {
+            return true;
+        }
+        else { return false; }
+    }
     getNearbyItem(radius: number): Star | null {
     const playerPos = this.player.getPosition();
     const playerImg = this.player.getImage();
@@ -374,6 +383,7 @@ export class GameMap {
                 this.robot_death.play();
             }   
             else if (s instanceof PowerUp) {
+                //console.log("Powe");
                 if (s instanceof Star) {
                     return;
                 } 
@@ -421,12 +431,18 @@ export class GameMap {
             * this else if checks to see if 'p' is in instance of a Heart
             */
         else if (p instanceof Door) {
+
+                console.log("I a Door a bull");
             /*
              * the if loop states that if the level is 0 and you have 10 medaillions, you can proceed to the next level
              * and the sound black_hole will play
              * if you don't have 9 medaillions then you cannot proceed to the next level
              */
-            if(this.level==0 && this.medallions==10) {
+            if(!(p as Door).isOpen()){
+                (p as Door).openDoor();
+            }
+
+            else if((p as Door).isOpen()) {
                 /* Start animation for changing door open close */
                 this.level+=1;
                 this.medallions=0;
@@ -718,12 +734,20 @@ export class GameMap {
              if (this.heldItem instanceof Gate) {
              (this.heldItem as Gate).startMoving();
              }
+             this.player.playerPickedUpMedallion();
+             /*if (this.player.currAnimName.toUpperCase().includes("LEFT")) {
+                this.player.setAnimation("upiesLeft");
+             } else {
+                this.player.setAnimation("upiesRight");
+                //PICK UP ANIMATION?
+            }*/
          }
         }
 
         // Press H again to drop it
         else if (hDown && !this.hWasDown && this.heldItem !== null) {
             const playerPos = this.player.getPosition();
+            this.player.holdingMedallion = false;
 
             if (this.player.currAnimName.toUpperCase().includes("LEFT")) {
                 this.heldItem.setPosition( //PUT DOWN LEFT
@@ -739,12 +763,22 @@ export class GameMap {
                 this.robot_putdown.play();
             this.heldItem = null;
             }
-
+            
     }
 
         // If holding a medallion, move it with the player
         if (this.heldItem !== null) {
-        const playerPos = this.player.getPosition();
+            const playerPos = this.player.getPosition();
+            let oldVel = this.player.getVelocity();
+            //oldVel.x < 0 && ?? Messes idle pick up 
+            if ( this.player.currAnimName.toUpperCase().includes("LEFT")){
+                this.player.holdingMedallion = true;
+                //this.player.setAnimation("upies_run_Left");
+            //oldVel.x > 0 &&
+            } else if (this.player.currAnimName.toUpperCase().includes("RIGHT")){
+                this.player.holdingMedallion = true;
+                //this.player.setAnimation("upies_run_Right");
+            }
 
         this.heldItem.setPosition( //HOLDING
             playerPos.x + 35,

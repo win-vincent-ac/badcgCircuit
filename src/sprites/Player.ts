@@ -1,6 +1,7 @@
 import { Vector } from "p5";
 import { Creature, CreatureState } from "./Creature.js";
 import { Sprite } from "./Sprite.js";
+import { GameMap } from "../GameMap.js";
 /**
  * defines the player class as a subclass of creature
  */
@@ -20,6 +21,7 @@ export class Player extends Creature {
     doubleJump:boolean;
     doubleJumpTimer:number;
     doubleJumpActive:boolean;
+    holdingMedallion: boolean = false;
     
     /**
      * the function of the player class
@@ -43,6 +45,13 @@ export class Player extends Creature {
         this.jetPackOn=false;
         this.doubleJump=true;
         this.doubleJumpActive=false;
+    }
+
+    playerPickedUpMedallion() {
+        this.holdingMedallion = true;
+    }
+    playerPutDownMedallion() {
+        this.holdingMedallion = false;
     }
     /**
      * function to get the number of lives the player has
@@ -273,6 +282,7 @@ export class Player extends Creature {
      * velocity and jetpack usage
      * @param deltaTime 
      */
+
     update(deltaTime:number) {
         let newAnim="";
         if (this.state==CreatureState.NORMAL) {
@@ -284,32 +294,37 @@ export class Player extends Creature {
              * determines the animation based on velocity
              * and jetpack usage
              */
-            if (this.velocity.x<0) {
+            if ((this.velocity.x<0)) {
                 if (this.jetPackOn) {
                     newAnim="jetLeft";
+                } else if (this.holdingMedallion) {
+                    newAnim="upies_run_Left";
                 } else {
                     newAnim="left";
                 }
-            } else if (this.velocity.x>0) {
+            } else if ((this.velocity.x>0)) {
                 if (this.jetPackOn) {
-                    newAnim="jetRight";
+                    newAnim="jetRight"; 
+                } else if (this.holdingMedallion) {
+                    newAnim="upies_run_Right";
                 } else {
                     newAnim="right";
                 }
             } else {
-                if (this.jetPackOn) {
-                    if (this.currAnimName.toUpperCase().includes("LEFT")) {
-                        newAnim="jetLeft";
+                if (this.currAnimName.toUpperCase().includes("LEFT")) {
+                    if (this.holdingMedallion) {
+                        newAnim="upiesLeft";
                     } else {
-                        newAnim="jetRight";
+                    newAnim="stillLeft";
                     }
                 } else {
-                    if (this.currAnimName.toUpperCase().includes("LEFT")) {
-                        newAnim="stillLeft";
+                    if (this.holdingMedallion) {
+                        newAnim="upiesRight";
                     } else {
-                        newAnim="stillRight";
+                    newAnim="stillRight";
                     }
                 }
+                
             }
         }
 

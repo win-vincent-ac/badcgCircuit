@@ -1,14 +1,14 @@
 import { SoundFile } from "p5";
 import { Player } from "./sprites/Player.js";
 import { Fly, Creature } from "./sprites/Creature.js";
-import { Door, Heart, Music, PowerUp, Star } from "./sprites/PowerUp.js";
+import { Heart, Music, PowerUp, Star } from "./sprites/PowerUp.js";
 import { Sprite } from "./sprites/Sprite.js";
 import { Power } from "./sprites/PowerUp.js";
 import { Spike } from "./sprites/Spike.js";
 import { Gate, GateState } from "./sprites/Gate.js";
 import { Station, StationState } from "./sprites/Station.js";
 import { Circuit, CircuitState, CircuitPower, CircuitNumber } from "./sprites/Circuit.js";
-
+import {Door} from "./sprites/Door.js";
 
 export class ResourceManager {
 

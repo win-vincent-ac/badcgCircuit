@@ -61,11 +61,17 @@
             "deadRight": [
                 {"sheet":"main_dude_deadr","rows":3,"cols":4,"duration":150}
             ],
-            "upies": [
+            "upiesLeft": [
                 {"sheet":"main_dude_upies","rows":1,"cols":2,"duration":150}
             ],
             "upiesRight": [
                 {"sheet":"main_dude_upiesr","rows":1,"cols":2,"duration":150}
+            ],
+            "upies_run_Left": [
+                {"sheet":"main_dude_upies_run","rows":1,"cols":4,"duration":150}
+            ],
+            "upies_run_Right": [
+                {"sheet":"main_dude_upies_runr","rows":1,"cols":4,"duration":150}
             ]
         },
         "mike": {
@@ -82,7 +88,10 @@
         "end_portal": {
             "type":"EndPortal",
             "default":[
-                {"img":"fort", "duration":150}
+                {"img":"closed_door", "duration":150}
+            ],
+            "open":[
+                 {"sheet":"open_door","rows":1,"cols":5,"duration":150}
             ]
         },
         "station": {
@@ -103,14 +112,33 @@
                 {"img":"big_logic", "duration":100}
             ]
         },
-        "tiny_logic": {
-            "type":"EndPortal",
+       
+        "logic": {
+            "type":"Star",
             "default":[
-                {"img":"tiny_logic", "duration":150}
+                {"img":"logic", "duration":150}
             ]
         },
-        "big_logic": {
-            "type":"EndPortal",
+        "lit_logic": {
+            "type":"Star",
+            "default":[
+                {"img":"lit_logic", "duration":150}
+            ]
+        },
+        "block_stand": {
+            "type":"Star",
+            "default":[
+                {"img":"block_stand", "duration":150}
+            ]
+        },
+        "circle_stand": {
+            "type":"Star",
+            "default":[
+                {"img":"circle_stand", "duration":150}
+            ]
+        },
+        "switch": {
+            "type":"Star",
             "default":[
                 {"img":"big_logic", "duration":150}
             ]
@@ -118,6 +146,31 @@
         
         "spike": {
             "type":"Spike",
+            "default":[
+                {"img":"spike1", "duration":75},
+                {"img":"spike2", "duration":75}
+            ],
+            "deadLeft":[
+                {"img":"fly1", "operators":["flip"], "duration":100},
+                {"img":"fly2", "operators":["flip"], "duration":100}
+            ],
+            "deadRight":[
+                {"img":"spike1", "duration":75},
+                {"img":"spike2", "duration":150}
+            ],
+            "left":[
+                {"img":"spike1", "duration":75},
+                {"img":"spike2", "duration":75}
+            ],
+            "right":[
+                {"img":"fly1","operators":["mirror"], "duration":150},
+                {"img":"fly2","operators":["mirror"], "duration":150},
+                {"img":"fly3","operators":["mirror"], "duration":150},
+                {"img":"fly2","operators":["mirror"], "duration":150}
+            ]
+        },
+        "lava_pool": {
+            "type":"Lava",
             "default":[
                 {"img":"spike1", "duration":75},
                 {"img":"spike2", "duration":75}
@@ -190,7 +243,17 @@
             "*": "circuit_block",
             "t": "tiny_logic",
             "b": "big_logic",
-            "m": "mailbox"
+            "m": "mailbox",
+            "#": "start_block",
+            "*": "end_block",
+            "a": "AND",
+            "r": "OR",
+            "n": "NOT",
+            "g": "logic",
+            "l": "lit_logic",
+            "b": "block_stand",
+            "c": "circle_stand",
+            "s": "switch"
 
         },
         "levels": [

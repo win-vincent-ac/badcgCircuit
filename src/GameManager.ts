@@ -96,11 +96,11 @@ export class GameManager {
                 fill(227,197,0);
                 text("You Win!",265,200);
                 textSize(32);
-                text("Original Creators of Apollo 18",250,280);
+                text("Robotic Creators Include",250,280);
                 textSize(16);
-                text("Henry Roeth",340,330);
-                text("Tristan Adamson",324,405);
-                text("Aidan Griffin",340,480);
+                text("Vincent",340,330);
+                text("Olivia",324,405);
+                text("Makala",340,480);
                 text("Reload server to restart!",308,100);
                 text("Editted for Class by Daniel Gavazzi",265,525);
                 break;
