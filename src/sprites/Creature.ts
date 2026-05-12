@@ -1,6 +1,7 @@
+
+
 import { Sprite } from "./Sprite.js";
 import { GameMap } from "../GameMap.js";
-import { FinalBoss } from "./FinalBoss.js";
 
 /**
  * A Creature is a Sprite that is affected by gravity and can die.
@@ -19,7 +20,7 @@ export class Creature extends Sprite {
     /**
      * the state of the creature
      */
-    state:CreatureState;
+    state: CreatureState = CreatureState.NORMAL;
     /**
      * the amount of time the creature has been in its current state
      */
@@ -29,8 +30,8 @@ export class Creature extends Sprite {
      */
     constructor() {
         super();
-        this.state=CreatureState.NORMAL;
-        this.stateTime=0;
+        this.state = CreatureState.NORMAL;
+        this.stateTime = 0;
     }
     /**
      * clone function that creates a copy of the current creature
@@ -141,18 +142,6 @@ export class Creature extends Sprite {
         }
     }
 
-}
-/**
- * sub class grub which extends a superclass creature
- */
-export class Grub extends Creature {
-    /**
-     * gets the max speed of the grub
-     * @returns
-     */
-    getMaxSpeed() {
-        return 0.05;
-    }
 }
 /**
  * sub class fly which extends a superclass creature

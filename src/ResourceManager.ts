@@ -1,15 +1,10 @@
 import { SoundFile } from "p5";
 import { Player } from "./sprites/Player.js";
-import { Fly, Grub, Creature } from "./sprites/Creature.js";
+import { Fly, Creature } from "./sprites/Creature.js";
 import { Door, Heart, Music, PowerUp, Star } from "./sprites/PowerUp.js";
 import { Sprite } from "./sprites/Sprite.js";
-import { Bullet } from "./sprites/Bullet.js";
-import {MyFly} from "./sprites/MyFly.js";
 import { Power } from "./sprites/PowerUp.js";
-import { FinalBoss } from "./sprites/FinalBoss.js";
-import {Lava} from "./sprites/Lava.js";
-import { Fireball } from "./sprites/Fireball.js";
-import { Projectile, EnemyProjectile} from "./sprites/Projectile.js";
+import { Spike } from "./sprites/Spike.js";
 import { Gate, GateState } from "./sprites/Gate.js";
 import { Station, StationState } from "./sprites/Station.js";
 import { Circuit, CircuitState, CircuitPower, CircuitNumber } from "./sprites/Circuit.js";
@@ -171,10 +166,6 @@ export class ResourceManager {
                 s = new Sprite();
                 break;
             }
-            case 'FinalBoss': {
-                s = new FinalBoss();
-                break;
-            }
             case 'Fly': {
                 s = new Fly();
                 break;
@@ -211,16 +202,12 @@ export class ResourceManager {
                 s = new Music();
                 break; 
             }
-            case 'MyFly': {
-                s = new MyFly();
-                break;
-            }
             case 'Power': {
                 s = new Power();
                 break;
             }
-            case 'Lava':{
-                s = new Lava();
+            case 'Spike':{
+                s = new Spike();
                 break;
             }
             default: {

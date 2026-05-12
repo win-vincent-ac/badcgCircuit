@@ -4,8 +4,8 @@ import { Creature } from "./Creature.js";
  * An alien is a Sprite that is affected by gravity and can die.
  */
 
-export enum LavaState { DEAD, DYING, NORMAL };
+export enum SpikeState { DEAD, DYING, NORMAL };
 
-export class Lava extends Creature {
+export class Spike extends Creature {
 
 }
