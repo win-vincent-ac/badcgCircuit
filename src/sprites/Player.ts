@@ -1,6 +1,7 @@
 import { Vector } from "p5";
 import { Creature, CreatureState } from "./Creature.js";
 import { Sprite } from "./Sprite.js";
+import { GameMap } from "../GameMap.js";
 /**
  * defines the player class as a subclass of creature
  */
@@ -8,6 +9,7 @@ export class Player extends Creature {
     /**
      * defines some of the properties of the player
      */
+    map: GameMap;
     DIE_TIME = 1800;
     MAX_SPEED:number;
     JUMP_SPEED:number;
@@ -308,7 +310,7 @@ export class Player extends Creature {
              */
             if (this.velocity.x<0) {
                 if (this.jetPackOn) {
-                    newAnim="jetLeft";
+                    newAnim="jetLeft"; 
                 } else {
                     newAnim="left";
                 }
@@ -318,6 +320,15 @@ export class Player extends Creature {
                 } else {
                     newAnim="right";
                 }
+            } else if (this.map.holdingMedallion()) {
+                console.log("Selecting Upies");
+                    if (this.currAnimName.toUpperCase().includes("RIGHT")) {
+                        newAnim="upiesRight";
+                        console.log("Upies Right Selected");
+                    } else {
+                        newAnim="upies";
+                        console.log("Upies Left Selected");
+                    }
             } else {
                 if (this.jetPackOn) {
                     if (this.currAnimName.toUpperCase().includes("LEFT")) {
