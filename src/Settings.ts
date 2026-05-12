@@ -9,9 +9,9 @@ export class Settings {
     public playEvents: boolean;
 
     game_music: p5.SoundFile;
-    //mikeFrames: p5.Image[] = [];
-    //mikeIndex: number = 0;
-    //mikeImg: any;
+    mikeFrames: p5.Image[] = [];
+    mikeIndex: number = 0;
+    mikeImg: any;
     storyText: any;
     menu:  p5.Element;
     full: p5.Element;

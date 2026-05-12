@@ -78,7 +78,7 @@ export class GameManager {
             // Draws the menu from settings
             case STATE.Menu: {
                 this.map.draw();
-                //this.settings.animateMike();
+                this.settings.animateMike();
                 this.settings.updateLevelText(this.map.level);
                 this.settings.showMenu();
                 break;
