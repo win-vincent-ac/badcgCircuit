@@ -8,6 +8,7 @@ import { Spike } from "./sprites/Spike.js";
 import { Gate, GateState } from "./sprites/Gate.js";
 import { Station, StationState } from "./sprites/Station.js";
 import { Circuit, CircuitState, CircuitPower, CircuitNumber } from "./sprites/Circuit.js";
+import { EnergyTerminal } from "./sprites/EnergyTerminal.js"
 import {Door} from "./sprites/Door.js";
 
 export class ResourceManager {
@@ -196,6 +197,10 @@ export class ResourceManager {
             }
             case 'Circuit': {
                 s = new Circuit();
+                break;
+            }
+            case 'EnergyTerminal': {
+                s = new EnergyTerminal();
                 break;
             }
             case 'Music': {

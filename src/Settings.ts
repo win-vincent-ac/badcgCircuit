@@ -9,16 +9,16 @@ export class Settings {
     public playEvents: boolean;
 
     game_music: p5.SoundFile;
-    mikeFrames: p5.Image[] = [];
-    mikeIndex: number = 0;
-    mikeImg: any;
+    //mikeFrames: p5.Image[] = [];
+    //mikeIndex: number = 0;
+    //mikeImg: any;
     storyText: any;
     menu:  p5.Element;
     full: p5.Element;
     
     constructor() {
 
-        // putting in a reference for M1K3's animation
+         //putting in a reference for M1K3's animation
         this.mikeFrames = [
         loadImage("assets/images/lil_dude1.png"),
         loadImage("assets/images/lil_dude2.png"),

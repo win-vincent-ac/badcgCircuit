@@ -36,7 +36,7 @@ export class Player extends Creature {
          */
         this.MAX_FUEL=7500;
         this.MAX_SPEED=0.35;
-        this.JUMP_SPEED=0.80;
+        this.JUMP_SPEED=0.90;
         this.doubleJumpTimer=0;
         this.thrusterAmount=0.003;
         this.fuel=7500;

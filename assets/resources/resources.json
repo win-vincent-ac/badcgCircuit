@@ -87,6 +87,12 @@
                 {"img":"lil_dude5", "duration":100}
             ]
         },
+        "energy_terminal": {
+            "type": "EnergyTerminal",
+            "default": [
+                {"img":"tiny_logic", "duration":50}
+            ]
+        },
 
         "end_portal": {
             "type":"EndPortal",
@@ -217,6 +223,7 @@
             "?": "mike",
             "!": "gate",
             "$": "station",
+            "*": "circuit_block",
             "m": "mailbox",
             "#": "start_block",
             "*": "end_block",
@@ -224,7 +231,7 @@
             "l": "lit_logic",
             "b": "block_stand",
             "c": "circle_stand",
-            "s": "switch"
+            "s": "energy_terminal"
 
         },
         "levels": [
