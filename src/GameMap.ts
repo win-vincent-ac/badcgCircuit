@@ -647,12 +647,13 @@ export class GameMap {
              if (nearby) {
              this.heldMedallion = nearby;
              this.robot_pickup.play();
-             if (this.player.currAnimName.toUpperCase().includes("LEFT")) {
+             this.player.playerPickedUpMedallion();
+             /*if (this.player.currAnimName.toUpperCase().includes("LEFT")) {
                 this.player.setAnimation("upiesLeft");
              } else {
                 this.player.setAnimation("upiesRight");
                 //PICK UP ANIMATION?
-            }
+            }*/
          }
         }
 
@@ -667,7 +668,7 @@ export class GameMap {
                 playerPos.x - 40,
                 playerPos.y + 56);
             this.heldMedallion = null;
-            this.player.setAnimation("upiesLeft");
+            //this.player.setAnimation("upiesLeft");
                 //PUT DOWN ANIMATION?
             }
             else {
@@ -676,7 +677,7 @@ export class GameMap {
                 playerPos.x + 120,
                 playerPos.y + 56);
             this.heldMedallion = null;
-            this.player.setAnimation("upiesRight");
+            //this.player.setAnimation("upiesRight");
             }
     }
 
@@ -687,11 +688,11 @@ export class GameMap {
             //oldVel.x < 0 && ?? Messes idle pick up 
             if ( this.player.currAnimName.toUpperCase().includes("LEFT")){
                 this.player.holdingMedallion = true;
-                this.player.setAnimation("upies_run_Left");
+                //this.player.setAnimation("upies_run_Left");
             //oldVel.x > 0 &&
             } else if (this.player.currAnimName.toUpperCase().includes("RIGHT")){
                 this.player.holdingMedallion = true;
-                this.player.setAnimation("upies_run_Right");
+                //this.player.setAnimation("upies_run_Right");
             }
 
         this.heldMedallion.setPosition( //HOLDING
