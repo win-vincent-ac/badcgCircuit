@@ -140,18 +140,18 @@ export class Circuit extends Star {
         this.power = CircuitPower.OFF;
     }
     checkPower() {
-       //console.log("Checking Power");
+       console.log("Checking Power");
         if (this.source != null) {
            //console.log("This Power Source Not Null");
             if (this.source instanceof Station) {
                 if ((this.source as Station ).getState() == StationState.ON) {
-                   //console.log("St.Turning Power On");
+                   console.log("St.Turning Power On: " + this.getNumber());
                     this.power = CircuitPower.ON;
                   //console.log("St.Power On");
                 }
                 else {
                     this.power = CircuitPower.OFF;
-                  //console.log("St.Power Off");
+                  console.log("St.Power Off: " + this.getNumber());
                     }
             } else if (this.source instanceof Circuit) {
                 /*if ((this.source as Circuit ).getState() == CircuitPower.ON) {
@@ -163,11 +163,14 @@ export class Circuit extends Star {
                     this.power = CircuitPower.OFF;
                   console.log("Cr.Power Off Circuit: " + this.getNumber());
                     }*/
+                    //console.log("Cr.Turning Power On Circuit: " + this.getNumber());
                     if (((this.source as Circuit).source instanceof EnergyTerminal)) {
                         console.log("Cr.Turning Power On Circuit: " + this.getNumber());
                         this.power = CircuitPower.ON;
                     }
-                    else {this.power = CircuitPower.OFF}
+                    else {this.power = CircuitPower.OFF
+                        console.log("Cr.Power Off Circuit: " + this.getNumber());
+                    }
             }
            //console.log("Done Checking Power");
         }

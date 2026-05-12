@@ -115,10 +115,10 @@
         "mailbox": {
             "type": "Mailbox",
             "on": [
-                {"img":"logic", "duration":100}
+                {"img":"lit_logic", "duration":100}
             ],
             "off": [
-                {"img":"lit_logic", "duration":100}
+                {"img":"logic", "duration":100}
             ]
         },
        
@@ -135,14 +135,20 @@
             ]
         },
         "block_stand": {
-            "type":"Star",
-            "default":[
+            "type":"Station",
+            "on":[
+                {"img":"block_stand", "duration":150}
+            ],
+            "off":[
                 {"img":"block_stand", "duration":150}
             ]
         },
         "circle_stand": {
-            "type":"Star",
-            "default":[
+            "type":"Station",
+            "on":[
+                {"img":"circle_stand", "duration":150}
+            ],
+            "off":[
                 {"img":"circle_stand", "duration":150}
             ]
         },

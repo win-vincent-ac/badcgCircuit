@@ -4,6 +4,7 @@
 
 import { Gate } from "./Gate.js";
 import { Sprite } from "./Sprite.js";
+import { Door } from "./Door.js";
 
 
 export enum StationState { EMPTY, ON, OFF }; 
@@ -22,6 +23,8 @@ export class Station extends Sprite {
     protected outputSource: Station;
     protected isOutput: boolean;
     protected isInput: boolean;
+    protected toDoor: boolean;
+    protected doorShouldOpen: boolean;
 
     constructor() { 
         super();
@@ -31,6 +34,7 @@ export class Station extends Sprite {
         this.outputPower = false;
         this.isOutput = false;
         this.isInput = false;
+        this.doorShouldOpen = false;
         
     }
     changeState(initialState: number) {
@@ -110,6 +114,12 @@ export class Station extends Sprite {
                 //console.log("turned off");
             }
         }
+        if (this.isToDoor) {
+            if (this.state == StationState.ON) {
+                this.doorShouldOpen = true;
+            }
+            else {this.doorShouldOpen = false;}
+        }
         //console.log("Done Checking Output");
     }
 
@@ -135,6 +145,16 @@ export class Station extends Sprite {
     }
     makeOutput() {
         this.isOutput = true;
+    }
+
+    makeToDoor() {
+        this.toDoor = true;
+    }
+    isToDoor() {
+        return this.toDoor;
+    }
+    shouldDoorOpen() {
+        return this.doorShouldOpen;
     }
 
     checkingIsOutput() {
