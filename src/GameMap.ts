@@ -149,7 +149,7 @@ export class GameMap {
         //LEVEL DESIGN FOR GATES, STATIONS, CIRCUITS
         //All stations will be drawn first as sprites[i] and end as sprites[0], Read them right to left
         //after all stations are drawn, then gates and other sprites are drawn at sprites[i+1], read left to right
-        if (this.level == 0) {
+        if (this.level == 1) {
             (this.sprites[3] as Station).changeState(StationState.OFF);
             
             (this.sprites[2] as Station).changeState(StationState.OFF);
@@ -433,7 +433,6 @@ export class GameMap {
             */
         else if (p instanceof Door) {
 
-                console.log("I a Door a bull");
             /*
              * the if loop states that if the level is 0 and you have 10 medaillions, you can proceed to the next level
              * and the sound black_hole will play
@@ -441,6 +440,7 @@ export class GameMap {
              */
             if(!(p as Door).isOpen()){
                 (p as Door).openDoor();
+                this.level+=1;
             }
 
             else if((p as Door).isOpen()) {

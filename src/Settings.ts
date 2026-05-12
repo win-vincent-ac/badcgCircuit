@@ -45,15 +45,14 @@ export class Settings {
         this.menu.style("line-height", "1.35");
 
         // M1K3's placement in the menu
-       this.mikeImg = createImg("assets/images/lil_dude1.png", "M1K3");
-
+        this.mikeImg = createImg("assets/images/m1k3_1.png", "M1K3");
         this.mikeImg.style("position", "absolute");
         this.mikeImg.style("top", "30px");
         this.mikeImg.style("right", "30px");
         this.mikeImg.style("width", "180px");
         this.mikeImg.style("height", "180px");
 
-       // this.menu.child(this.mikeImg);
+        this.menu.child(this.mikeImg);
 
         // M1K3's speaking section/Storyline
 
