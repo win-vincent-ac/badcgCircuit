@@ -2,7 +2,7 @@ import { EnergyTerminal } from "./EnergyTerminal.js";
 import { Star } from "./PowerUp.js";
 import { Station, StationState } from "./Station.js";
 
-export enum CircuitState {START, END };
+export enum CircuitState {EXTRA, START, END };
 
 export enum CircuitNumber { ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE };
 
@@ -154,7 +154,7 @@ export class Circuit extends Star {
                   //console.log("St.Power Off");
                     }
             } else if (this.source instanceof Circuit) {
-                if ((this.source as Circuit ).getState() == CircuitPower.ON) {
+                /*if ((this.source as Circuit ).getState() == CircuitPower.ON) {
                     console.log("Cr.Turning Power On Circuit: " + this.getNumber());
                     this.power = CircuitPower.ON;
                     console.log("Cr.Power On");
@@ -162,7 +162,12 @@ export class Circuit extends Star {
                 else {
                     this.power = CircuitPower.OFF;
                   console.log("Cr.Power Off Circuit: " + this.getNumber());
+                    }*/
+                    if (((this.source as Circuit).source instanceof EnergyTerminal)) {
+                        console.log("Cr.Turning Power On Circuit: " + this.getNumber());
+                        this.power = CircuitPower.ON;
                     }
+                    else {this.power = CircuitPower.OFF}
             }
            //console.log("Done Checking Power");
         }
@@ -171,4 +176,5 @@ export class Circuit extends Star {
             this.power = CircuitPower.OFF;
         }
     }
+    
 } 

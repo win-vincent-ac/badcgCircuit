@@ -15,8 +15,8 @@ AAAAAAAHBBBBF                       EBBBBGAAAAAAA
 AAAAAAANJJJJJL                     KJJJJJMAAAAAAA 
 AAAAAAAD                                 CAAAAAAA         
 AOAAAAAD    $ $ m $  !!!                 CAAAAAAA           
-AAAAAAAHBBBBFEBBBBBBBBBBBBBBBBF     EBBBBGAAAAAAA     
-AAAAAAAD                                 CAAAAAAA   
+AAAAAAAHBBBBFEBBBBBBBBBBBBBBB       EBBBBGAAAAAAA     
+AAAAAAAD                     BF          CAAAAAAA   
 AAAAAAAD                                 CAAAAAAA   
 AAAAAAAD                                 CAAAAAAA   
 AAAAAAAD                                 CAAAAAAA   

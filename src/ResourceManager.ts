@@ -8,7 +8,7 @@ import { Spike } from "./sprites/Spike.js";
 import { Gate, GateState } from "./sprites/Gate.js";
 import { Station, StationState } from "./sprites/Station.js";
 import { Circuit, CircuitState, CircuitPower, CircuitNumber } from "./sprites/Circuit.js";
-import { EnergyTerminal } from "./sprites/EnergyTerminal";
+import { EnergyTerminal } from "./sprites/EnergyTerminal.js";
 
 
 export class ResourceManager {

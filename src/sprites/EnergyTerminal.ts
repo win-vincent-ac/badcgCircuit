@@ -1,3 +1,6 @@
+/**
+ * Energy Terminal Powers Any Start in it
+ */
 import { Circuit } from "./Circuit.js";
 import { Sprite } from "./Sprite.js";
 
@@ -16,10 +19,10 @@ export class EnergyTerminal extends Sprite {
         console.log("Checking Energy");
         if (this.pathway != null) {
             //console.log("outputSource is not null");
-            this.pathway.addPower();
+            (this.pathway as Circuit).addPower();
         }
         else {
-            this.pathway.removePower();
+            //(this.pathway as Circuit).removePower();
         }
         //console.log("Done Checking Output");
 }

@@ -567,8 +567,8 @@ export class GameMap {
 
         
         else if (s instanceof EnergyTerminal) {
-           //console.log("!!!!!!!!!!!!TERNIMAL Found"); //HIT
-            let spriteCollided=this.getSpriteCollision(s);
+          // console.log("TERNIMAL Found"); //HIT
+            let spriteCollided=this.getSpriteCollision(s); 
             if ((spriteCollided instanceof Circuit) && this.heldItem == null && (spriteCollided as Circuit).getState() == CircuitState.START) {
                 //Controlling Full/Empty
                     if (!(s as EnergyTerminal).getPathway != null) {
@@ -578,7 +578,7 @@ export class GameMap {
                     const switchImg = s.getImage();
 
                     const circuitHalfWidth = circuitImg.width / 2;
-                    const circuitHalfHeight =  (circuitImg.height / 8)*7;
+                    const circuitHalfHeight =  circuitImg.height / 2;
 
                     const switchCenterX = switchPos.x + switchImg.width / 2;
                     const switchCenterY = switchPos.y + switchImg.height / 2;
@@ -590,12 +590,15 @@ export class GameMap {
                     
                     (s as EnergyTerminal).syncPathway(spriteCollided as Circuit);
                     (spriteCollided as Circuit).syncEnergy(s);
+                    if ((spriteCollided as Circuit).getPower() == CircuitPower.ON) {
+                        console.log("Terminal Turned on Circuit");
+                    }
                 }
                 else {
-                    console.log("SWITCH IS NULL");
-                    (spriteCollided as Circuit).removePower;
+                    console.log("!!!!!!!!!!!!!!Terminal IS NULL");
+                    //(spriteCollided as Circuit).removePower;
                     (s as EnergyTerminal).unsyncPathway(spriteCollided);
-                    (spriteCollided as Circuit).unsyncEnergy(s);
+                    //(spriteCollided as Circuit).unsyncEnergy(s);
                 }
             }
         }
@@ -657,9 +660,11 @@ export class GameMap {
                         spriteCollided.setPosition((stationCenterX - gateHalfWidth), (stationCenterY - gateHalfHeight));
                         (spriteCollided as Circuit).stopMoving();
                         spriteCollided.setVelocity(0,0);
-                        
-                        //(s as Station).changeState(StationState.ON);
-                        //console.log("Circuit Start Detected in Station");
+
+                        if ((spriteCollided as Circuit).getPower() == CircuitPower.ON) {
+                            (s as Station).changeState(StationState.ON);
+                            }
+                        console.log("Circuit Start Detected in Station");
                         }
                         else {  }
                     }
@@ -680,17 +685,31 @@ export class GameMap {
                         (spriteCollided as Circuit).stopMoving();
                         spriteCollided.setVelocity(0,0);
                         
-                        //(s as Station).changeState(StationState.ON);
-                        //console.log("Circuit End Detected in Station");
+                        if ((spriteCollided as Circuit).getPower() == CircuitPower.ON) {
+                        (s as Station).changeState(StationState.ON);
+                        }
+                        console.log("Circuit End Detected in Station");
                         }
                     }
                     
                 }
+                
                 else {
                     (s as Station).changeState(StationState.OFF);
                     (s as Station).changeCenter(CenterState.EMPTY);
                 } 
+            } /**/else if (s instanceof Circuit) {
+            console.log("!!Circuit Found");
+            let spriteCollided=this.getSpriteCollision(s);
+            if ((s as Circuit).getState() == CircuitState.START) {
+            console.log("!!Start Circuit Found");
+                if (!spriteCollided && (s as Circuit).getPower() == CircuitPower.ON) {
+                    console.log("!!Should Turn Off");
+                    (s as Circuit).unsyncEnergy(null);
+                    (s as Circuit).removePower();
+                }
             }
+        }
         /*
          * if the object is not a player, check for collision with other sprites
          * if they collide, bounce off of eachother and change directions

@@ -81,10 +81,7 @@
         "energy_terminal": {
             "type": "EnergyTerminal",
             "default": [
-                {"img":"life1", "duration":50},
-                {"img":"life3", "duration":50},
-                {"img":"life2", "duration":50},
-                {"img":"life3", "duration":50}
+                {"img":"tiny_logic", "duration":50}
             ]
         },
 
