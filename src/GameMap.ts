@@ -9,6 +9,7 @@ import { Lava } from "./sprites/Lava.js"
 import { Settings } from "./Settings.js";
 import {Door} from "./sprites/Door.js";
 import { Vector } from "p5";
+import { Velocity } from "./sprites/Player.js"
 
 /*
  * This class controls the main actions of the game for the player and the sprites
@@ -44,6 +45,8 @@ export class GameMap {
     hWasDown: boolean = false;
     robot_death: p5.SoundFile;
     robot_pickup: p5.SoundFile;
+    facingLeft: boolean = false;
+    
 
     constructor(level:number, resources:ResourceManager, settings:Settings, game: GameManager) {
     /*
@@ -639,10 +642,10 @@ export class GameMap {
              this.heldMedallion = nearby;
              this.robot_pickup.play();
              if (this.player.currAnimName.toUpperCase().includes("LEFT")) {
-                this.player.setAnimation("upies");
+                this.player.setAnimation("upiesLeft");
              } else {
                 this.player.setAnimation("upiesRight");
-                //PUT PICKUP RIGHT ANIMATION HERE
+                //PICK UP ANIMATION?
             }
          }
         }
@@ -650,6 +653,7 @@ export class GameMap {
         // Press H again to drop it
         else if (hDown && !this.hWasDown && this.heldMedallion !== null) {
             const playerPos = this.player.getPosition();
+            this.player.holdingMedallion = false;
 
             if (this.player.currAnimName.toUpperCase().includes("LEFT")) {
                 this.heldMedallion.setPosition( //PUT DOWN LEFT
@@ -657,8 +661,8 @@ export class GameMap {
                 playerPos.x - 40,
                 playerPos.y + 56);
             this.heldMedallion = null;
-            this.player.setAnimation("upies");
-                //PUT PUTDOWN LEFT ANIMATION HERE
+            this.player.setAnimation("upiesLeft");
+                //PUT DOWN ANIMATION?
             }
             else {
                 this.heldMedallion.setPosition( //PUT DOWN RIGHT
@@ -667,15 +671,22 @@ export class GameMap {
                 playerPos.y + 56);
             this.heldMedallion = null;
             this.player.setAnimation("upiesRight");
-                //PUT PUTDOWN RIGHT ANIMATION HERE
-                //this.player.setAnimation("put_down_right");
             }
-            
     }
 
         // If holding a medallion, move it with the player
         if (this.heldMedallion !== null) {
-        const playerPos = this.player.getPosition();
+            const playerPos = this.player.getPosition();
+            let oldVel = this.player.getVelocity();
+            //oldVel.x < 0 && ?? Messes idle pick up 
+            if ( this.player.currAnimName.toUpperCase().includes("LEFT")){
+                this.player.holdingMedallion = true;
+                this.player.setAnimation("upies_run_Left");
+            //oldVel.x > 0 &&
+            } else if (this.player.currAnimName.toUpperCase().includes("RIGHT")){
+                this.player.holdingMedallion = true;
+                this.player.setAnimation("upies_run_Right");
+            }
 
         this.heldMedallion.setPosition( //HOLDING
             playerPos.x + 35,

@@ -21,6 +21,7 @@ export class Player extends Creature {
     doubleJump:boolean;
     doubleJumpTimer:number;
     doubleJumpActive:boolean;
+    holdingMedallion: boolean = false;
     
     /**
      * the function of the player class
@@ -293,9 +294,10 @@ export class Player extends Creature {
      * velocity and jetpack usage
      * @param deltaTime 
      */
+
     update(deltaTime:number) {
         let newAnim="";
-        if (this.state==CreatureState.NORMAL) {
+        if (this.state==CreatureState.NORMAL && !this.holdingMedallion) {
             /**
              * updates fuel usage if jetpack is on
              */

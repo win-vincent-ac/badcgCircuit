@@ -68,17 +68,17 @@
             "deadRight": [
                 {"sheet":"main_dude_deadr","rows":3,"cols":4,"duration":150}
             ],
-            "upies": [
+            "upiesLeft": [
                 {"sheet":"main_dude_upies","rows":1,"cols":2,"duration":150}
             ],
             "upiesRight": [
                 {"sheet":"main_dude_upiesr","rows":1,"cols":2,"duration":150}
             ],
-            "upies_run": [
-                {"sheet":"main_dude_upies_run","rows":1,"cols":2,"duration":150}
+            "upies_run_Left": [
+                {"sheet":"main_dude_upies_run","rows":1,"cols":4,"duration":150}
             ],
-            "upies_run_right": [
-                {"sheet":"main_dude_upies_runr","rows":1,"cols":2,"duration":150}
+            "upies_run_Right": [
+                {"sheet":"main_dude_upies_runr","rows":1,"cols":4,"duration":150}
             ]
         },
         "lil_dude": {
@@ -134,7 +134,7 @@
                 {"img":"closed_door", "duration":150}
             ],
             "open":[
-                {"img":"open_door", "duration":150}
+                 {"sheet":"open_door","rows":1,"cols":5,"duration":150}
             ]
         },
         "logic": {
