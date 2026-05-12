@@ -45,14 +45,13 @@ export class Switch extends Star {
        //console.log("Checking Power"); //Checks Power
         if (this.output != null) {
            //console.log("Switch Not Null"); 
-            if (this.output.getPower() == CircuitPower.ON) {
+            if (SwitchState.ON) {
                 //console.log("Turning Power On");
                 this.output.addPower();
                 //console.log("Switch Gives Power");
             }
             else {
-                if (this.output != null) {
-                this.output.removePower(); }
+                this.output.removePower(); 
                //console.log("Switch unPower");
                 }
             }
