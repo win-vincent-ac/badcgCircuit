@@ -10,7 +10,7 @@ import { Gate, GateState } from "./sprites/Gate.js";
 import { CenterState, Station, StationState } from "./sprites/Station.js";
 import { Vector } from "p5";
 import { Circuit, CircuitState, CircuitPower, CircuitNumber } from "./sprites/Circuit.js";
-import { EnergyTerminal } from "./sprites/EnergyTerminal";
+import { EnergyTerminal } from "./sprites/EnergyTerminal.js";
 
 /*
  * This class controls the main actions of the game for the player and the sprites
