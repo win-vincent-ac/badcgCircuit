@@ -137,7 +137,7 @@ export class GameMap {
                     if (ch=='0') { // check if character is '0', which denotes the player sprite
                         this.player=s; // assign the sprite to the 'player' variable
                     } 
-                    else if (ch=='$' || ch=='m') { // check if character is '$' or 'm', which denotes the stations
+                    else if (ch=='$' || ch=='m' || ch=='b' || ch =='c') { // check if character is '$' or 'm', which denotes the stations
                         this.sprites.unshift(s);
                     }
                     else {
@@ -150,10 +150,22 @@ export class GameMap {
         //LEVEL DESIGN FOR GATES, STATIONS, CIRCUITS
         //All stations will be drawn first as sprites[i] and end as sprites[0], Read them right to left
         //after all stations are drawn, then gates and other sprites are drawn at sprites[i+1], read left to right
-        if (this.level == 1) {
-            console.log("level == One ");
-            (this.sprites[3] as Station).changeState(StationState.OFF);
-            
+        if (this.level == 0) {
+            console.log("level == Zero ");
+            //(this.sprites[0] as Station).changeState(StationState.OFF);
+
+            //(this.sprites[1] as Gate).changeState(GateState.AND);
+            //(this.sprites[2] as Gate).changeState(GateState.AND);
+            //(this.sprites[3] as Gate).changeState(GateState.NOT);
+            //(this.sprites[4] as Gate).changeState(GateState.OR);
+
+            //(this.sprites[3] as Circuit).changeState(CircuitState.START, CircuitNumber.ONE);
+            //(this.sprites[4] as Circuit).changeState(CircuitState.END, CircuitNumber.ONE);
+            //(this.sprites[4] as Circuit).syncStart((this.sprites[3] as Circuit));
+
+        } else if (this.level == 1) {
+            console.log("level == One "); 
+
             (this.sprites[2] as Station).changeState(StationState.OFF);
             (this.sprites[1] as Station).changeState(StationState.OFF);
             (this.sprites[1] as Station).syncInputOne((this.sprites[3] as Station));
@@ -161,20 +173,8 @@ export class GameMap {
             (this.sprites[1] as Station).syncOutput((this.sprites[0] as Station));
             (this.sprites[0] as Station).changeState(StationState.OFF);
 
-            //(this.sprites[0] as Station).connectOne(this.sprites[4]); <<<Possible example of changing connections
-            (this.sprites[4] as Gate).changeState(GateState.AND);
-            (this.sprites[5] as Gate).changeState(GateState.NOT);
-            (this.sprites[6] as Gate).changeState(GateState.OR);
-
-            (this.sprites[9] as Circuit).changeState(CircuitState.START, CircuitNumber.ONE);
-            (this.sprites[10] as Circuit).changeState(CircuitState.END, CircuitNumber.ONE);
-            (this.sprites[10] as Circuit).syncStart((this.sprites[9] as Circuit));
-
-            (this.sprites[11] as Circuit).changeState(CircuitState.START, CircuitNumber.TWO);
-            (this.sprites[12] as Circuit).changeState(CircuitState.END, CircuitNumber.TWO);
-            (this.sprites[12] as Circuit).syncStart((this.sprites[11] as Circuit));
-        
         }
+
 
     }
 
