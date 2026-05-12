@@ -1,7 +1,3 @@
-/**
- * A station is an object in the game that takes circuits and gates as inputs.
- */
-
 import { Circuit } from "./Circuit.js";
 import { Sprite } from "./Sprite.js";
 
