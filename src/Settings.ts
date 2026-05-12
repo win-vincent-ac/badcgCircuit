@@ -46,7 +46,6 @@ export class Settings {
 
         // M1K3's placement in the menu
         this.mikeImg = createImg("assets/images/m1k3_1.png", "M1K3");
-
         this.mikeImg.style("position", "absolute");
         this.mikeImg.style("top", "30px");
         this.mikeImg.style("right", "30px");
@@ -184,7 +183,7 @@ export class Settings {
     }
     
     // Set to animate mike
-    animateMike() {
+   animateMike() {
     if (frameCount % 10 == 0) {
         this.mikeIndex++;
         if (this.mikeIndex >= this.mikeFrames.length) {

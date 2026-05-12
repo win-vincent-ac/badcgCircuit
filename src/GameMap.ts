@@ -128,6 +128,7 @@ export class GameMap {
                 if (ch.match(/[A-Z]/)) { 
                     this.tiles[x][y]=this.resources.get(ch);
                 } else {//it's a sprite
+                    console.log(ch);
                     let s = this.resources.get(mappings[ch]).clone();
                     s.setPosition(this.tilesToPixels(x)+this.tile_size-s.getImage().width/2,
                                   this.tilesToPixels(y)+this.tile_size-s.getImage().height);
@@ -148,7 +149,7 @@ export class GameMap {
         //LEVEL DESIGN FOR GATES, STATIONS, CIRCUITS
         //All stations will be drawn first as sprites[i] and end as sprites[0], Read them right to left
         //after all stations are drawn, then gates and other sprites are drawn at sprites[i+1], read left to right
-        if (this.level == 0) {
+        if (this.level == 1) {
             (this.sprites[3] as Station).changeState(StationState.OFF);
             
             (this.sprites[2] as Station).changeState(StationState.OFF);
@@ -432,7 +433,6 @@ export class GameMap {
             */
         else if (p instanceof Door) {
 
-                console.log("I a Door a bull");
             /*
              * the if loop states that if the level is 0 and you have 10 medaillions, you can proceed to the next level
              * and the sound black_hole will play
@@ -440,6 +440,7 @@ export class GameMap {
              */
             if(!(p as Door).isOpen()){
                 (p as Door).openDoor();
+                this.level+=1;
             }
 
             else if((p as Door).isOpen()) {
@@ -734,7 +735,7 @@ export class GameMap {
              if (this.heldItem instanceof Gate) {
              (this.heldItem as Gate).startMoving();
              }
-             this.player.playerPickedUpMedallion();
+             this.player.playerPickedItem();
              /*if (this.player.currAnimName.toUpperCase().includes("LEFT")) {
                 this.player.setAnimation("upiesLeft");
              } else {
@@ -747,7 +748,7 @@ export class GameMap {
         // Press H again to drop it
         else if (hDown && !this.hWasDown && this.heldItem !== null) {
             const playerPos = this.player.getPosition();
-            this.player.holdingMedallion = false;
+            this.player.holdingItem = false;
 
             if (this.player.currAnimName.toUpperCase().includes("LEFT")) {
                 this.heldItem.setPosition( //PUT DOWN LEFT
@@ -766,17 +767,17 @@ export class GameMap {
             
     }
 
-        // If holding a medallion, move it with the player
+        // If holding a item, move it with the player
         if (this.heldItem !== null) {
             const playerPos = this.player.getPosition();
             let oldVel = this.player.getVelocity();
             //oldVel.x < 0 && ?? Messes idle pick up 
             if ( this.player.currAnimName.toUpperCase().includes("LEFT")){
-                this.player.holdingMedallion = true;
+                this.player.holdingItem = true;
                 //this.player.setAnimation("upies_run_Left");
             //oldVel.x > 0 &&
             } else if (this.player.currAnimName.toUpperCase().includes("RIGHT")){
-                this.player.holdingMedallion = true;
+                this.player.holdingItem = true;
                 //this.player.setAnimation("upies_run_Right");
             }
 
