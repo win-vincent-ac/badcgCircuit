@@ -14,14 +14,14 @@ AAAAAAAD                                 CAAAAAAA
 AAAAAAAHBBBBF                       EBBBBGAAAAAAA
 AAAAAAANJJJJJL                     KJJJJJMAAAAAAA 
 AAAAAAAD                                 CAAAAAAA         
-AOAAAAAD    $ $ m $  !!!     **          CAAAAAAA           
+AOAAAAAD    $ $ m $  !!!                 CAAAAAAA           
 AAAAAAAHBBBBFEBBBBBBBBBBBBBBBBF     EBBBBGAAAAAAA     
 AAAAAAAD                                 CAAAAAAA   
 AAAAAAAD                                 CAAAAAAA   
-AAAAAAAD              ?                  CAAAAAAA   
 AAAAAAAD                                 CAAAAAAA   
-AAAAAAAD                                 CAAAAAAA         
-AOAAAAAD                  0              CAAAAAAA           
+AAAAAAAD                                 CAAAAAAA   
+AAAAAAAD     !                           CAAAAAAA         
+AOAAAAAD        A s 0 **  **             CAAAAAAA           
 AAAAAAAHBBBBFEBBBBBBBBBBBBBBBBF     EBBBBGAAAAAAA
 AAAAAAANJJJJJL       KJJJL         KJJJJJMAAAAAAA  
 AAAAAAAD                                 CAAAAAAA  
