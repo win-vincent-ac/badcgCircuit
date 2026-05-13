@@ -159,6 +159,8 @@ export class Circuit extends Star {
                     break;
                 }
             }
+            break;
+        }
             case CircuitState.END: {
                 this.state = CircuitState.END;
                 switch (initialNumber) {
@@ -293,7 +295,7 @@ export class Circuit extends Star {
                     break;
                 }
             }
-           
+            break;
             }
         }
     }
