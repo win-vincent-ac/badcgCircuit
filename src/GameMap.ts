@@ -168,7 +168,7 @@ export class GameMap {
           //console.log("level == Zero ");
             (this.sprites[0] as Station).changeState(StationState.OFF);
             (this.sprites[0] as Station).makeToDoor();
-            (this.sprites[13] as Door).syncDoorStation(this.sprites[0] as Station);
+            (this.sprites[8] as Door).syncDoorStation(this.sprites[0] as Station);
 
             (this.sprites[5] as Station).changeState(StationState.OFF);
             (this.sprites[4] as Station).changeState(StationState.OFF);
@@ -178,14 +178,14 @@ export class GameMap {
             (this.sprites[3] as Station).syncOutput((this.sprites[2] as Station));
             (this.sprites[2] as Station).changeState(StationState.OFF);
 
-            (this.sprites[6] as Gate).changeState(GateState.AND);
-            (this.sprites[7] as Gate).changeState(GateState.OR);
-            (this.sprites[8] as Gate).changeState(GateState.NOT);
-            (this.sprites[9] as Gate).changeState(GateState.AND);
+            //(this.sprites[6] as Gate).changeState(GateState.NOT);
+            //(this.sprites[7] as Gate).changeState(GateState.OR);
+            //(this.sprites[8] as Gate).changeState(GateState.NOT);
+            //(this.sprites[9] as Gate).changeState(GateState.AND);
 
-            (this.sprites[10] as Circuit).changeState(CircuitState.START, CircuitNumber.TWO);
-            (this.sprites[11] as Circuit).changeState(CircuitState.END, CircuitNumber.TWO);
-            (this.sprites[11] as Circuit).syncStart((this.sprites[10] as Circuit));
+            (this.sprites[6] as Circuit).changeState(CircuitState.START, CircuitNumber.ZERO);
+            //(this.sprites[11] as Circuit).changeState(CircuitState.END, CircuitNumber.TWO);
+            //(this.sprites[11] as Circuit).syncStart((this.sprites[10] as Circuit));
  
             //(this.sprites[11] as Circuit).changeState(CircuitState.START, CircuitNumber.TWO);
             //(this.sprites[12] as Circuit).changeState(CircuitState.END, CircuitNumber.TWO);
@@ -800,7 +800,7 @@ export class GameMap {
             }
             else if (sprite instanceof Circuit) {
                 //console.log("Entered Circuit Check");
-                 (sprite as Circuit).changeState((sprite as Circuit).getState(), (sprite as Circuit).getNumber());
+                //(sprite as Circuit).changeState((sprite as Circuit).getState(), (sprite as Circuit).getNumber());
                 (sprite as Circuit).checkPower();
             }
             else if (sprite instanceof EnergyTerminal) {
