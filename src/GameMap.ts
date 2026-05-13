@@ -800,6 +800,7 @@ export class GameMap {
             }
             else if (sprite instanceof Circuit) {
                 //console.log("Entered Circuit Check");
+                 (sprite as Circuit).changeState((sprite as Circuit).getState(), (sprite as Circuit).getNumber());
                 (sprite as Circuit).checkPower();
             }
             else if (sprite instanceof EnergyTerminal) {
@@ -850,7 +851,7 @@ export class GameMap {
              (this.heldItem as Gate).startMoving();
              }
              else if (this.heldItem instanceof Circuit) {
-                (this.heldItem as Circuit).startMoving
+                (this.heldItem as Circuit).startMoving();
              }
          }
         }
