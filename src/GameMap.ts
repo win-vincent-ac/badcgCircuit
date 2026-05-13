@@ -167,8 +167,8 @@ export class GameMap {
         if (this.level == 0) {
           //console.log("level == Zero ");
             (this.sprites[0] as Station).changeState(StationState.OFF);
-            //(this.sprites[0] as Station).makeToDoor();
-            //(this.sprites[7] as Door).syncDoorStation(this.sprites[0] as Station);
+            (this.sprites[0] as Station).makeToDoor();
+            (this.sprites[9] as Door).syncDoorStation(this.sprites[0] as Station);
 
             (this.sprites[5] as Station).changeState(StationState.OFF);
             (this.sprites[4] as Station).changeState(StationState.OFF);
@@ -185,7 +185,7 @@ export class GameMap {
 
             (this.sprites[6] as Circuit).changeState(CircuitState.START, CircuitNumber.SEVEN);
             (this.sprites[7] as Circuit).changeState(CircuitState.END, CircuitNumber.SEVEN);
-            //(this.sprites[11] as Circuit).syncStart((this.sprites[10] as Circuit));
+            (this.sprites[7] as Circuit).syncStart((this.sprites[6] as Circuit));
  
             //(this.sprites[11] as Circuit).changeState(CircuitState.START, CircuitNumber.TWO);
             //(this.sprites[12] as Circuit).changeState(CircuitState.END, CircuitNumber.TWO);
@@ -431,10 +431,11 @@ export class GameMap {
         /*
          * this removes the sprite 'p' 
          */
+        
         /*
          * this if loop checks to see if 'p' is in instance of star
          */
-        if (p instanceof Star) {
+        else if (p instanceof Star) {
         this.removeSprite(p);
             /*
              * this if loop states that if the player collects a star, the medallion count increases by 1
@@ -445,9 +446,6 @@ export class GameMap {
             }
             this.medallions+=1;
         } 
-        /*
-            * this else if checks to see if 'p' is in instance of a Heart
-            */
         /*
         * this checks to see if 'p' is instance of PowerUp
         * then it checks to see if you collected this PowerUp
@@ -460,9 +458,7 @@ export class GameMap {
                 this.lives+=1;
             } 
         }
-
     }
-
     /*
      * This method checks collisions between the sprites and the tiles throughout the levels
      */
@@ -560,6 +556,28 @@ export class GameMap {
          */
         if (s instanceof Player) {
             this.checkPlayerCollision(s as Player);
+        } 
+        
+        else if (s instanceof Door) {
+            let spriteCollided=this.getSpriteCollision(s); 
+            console.log("Door State: " +this.getDoorState());
+            /*
+             * the if loop states that if the level is 0 and you have 10 medaillions, you can proceed to the next level
+             * and the sound black_hole will play
+             * if you don't have 9 medaillions then you cannot proceed to the next level
+             */
+            //if(!(s as Door).isOpen()){
+            //    (s as Door).openDoor();
+            //}
+
+            if(this.getDoorState() /*&& spriteCollided instanceof Player*/) {
+                console.log("Moving to New Level");
+                /* Start animation for changing door open close */
+                this.level+=1;
+                this.medallions=0;
+                this.initialize();
+                this.removeSprite(s);
+            }
         } 
         
         else if (s instanceof EnergyTerminal) {
@@ -787,6 +805,7 @@ export class GameMap {
      * This method runs while the game is running, it updates the whole game as it is going on. 
      */
     update() {
+        //CHANGE STATE WHEN PLAYER IS DEAD HERE
         if (this.player.getState() == CreatureState.DEAD) {
             this.initialize(); //start the level over
             return;
