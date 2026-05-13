@@ -406,6 +406,16 @@ export class GameMap {
                     return;
                 } 
             }
+            else if (s instanceof Door) {
+                if (this.getDoorState()) {
+                console.log("Moving to New Level");
+                /* Start animation for changing door open close */
+                this.level+=1;
+                this.medallions=0;
+                this.initialize();
+                this.removeSprite(s);
+                }
+            }
         }
     }
     
@@ -435,7 +445,7 @@ export class GameMap {
         /*
          * this if loop checks to see if 'p' is in instance of star
          */
-        else if (p instanceof Star) {
+        if (p instanceof Star) {
         this.removeSprite(p);
             /*
              * this if loop states that if the player collects a star, the medallion count increases by 1
@@ -569,15 +579,16 @@ export class GameMap {
             //if(!(s as Door).isOpen()){
             //    (s as Door).openDoor();
             //}
-
-            if(this.getDoorState() /*&& spriteCollided instanceof Player*/) {
+            /*
+            if(this.getDoorState()) {
                 console.log("Moving to New Level");
                 /* Start animation for changing door open close */
-                this.level+=1;
+            /*    this.level+=1;
                 this.medallions=0;
                 this.initialize();
                 this.removeSprite(s);
-            }
+            }*/
+            
         } 
         
         else if (s instanceof EnergyTerminal) {
