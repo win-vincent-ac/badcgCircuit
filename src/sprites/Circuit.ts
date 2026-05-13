@@ -28,44 +28,272 @@ export class Circuit extends Star {
             case CircuitState.START: {
                 this.state = CircuitState.START;
                 switch (initialNumber) {
+                    case CircuitNumber.ZERO: {
+                    this.number = CircuitNumber.ZERO;
+                    if (this.locked) {
+                        this.setAnimation("zero_start_locked") // placed locked form
+                    }
+                    else if (this.placed) {
+                        this.setAnimation("zero_start_placed") // placed smaller form
+                    }
+                    else {
+                        this.setAnimation("zero_start"); // basic block form
+                    }
+                    break;
+                }
                     case CircuitNumber.ONE: {
                     this.number = CircuitNumber.ONE;
-                    this.setAnimation("one_start");
-                    break;
+                    if (this.locked) {
+                        this.setAnimation("one_start_locked") // placed locked form
                     }
-                    case CircuitNumber.TWO: {
-                        this.number = CircuitNumber.TWO;
-                    this.setAnimation("two_start");
-                    break;
+                    else if (this.placed) {
+                        this.setAnimation("one_start_placed") // placed smaller form
                     }
-                    case CircuitNumber.THREE: {
-                    //this.setAnimation("three_start");
-                    break;
+                    else {
+                        this.setAnimation("one_start"); // basic block form
                     }
+                    break;
                 }
-                //this.setAnimation("zero_start");
-                break;
+                case CircuitNumber.TWO: {
+                    this.number = CircuitNumber.TWO;
+                    if (this.locked) {
+                        this.setAnimation("two_start_locked") // placed locked form
+                    }
+                    else if (this.placed) {
+                        this.setAnimation("two_start_placed") // placed smaller form
+                    }
+                    else {
+                        this.setAnimation("two_start"); // basic block form
+                    }
+                    break;
+                }
+                    case CircuitNumber.THREE: {
+                    this.number = CircuitNumber.THREE;
+                    if (this.locked) {
+                        this.setAnimation("three_start_locked") // placed locked form
+                    }
+                    else if (this.placed) {
+                        this.setAnimation("three_start_placed") // placed smaller form
+                    }
+                    else {
+                        this.setAnimation("three_start"); // basic block form
+                    }
+                    break;
+                }
+                case CircuitNumber.FOUR: {
+                    this.number = CircuitNumber.FOUR;
+                    if (this.locked) {
+                        this.setAnimation("four_start_locked") // placed locked form
+                    }
+                    else if (this.placed) {
+                        this.setAnimation("four_start_placed") // placed smaller form
+                    }
+                    else {
+                        this.setAnimation("four_start"); // basic block form
+                    }
+                    break;
+                }
+                    case CircuitNumber.FIVE: {
+                    this.number = CircuitNumber.FIVE;
+                    if (this.locked) {
+                        this.setAnimation("five_start_locked") // placed locked form
+                    }
+                    else if (this.placed) {
+                        this.setAnimation("five_start_placed") // placed smaller form
+                    }
+                    else {
+                        this.setAnimation("five_start"); // basic block form
+                    }
+                    break;
+                }
+                case CircuitNumber.SIX: {
+                    this.number = CircuitNumber.SIX;
+                    if (this.locked) {
+                        this.setAnimation("six_start_locked") // placed locked form
+                    }
+                    else if (this.placed) {
+                        this.setAnimation("six_start_placed") // placed smaller form
+                    }
+                    else {
+                        this.setAnimation("six_start"); // basic block form
+                    }
+                    break;
+                }
+                    case CircuitNumber.SEVEN: {
+                    this.number = CircuitNumber.SEVEN;
+                    if (this.locked) {
+                        this.setAnimation("seven_start_locked") // placed locked form
+                    }
+                    else if (this.placed) {
+                        this.setAnimation("seven_start_placed") // placed smaller form
+                    }
+                    else {
+                        this.setAnimation("seven_start"); // basic block form
+                    }
+                    break;
+                }
+                case CircuitNumber.EIGHT: {
+                    this.number = CircuitNumber.EIGHT;
+                    if (this.locked) {
+                        this.setAnimation("eight_start_locked") // placed locked form
+                    }
+                    else if (this.placed) {
+                        this.setAnimation("eight_start_placed") // placed smaller form
+                    }
+                    else {
+                        this.setAnimation("eight_start"); // basic block form
+                    }
+                    break;
+                }
+                    case CircuitNumber.NINE: {
+                    this.number = CircuitNumber.NINE;
+                    if (this.locked) {
+                        this.setAnimation("nine_start_locked") // placed locked form
+                    }
+                    else if (this.placed) {
+                        this.setAnimation("nine_start_placed") // placed smaller form
+                    }
+                    else {
+                        this.setAnimation("nine_start"); // basic block form
+                    }
+                    break;
+                }
             }
             case CircuitState.END: {
                 this.state = CircuitState.END;
                 switch (initialNumber) {
+                    case CircuitNumber.ZERO: {
+                    this.number = CircuitNumber.ZERO;
+                    if (this.locked) {
+                        this.setAnimation("zero_end_locked") // placed locked form
+                    }
+                    else if (this.placed) {
+                        this.setAnimation("zero_end_placed") // placed smaller form
+                    }
+                    else {
+                        this.setAnimation("zero_end"); // basic block form
+                    }
+                    break;
+                }
                     case CircuitNumber.ONE: {
                     this.number = CircuitNumber.ONE;
-                    this.setAnimation("one_end");
-                    break;
+                    if (this.locked) {
+                        this.setAnimation("one_end_locked") // placed locked form
                     }
-                    case CircuitNumber.TWO: {
-                        this.number = CircuitNumber.TWO;
-                    this.setAnimation("two_end");
-                    break;
+                    else if (this.placed) {
+                        this.setAnimation("one_end_placed") // placed smaller form
                     }
-                    case CircuitNumber.THREE: {
-                    //this.setAnimation("three_end");
-                    break;
+                    else {
+                        this.setAnimation("one_end"); // basic block form
                     }
+                    break;
                 }
-                //this.setAnimation("zero_end");
-                break;
+                case CircuitNumber.TWO: {
+                    this.number = CircuitNumber.TWO;
+                    if (this.locked) {
+                        this.setAnimation("two_end_locked") // placed locked form
+                    }
+                    else if (this.placed) {
+                        this.setAnimation("two_end_placed") // placed smaller form
+                    }
+                    else {
+                        this.setAnimation("two_end"); // basic block form
+                    }
+                    break;
+                }
+                    case CircuitNumber.THREE: {
+                    this.number = CircuitNumber.THREE;
+                    if (this.locked) {
+                        this.setAnimation("three_end_locked") // placed locked form
+                    }
+                    else if (this.placed) {
+                        this.setAnimation("three_end_placed") // placed smaller form
+                    }
+                    else {
+                        this.setAnimation("three_end"); // basic block form
+                    }
+                    break;
+                }
+                case CircuitNumber.FOUR: {
+                    this.number = CircuitNumber.FOUR;
+                    if (this.locked) {
+                        this.setAnimation("four_end_locked") // placed locked form
+                    }
+                    else if (this.placed) {
+                        this.setAnimation("four_end_placed") // placed smaller form
+                    }
+                    else {
+                        this.setAnimation("four_end"); // basic block form
+                    }
+                    break;
+                }
+                    case CircuitNumber.FIVE: {
+                    this.number = CircuitNumber.FIVE;
+                    if (this.locked) {
+                        this.setAnimation("five_end_locked") // placed locked form
+                    }
+                    else if (this.placed) {
+                        this.setAnimation("five_end_placed") // placed smaller form
+                    }
+                    else {
+                        this.setAnimation("five_end"); // basic block form
+                    }
+                    break;
+                }
+                case CircuitNumber.SIX: {
+                    this.number = CircuitNumber.SIX;
+                    if (this.locked) {
+                        this.setAnimation("six_end_locked") // placed locked form
+                    }
+                    else if (this.placed) {
+                        this.setAnimation("six_end_placed") // placed smaller form
+                    }
+                    else {
+                        this.setAnimation("six_end"); // basic block form
+                    }
+                    break;
+                }
+                    case CircuitNumber.SEVEN: {
+                    this.number = CircuitNumber.SEVEN;
+                    if (this.locked) {
+                        this.setAnimation("seven_end_locked") // placed locked form
+                    }
+                    else if (this.placed) {
+                        this.setAnimation("seven_end_placed") // placed smaller form
+                    }
+                    else {
+                        this.setAnimation("seven_end"); // basic block form
+                    }
+                    break;
+                }
+                case CircuitNumber.EIGHT: {
+                    this.number = CircuitNumber.EIGHT;
+                    if (this.locked) {
+                        this.setAnimation("eight_end_locked") // placed locked form
+                    }
+                    else if (this.placed) {
+                        this.setAnimation("eight_end_placed") // placed smaller form
+                    }
+                    else {
+                        this.setAnimation("eight_end"); // basic block form
+                    }
+                    break;
+                }
+                    case CircuitNumber.NINE: {
+                    this.number = CircuitNumber.NINE;
+                    if (this.locked) {
+                        this.setAnimation("nine_end_locked") // placed locked form
+                    }
+                    else if (this.placed) {
+                        this.setAnimation("nine_end_placed") // placed smaller form
+                    }
+                    else {
+                        this.setAnimation("nine_end"); // basic block form
+                    }
+                    break;
+                }
+            }
+           
             }
         }
     }
