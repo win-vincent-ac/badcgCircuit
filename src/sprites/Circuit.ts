@@ -154,16 +154,6 @@ export class Circuit extends Star {
                   console.log("St.Power Off: " + this.getNumber());
                     }
             } else if (this.source instanceof Circuit) {
-                /*if ((this.source as Circuit ).getState() == CircuitPower.ON) {
-                    console.log("Cr.Turning Power On Circuit: " + this.getNumber());
-                    this.power = CircuitPower.ON;
-                    console.log("Cr.Power On");
-                }
-                else {
-                    this.power = CircuitPower.OFF;
-                  console.log("Cr.Power Off Circuit: " + this.getNumber());
-                    }*/
-                    //console.log("Cr.Turning Power On Circuit: " + this.getNumber());
                     if (((this.source as Circuit).source instanceof EnergyTerminal)) {
                         console.log("Cr.Turning Power On Circuit: " + this.getNumber());
                         this.power = CircuitPower.ON;

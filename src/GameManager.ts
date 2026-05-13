@@ -27,7 +27,6 @@ export class GameManager {
     restart: GameAction;
     img1: Image;
     img2: Image;
-    doorOpen: boolean;
 
     constructor() {
         this.level=0;
@@ -41,7 +40,6 @@ export class GameManager {
         this.jump=new GameAction();
         this.stop=new GameAction();
         this.restart=new GameAction();
-        this.doorOpen=false;
         
     }
     
@@ -65,7 +63,8 @@ export class GameManager {
                  textFont('Courier New');
                  textSize(18);
                 
-                 if (this.doorOpen) {
+                 
+                 if (this.map.getDoorState()) {
                  text("Door is:\n      OPEN" /*+ this.map.lives*/,23,36);}
                  else {text("Door is:\n    CLOSED" /*+ this.map.lives*/,23,36);}
                  

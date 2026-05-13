@@ -114,7 +114,7 @@ export class Station extends Sprite {
                 //console.log("turned off");
             }
         }
-        if (this.isToDoor) {
+        if (this.isToDoor()) {
             if (this.state == StationState.ON) {
                 this.doorShouldOpen = true;
             }
