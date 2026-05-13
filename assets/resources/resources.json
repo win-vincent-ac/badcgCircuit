@@ -13,7 +13,7 @@
                 {"img":"NOT", "duration":100}
             ]
         },
-        "start_block": {
+        "circuit_block": {
             "type": "Circuit",
             "zero_start": [
                 {"img":"start_block_zero", "duration":100}
@@ -104,11 +104,7 @@
             ],
             "nine_start_placed": [
                 {"img":"start_placed_nine", "duration":100}
-            ]
-        },
-        "end_block": {
-            "type": "Circuit",
-        
+            ],
             "zero_end": [
                 {"img":"end_block_zero", "duration":100}
             ],
@@ -394,8 +390,6 @@
             "$": "station",
             "*": "circuit_block",
             "m": "mailbox",
-            "(": "start_block",
-            ")": "end_block",
             "g": "logic",
             "l": "lit_logic",
             "b": "block_stand",

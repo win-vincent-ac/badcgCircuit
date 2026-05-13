@@ -167,8 +167,8 @@ export class GameMap {
         if (this.level == 0) {
           //console.log("level == Zero ");
             (this.sprites[0] as Station).changeState(StationState.OFF);
-            (this.sprites[0] as Station).makeToDoor();
-            (this.sprites[8] as Door).syncDoorStation(this.sprites[0] as Station);
+            //(this.sprites[0] as Station).makeToDoor();
+            //(this.sprites[7] as Door).syncDoorStation(this.sprites[0] as Station);
 
             (this.sprites[5] as Station).changeState(StationState.OFF);
             (this.sprites[4] as Station).changeState(StationState.OFF);
@@ -184,7 +184,7 @@ export class GameMap {
             //(this.sprites[9] as Gate).changeState(GateState.AND);
 
             (this.sprites[6] as Circuit).changeState(CircuitState.START, CircuitNumber.ZERO);
-            //(this.sprites[11] as Circuit).changeState(CircuitState.END, CircuitNumber.TWO);
+            (this.sprites[7] as Circuit).changeState(CircuitState.END, CircuitNumber.ZERO);
             //(this.sprites[11] as Circuit).syncStart((this.sprites[10] as Circuit));
  
             //(this.sprites[11] as Circuit).changeState(CircuitState.START, CircuitNumber.TWO);
