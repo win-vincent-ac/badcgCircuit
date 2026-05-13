@@ -183,8 +183,8 @@ export class GameMap {
             //(this.sprites[8] as Gate).changeState(GateState.NOT);
             //(this.sprites[9] as Gate).changeState(GateState.AND);
 
-            (this.sprites[6] as Circuit).changeState(CircuitState.START, CircuitNumber.ZERO);
-            (this.sprites[7] as Circuit).changeState(CircuitState.END, CircuitNumber.ZERO);
+            (this.sprites[6] as Circuit).changeState(CircuitState.START, CircuitNumber.SEVEN);
+            (this.sprites[7] as Circuit).changeState(CircuitState.END, CircuitNumber.SEVEN);
             //(this.sprites[11] as Circuit).syncStart((this.sprites[10] as Circuit));
  
             //(this.sprites[11] as Circuit).changeState(CircuitState.START, CircuitNumber.TWO);
@@ -800,7 +800,7 @@ export class GameMap {
             }
             else if (sprite instanceof Circuit) {
                 //console.log("Entered Circuit Check");
-                //(sprite as Circuit).changeState((sprite as Circuit).getState(), (sprite as Circuit).getNumber());
+                (sprite as Circuit).changeState((sprite as Circuit).getState(), (sprite as Circuit).getNumber());
                 (sprite as Circuit).checkPower();
             }
             else if (sprite instanceof EnergyTerminal) {
@@ -872,7 +872,7 @@ export class GameMap {
                 playerPos.x + 120,
                 playerPos.y + 56);
                 this.robot_putdown.play();
-            this.heldItem = null;
+                this.heldItem = null;
             }
 
     }
