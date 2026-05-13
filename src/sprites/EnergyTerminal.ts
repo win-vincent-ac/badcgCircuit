@@ -12,11 +12,11 @@ export class EnergyTerminal extends Sprite {
     constructor() { 
         super();
         this.setAnimation("default");
-        console.log("Energy");
+      //console.log("Energy");
     }
     
     checkEnergy () {
-        console.log("Checking Energy");
+      //console.log("Checking Energy");
         if (this.pathway != null) {
             //console.log("outputSource is not null");
             (this.pathway as Circuit).addPower();

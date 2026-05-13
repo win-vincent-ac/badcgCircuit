@@ -40,13 +40,13 @@ export class Door extends Sprite {
     }
 
     checkDoor() {
-        console.log("Checking Door");
-        console.log("Open: " + this.open);
-        console.log("LevelOpened: " + this.levelOpened);
-        console.log("Source" + this.source);
-        console.log("Error about to happen vvv");
+      //console.log("Checking Door");
+      //console.log("Open: " + this.open);
+      //console.log("LevelOpened: " + this.levelOpened);
+      //console.log("Source" + this.source);
+      //console.log("Error about to happen vvv");
         
-        console.log("Error passed ^^^");
+      //console.log("Error passed ^^^");
         if (this.source.shouldDoorOpen()){  
             this.open = DoorState.OPEN;
             this.levelOpened = true;
@@ -61,7 +61,7 @@ export class Door extends Sprite {
     }
 
     syncDoorStation(s: Station) {
-        console.log("Door Synced to Station");
+      //console.log("Door Synced to Station");
         this.source = s;
         s.makeToDoor();
     }

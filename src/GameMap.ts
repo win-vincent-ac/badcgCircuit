@@ -59,11 +59,11 @@ export class GameMap {
 
     getDoorState() {
         if (this.doorAccessable == undefined) {
-            console.log("Accessable is Undefined");
+          //console.log("Accessable is Undefined");
             return false;
         }
         else {
-            console.log("Accessable is Defined");
+          //console.log("Accessable is Defined");
             return this.doorAccessable;
         }
     }
@@ -142,11 +142,11 @@ export class GameMap {
                     this.tiles[x][y]=this.resources.get(ch);
                 } else {//it's a sprite
                     let s = this.resources.get(mappings[ch]).clone();
-                    console.log("Issue Start " + s.getImage());
-                    console.log("Issue Mid");
+                  //console.log("Issue Start " + s.getImage());
+                  //console.log("Issue Mid");
                     s.setPosition((this.tilesToPixels(x)+this.tile_size-s.getImage().width/2),
                                   (this.tilesToPixels(y)+this.tile_size-s.getImage().height));
-                    console.log("Issue End");
+                  //console.log("Issue End");
                                   
                     if (ch=='0') { // check if character is '0', which denotes the player sprite
                         this.player=s; // assign the sprite to the 'player' variable
@@ -165,7 +165,7 @@ export class GameMap {
         //All stations will be drawn first as sprites[i] and end as sprites[0], Read them right to left
         //after all stations are drawn, then gates and other sprites are drawn at sprites[i+1], read left to right
         if (this.level == 0) {
-            console.log("level == Zero ");
+          //console.log("level == Zero ");
             (this.sprites[0] as Station).changeState(StationState.OFF);
             (this.sprites[0] as Station).makeToDoor();
             (this.sprites[13] as Door).syncDoorStation(this.sprites[0] as Station);
@@ -563,7 +563,7 @@ export class GameMap {
         } 
         
         else if (s instanceof EnergyTerminal) {
-          // console.log("TERNIMAL Found"); //HIT
+          //console.log("TERNIMAL Found"); //HIT
             let spriteCollided=this.getSpriteCollision(s); 
             if ((spriteCollided instanceof Circuit) && this.heldItem == null && (spriteCollided as Circuit).getState() == CircuitState.START) {
                 //Controlling Full/Empty
@@ -587,11 +587,11 @@ export class GameMap {
                     (s as EnergyTerminal).syncPathway(spriteCollided as Circuit);
                     (spriteCollided as Circuit).syncEnergy((s as EnergyTerminal));
                     if ((spriteCollided as Circuit).getPower() == CircuitPower.ON) {
-                        console.log("Terminal Turned on Circuit");
+                      //console.log("Terminal Turned on Circuit");
                     }
                 }
                 else {
-                    console.log("!!!!!!!!!!!!!!Terminal IS NULL");
+                  //console.log("!!!!!!!!!!!!!!Terminal IS NULL");
                     //(spriteCollided as Circuit).removePower;
                     (s as EnergyTerminal).unsyncPathway(spriteCollided);
                     //(spriteCollided as Circuit).unsyncEnergy(s);
@@ -660,7 +660,7 @@ export class GameMap {
                             if ((spriteCollided as Circuit).getPower() == CircuitPower.ON) {
                                 (s as Station).changeState(StationState.ON);
                                 }
-                            console.log("Circuit End Detected in Door Station");
+                          //console.log("Circuit End Detected in Door Station");
                             }
                             else {  }
                         }
@@ -684,7 +684,7 @@ export class GameMap {
                             if ((spriteCollided as Circuit).getPower() == CircuitPower.ON) {
                                 (s as Station).changeState(StationState.ON);
                                 }
-                            console.log("Circuit Start Detected in Station");
+                          //console.log("Circuit Start Detected in Station");
                             }
                             else {  }
                         }
@@ -708,7 +708,7 @@ export class GameMap {
                             if ((spriteCollided as Circuit).getPower() == CircuitPower.ON) {
                             (s as Station).changeState(StationState.ON);
                             }
-                            console.log("Circuit End Detected in Station");
+                          //console.log("Circuit End Detected in Station");
                             }
                         }
                         
@@ -743,15 +743,15 @@ export class GameMap {
                                 if ((spriteCollided as Circuit).getPower() == CircuitPower.ON) {
                                     (s as Station).changeState(StationState.ON);
                                     this.doorAccessable = true;
-                                    console.log("Door Station Power On");
+                                  //console.log("Door Station Power On");
                                 } else { (s as Station).changeState(StationState.OFF) 
-                                    console.log("Door Station Power Off Due to Not Power On");
+                                  //console.log("Door Station Power Off Due to Not Power On");
                                     this.doorAccessable = false;} 
                                 
                             }
                         }
                     } else { (s as Station).changeState(StationState.OFF) 
-                        console.log("Door Station Power Off Due to Empty");
+                      //console.log("Door Station Power Off Due to Empty");
                         this.doorAccessable = false;} 
                 }
             } 
