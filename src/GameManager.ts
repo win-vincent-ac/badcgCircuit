@@ -171,12 +171,14 @@ export class GameManager {
 
         if (this.moveRight.isPressed() && this.map.player.getState()==CreatureState.NORMAL) {
             if(this.moveRight.isPressed() && this.map.player.onGround && !this.map.robot_walk.isPlaying()) {this.map.robot_walk.play();}
+            console.log("right is pressed");
             
             vel.x=this.map.player.getMaxSpeed();
         }
         if (this.moveLeft.isPressed() && this.map.player.getState()==CreatureState.NORMAL) {
             if(this.moveLeft.isPressed() && this.map.player.onGround && !this.map.robot_walk.isPlaying()) {this.map.robot_walk.play();}
-            
+            console.log("left is pressed");
+
             vel.x=-this.map.player.getMaxSpeed();
         }
 

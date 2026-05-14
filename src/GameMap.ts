@@ -51,7 +51,7 @@ export class GameMap {
         this.level=level;
         this.resources=resources;
         this.medallions=0;
-        this.lives=3;
+        this.lives=1;
         this.game=game;
         this.doorAccessable = false;
         this.initialize();
@@ -165,34 +165,63 @@ export class GameMap {
         //All stations will be drawn first as sprites[i] and end as sprites[0], Read them right to left
         //after all stations are drawn, then gates and other sprites are drawn at sprites[i+1], read left to right
         if (this.level == 0) {
-          //console.log("level == Zero ");
-            (this.sprites[0] as Station).changeState(StationState.OFF);
-            (this.sprites[0] as Station).makeToDoor();
-            (this.sprites[9] as Door).syncDoorStation(this.sprites[0] as Station);
+          console.log("level == Zero ");
+        (this.sprites[0] as Station).changeState(StationState.OFF);
+        (this.sprites[0] as Station).makeToDoor();
+        (this.sprites[5] as Door).syncDoorStation(this.sprites[0] as Station);
 
-            (this.sprites[5] as Station).changeState(StationState.OFF);
-            (this.sprites[4] as Station).changeState(StationState.OFF);
-            (this.sprites[3] as Station).changeState(StationState.OFF);
-            (this.sprites[3] as Station).syncInputOne((this.sprites[5] as Station));
-            (this.sprites[3] as Station).syncInputTwo((this.sprites[4] as Station));
-            (this.sprites[3] as Station).syncOutput((this.sprites[2] as Station));
-            (this.sprites[2] as Station).changeState(StationState.OFF);
+        //(this.sprites[5] as Station).changeState(StationState.OFF);
+        //(this.sprites[4] as Station).changeState(StationState.OFF);
+        //(this.sprites[3] as Station).changeState(StationState.OFF);
+        //(this.sprites[3] as Station).syncInputOne((this.sprites[5] as Station));
+        //(this.sprites[3] as Station).syncInputTwo((this.sprites[4] as Station));
+        //(this.sprites[3] as Station).syncOutput((this.sprites[2] as Station));
+        //(this.sprites[2] as Station).changeState(StationState.OFF);
 
-            //(this.sprites[6] as Gate).changeState(GateState.NOT);
-            //(this.sprites[7] as Gate).changeState(GateState.OR);
-            //(this.sprites[8] as Gate).changeState(GateState.NOT);
-            //(this.sprites[9] as Gate).changeState(GateState.AND);
+        //(this.sprites[6] as Gate).changeState(GateState.NOT);
+        //(this.sprites[7] as Gate).changeState(GateState.OR);
+        //(this.sprites[8] as Gate).changeState(GateState.NOT);
+        //(this.sprites[9] as Gate).changeState(GateState.AND);
 
-            (this.sprites[6] as Circuit).changeState(CircuitState.START, CircuitNumber.SEVEN);
-            (this.sprites[7] as Circuit).changeState(CircuitState.END, CircuitNumber.SEVEN);
-            (this.sprites[7] as Circuit).syncStart((this.sprites[6] as Circuit));
- 
-            //(this.sprites[11] as Circuit).changeState(CircuitState.START, CircuitNumber.TWO);
-            //(this.sprites[12] as Circuit).changeState(CircuitState.END, CircuitNumber.TWO);
-            //(this.sprites[12] as Circuit).syncStart((this.sprites[11] as Circuit));
-        
+        (this.sprites[2] as Circuit).changeState(CircuitState.START, CircuitNumber.SEVEN);
+        (this.sprites[4] as Circuit).changeState(CircuitState.END, CircuitNumber.SEVEN);
+        (this.sprites[4] as Circuit).syncStart((this.sprites[2] as Circuit));
+        (this.sprites[4] as Circuit).lockCircuit();
+
+        //(this.sprites[11] as Circuit).changeState(CircuitState.START, CircuitNumber.TWO);
+        //(this.sprites[12] as Circuit).changeState(CircuitState.END, CircuitNumber.TWO);
+        //(this.sprites[12] as Circuit).syncStart((this.sprites[11] as Circuit));
         }
+else if ((this.level == 1)) {
+          console.log("level == One ");
 
+        (this.sprites[4] as Station).changeState(StationState.OFF);
+        (this.sprites[4] as Station).makeToDoor();
+        (this.sprites[11] as Door).syncDoorStation(this.sprites[4] as Station);
+ 
+
+        (this.sprites[3] as Station).changeState(StationState.OFF);
+        (this.sprites[2] as Station).changeState(StationState.OFF);
+        (this.sprites[1] as Station).changeState(StationState.OFF);
+        (this.sprites[1] as Station).syncInputOne((this.sprites[3] as Station));
+        (this.sprites[1] as Station).syncInputTwo((this.sprites[2] as Station));
+        (this.sprites[1] as Station).syncOutput((this.sprites[0] as Station));
+        (this.sprites[0] as Station).changeState(StationState.OFF);
+
+        (this.sprites[6] as Circuit).changeState(CircuitState.START, CircuitNumber.ONE);
+        (this.sprites[9] as Circuit).changeState(CircuitState.END, CircuitNumber.ONE);
+        (this.sprites[9] as Circuit).syncStart((this.sprites[6] as Circuit));
+        (this.sprites[6] as Circuit).lockCircuit();
+
+        (this.sprites[10] as Circuit).changeState(CircuitState.START, CircuitNumber.TWO);
+        (this.sprites[8] as Circuit).changeState(CircuitState.END, CircuitNumber.TWO);
+        (this.sprites[8] as Circuit).syncStart((this.sprites[10] as Circuit));
+        (this.sprites[8] as Circuit).lockCircuit();
+        
+        (this.sprites[12] as Gate).changeState(GateState.NOT);
+    
+    
+    }
     }
 
     /*
@@ -568,30 +597,7 @@ export class GameMap {
             this.checkPlayerCollision(s as Player);
         } 
         
-        else if (s instanceof Door) {
-            let spriteCollided=this.getSpriteCollision(s); 
-            console.log("Door State: " +this.getDoorState());
-            /*
-             * the if loop states that if the level is 0 and you have 10 medaillions, you can proceed to the next level
-             * and the sound black_hole will play
-             * if you don't have 9 medaillions then you cannot proceed to the next level
-             */
-            //if(!(s as Door).isOpen()){
-            //    (s as Door).openDoor();
-            //}
-            /*
-            if(this.getDoorState()) {
-                console.log("Moving to New Level");
-                /* Start animation for changing door open close */
-            /*    this.level+=1;
-                this.medallions=0;
-                this.initialize();
-                this.removeSprite(s);
-            }*/
-            
-        } 
-        
-        else if (s instanceof EnergyTerminal) {
+        if (s instanceof EnergyTerminal) {
           //console.log("TERNIMAL Found"); //HIT
             let spriteCollided=this.getSpriteCollision(s); 
             if ((spriteCollided instanceof Circuit) && this.heldItem == null && (spriteCollided as Circuit).getState() == CircuitState.START) {

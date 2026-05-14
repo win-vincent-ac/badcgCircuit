@@ -154,7 +154,10 @@ export class Station extends Sprite {
         return this.toDoor;
     }
     shouldDoorOpen() {
-        return this.doorShouldOpen;
+        if (this.doorShouldOpen != null && this.doorShouldOpen != undefined) {
+            return this.doorShouldOpen;
+        }
+        else {return false;}
     }
 
     checkingIsOutput() {
