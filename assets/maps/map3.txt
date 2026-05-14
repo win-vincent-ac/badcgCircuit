@@ -1,23 +1,27 @@
 
 @parallax-layer bg1
 @parallax-layer bg2
+
 @music music
+
 
     AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
     AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
     AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-    AAAANJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJMAAAAAAA
+    AAAANJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJMAAAAA
+    AAAAD                                               CAAAAA
+    AAAAD                                               CAAAAA
+    AAAAD                                               CAAAAA
     AAAAD                                               CAAAAA
     AAAAD           A                                   CAAAAA
-    AAAAD        HBBBBBM                                CAAAAA
-    AAAAD        NJJJJJG                                CAAAAA
-    AAAAD                         n                 %   CAAAAA
-    AAAAD                      HBBBBM           CBBBBBBBGAAAAA
-    AAAAHBBBBBBF               NJJJJG           CAAAAAAAAAAAAA
-    AAAAAAAAAAAD   0                            CAAAAAAAAAAAAA
-    AAAAAAAAAAAHBBBBBBBBF                       CAAAAAAAAAAAAA
-    AAAAAAAAAAAAAAAAAAAAD            b          CAAAAAAAAAAAAA
-    AAAAAAAAAAAAAAAAAAAAHBBBBBBBBBBBBBBBBBBBBBBBGAAAAAAAAAAAAA
+    AAAAD       EBBBBBBF                                CAAAAA
+    AAAAD       KJJJJJJL         A                  0   CAAAAA
+    AAAAD                      EBBBBF           EBBBBBBBGAAAAA
+    AAAAD                      KJJJJL           CAAAAAAAAAAAAA
+    AAAAD                                       CAAAAAAAAAAAAA
+    AAAAD                                       CAAAAAAAAAAAAA
+    AAAAD   %                           AAAA    CAAAAAAAAAAAAA
+    AAAAHBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBGAAAAAAAAAAAAA
     AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
     AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
     AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA

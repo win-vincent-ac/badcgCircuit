@@ -203,6 +203,10 @@ export class ResourceManager {
                 s = new EnergyTerminal();
                 break;
             }
+            case 'Door': {
+                s = new Door();
+                break;
+            }
             case 'Music': {
                 s = new Music();
                 break; 

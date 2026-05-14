@@ -13,7 +13,7 @@
                 {"img":"NOT", "duration":100}
             ]
         },
-        "start_block": {
+        "circuit_block": {
             "type": "Circuit",
             "zero_start": [
                 {"img":"start_block_zero", "duration":100}
@@ -23,10 +23,88 @@
             ],
             "two_start": [
                 {"img":"start_block_two", "duration":100}
-            ]},
-        "end_block": {
-            "type": "Circuit",
-        
+            ],
+            "three_start": [
+                {"img":"start_block_three", "duration":100}
+            ],
+            "four_start": [
+                {"img":"start_block_four", "duration":100}
+            ],
+            "five_start": [
+                {"img":"start_block_five", "duration":100}
+            ],
+            "six_start": [
+                {"img":"start_block_six", "duration":100}
+            ],
+            "seven_start": [
+                {"img":"start_block_seven", "duration":100}
+            ],
+            "eight_start": [
+                {"img":"start_block_eight", "duration":100}
+            ],
+            "nine_start": [
+                {"img":"start_block_nine", "duration":100}
+            ],
+            "zero_start_locked": [
+                {"img":"start_locked_zero", "duration":100}
+            ],
+            "one_start_locked": [
+                {"img":"start_locked_one", "duration":100}
+            ],
+            "two_start_locked": [
+                {"img":"start_locked_two", "duration":100}
+            ],
+            "three_start_locked": [
+                {"img":"start_locked_three", "duration":100}
+            ],
+            "four_start_locked": [
+                {"img":"start_locked_four", "duration":100}
+            ],
+            "five_start_locked": [
+                {"img":"start_locked_five", "duration":100}
+            ],
+            "six_start_locked": [
+                {"img":"start_locked_six", "duration":100}
+            ],
+            "seven_start_locked": [
+                {"img":"start_locked_seven", "duration":100}
+            ],
+            "eight_start_locked": [
+                {"img":"start_locked_eight", "duration":100}
+            ],
+            "nine_start_locked": [
+                {"img":"start_locked_nine", "duration":100}
+            ],
+            "zero_start_placed": [
+                {"img":"start_placed_zero", "duration":100}
+            ],
+            "one_start_placed": [
+                {"img":"start_placed_one", "duration":100}
+            ],
+            "two_start_placed": [
+                {"img":"start_placed_two", "duration":100}
+            ],
+            "three_start_placed": [
+                {"img":"start_placed_three", "duration":100}
+            ],
+            "four_start_placed": [
+                {"img":"start_placed_four", "duration":100}
+            ],
+            "five_start_placed": [
+                {"img":"start_placed_five", "duration":100}
+            ],
+            "six_start_placed": [
+                {"img":"start_placed_six", "duration":100}
+            ],
+            "seven_start_placed": [
+                {"img":"start_placed_seven", "duration":100}
+            ],
+            "eight_start_placed": [
+                {"img":"start_placed_eight", "duration":100}
+            ],
+            "nine_start_placed": [
+                {"img":"start_placed_nine", "duration":100}
+            ],
             "zero_end": [
                 {"img":"end_block_zero", "duration":100}
             ],
@@ -35,6 +113,87 @@
             ],
             "two_end": [
                 {"img":"end_block_two", "duration":100}
+            ],
+            "three_end": [
+                {"img":"end_block_three", "duration":100}
+            ],
+            "four_end": [
+                {"img":"end_block_four", "duration":100}
+            ],
+            "five_end": [
+                {"img":"end_block_five", "duration":100}
+            ],
+            "six_end": [
+                {"img":"end_block_six", "duration":100}
+            ],
+            "seven_end": [
+                {"img":"end_block_seven", "duration":100}
+            ],
+            "eight_end": [
+                {"img":"end_block_eight", "duration":100}
+            ],
+            "nine_end": [
+                {"img":"end_block_nine", "duration":100}
+            ],
+            "zero_end_locked": [
+                {"img":"end_locked_zero", "duration":100}
+            ],
+            "one_end_locked": [
+                {"img":"end_locked_one", "duration":100}
+            ],
+            "two_end_locked": [
+                {"img":"end_locked_two", "duration":100}
+            ],
+            "three_end_locked": [
+                {"img":"end_locked_three", "duration":100}
+            ],
+            "four_end_locked": [
+                {"img":"end_locked_four", "duration":100}
+            ],
+            "five_end_locked": [
+                {"img":"end_locked_five", "duration":100}
+            ],
+            "six_end_locked": [
+                {"img":"end_locked_six", "duration":100}
+            ],
+            "seven_end_locked": [
+                {"img":"end_locked_seven", "duration":100}
+            ],
+            "eight_end_locked": [
+                {"img":"end_locked_eight", "duration":100}
+            ],
+            "nine_end_locked": [
+                {"img":"end_locked_nine", "duration":100}
+            ],
+            "zero_end_placed": [
+                {"img":"end_placed_zero", "duration":100}
+            ],
+            "one_end_placed": [
+                {"img":"end_placed_one", "duration":100}
+            ],
+            "two_end_placed": [
+                {"img":"end_placed_two", "duration":100}
+            ],
+            "three_end_placed": [
+                {"img":"end_placed_three", "duration":100}
+            ],
+            "four_end_placed": [
+                {"img":"end_placed_four", "duration":100}
+            ],
+            "five_end_placed": [
+                {"img":"end_placed_five", "duration":100}
+            ],
+            "six_end_placed": [
+                {"img":"end_placed_six", "duration":100}
+            ],
+            "seven_end_placed": [
+                {"img":"end_placed_seven", "duration":100}
+            ],
+            "eight_end_placed": [
+                {"img":"end_placed_eight", "duration":100}
+            ],
+            "nine_end_placed": [
+                {"img":"end_placed_nine", "duration":100}
             ]
         },
         "player": {
@@ -115,10 +274,10 @@
         "mailbox": {
             "type": "Mailbox",
             "on": [
-                {"img":"logic", "duration":100}
+                {"img":"lit_logic", "duration":100}
             ],
             "off": [
-                {"img":"lit_logic", "duration":100}
+                {"img":"logic", "duration":100}
             ]
         },
        
@@ -135,14 +294,20 @@
             ]
         },
         "block_stand": {
-            "type":"Star",
-            "default":[
+            "type":"Station",
+            "on":[
+                {"img":"block_stand", "duration":150}
+            ],
+            "off":[
                 {"img":"block_stand", "duration":150}
             ]
         },
         "circle_stand": {
-            "type":"Star",
-            "default":[
+            "type":"Station",
+            "on":[
+                {"img":"circle_stand", "duration":150}
+            ],
+            "off":[
                 {"img":"circle_stand", "duration":150}
             ]
         },
@@ -225,8 +390,6 @@
             "$": "station",
             "*": "circuit_block",
             "m": "mailbox",
-            "(": "start_block",
-            ")": "end_block",
             "g": "logic",
             "l": "lit_logic",
             "b": "block_stand",

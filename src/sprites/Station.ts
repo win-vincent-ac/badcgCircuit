@@ -4,6 +4,7 @@
 
 import { Gate } from "./Gate.js";
 import { Sprite } from "./Sprite.js";
+import { Door } from "./Door.js";
 
 
 export enum StationState { EMPTY, ON, OFF }; 
@@ -22,6 +23,8 @@ export class Station extends Sprite {
     protected outputSource: Station;
     protected isOutput: boolean;
     protected isInput: boolean;
+    protected toDoor: boolean;
+    protected doorShouldOpen: boolean;
 
     constructor() { 
         super();
@@ -31,6 +34,7 @@ export class Station extends Sprite {
         this.outputPower = false;
         this.isOutput = false;
         this.isInput = false;
+        this.doorShouldOpen = false;
         
     }
     changeState(initialState: number) {
@@ -94,21 +98,27 @@ export class Station extends Sprite {
             }
             else if (this.inputOneSource.getState() == StationState.ON && this.inputTwoSource.getState() == StationState.ON && this.center == CenterState.AND) {
                 this.outputSource.changeState(StationState.ON);
-                console.log("turned on AND");
+              //console.log("turned on AND");
             }
             else if ((this.inputOneSource.getState() == StationState.ON || this.inputTwoSource.getState() == StationState.ON) && this.center == CenterState.OR) {
                 this.outputSource.changeState(StationState.ON);
-                console.log("turned on OR");
+              //console.log("turned on OR");
             }
             else if (this.inputOneSource.getState() == StationState.OFF && this.center == CenterState.NOT && this.inputOneSource.getState() != StationState.EMPTY) {
                 this.outputSource.changeState(StationState.ON);
-               console.log("turned on NOT");
+             //console.log("turned on NOT");
             }
             else {
                 //console.log("turning off");
                 this.outputSource.changeState(StationState.OFF);
                 //console.log("turned off");
             }
+        }
+        if (this.isToDoor()) {
+            if (this.state == StationState.ON) {
+                this.doorShouldOpen = true;
+            }
+            else {this.doorShouldOpen = false;}
         }
         //console.log("Done Checking Output");
     }
@@ -135,6 +145,19 @@ export class Station extends Sprite {
     }
     makeOutput() {
         this.isOutput = true;
+    }
+
+    makeToDoor() {
+        this.toDoor = true;
+    }
+    isToDoor() {
+        return this.toDoor;
+    }
+    shouldDoorOpen() {
+        if (this.doorShouldOpen != null && this.doorShouldOpen != undefined) {
+            return this.doorShouldOpen;
+        }
+        else {return false;}
     }
 
     checkingIsOutput() {
