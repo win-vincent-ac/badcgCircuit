@@ -218,7 +218,7 @@ else if ((this.level == 1)) {
         (this.sprites[8] as Circuit).syncStart((this.sprites[10] as Circuit));
         (this.sprites[8] as Circuit).lockCircuit();
         
-        (this.sprites[12] as Gate).changeState(GateState.NOT);
+        (this.sprites[12] as Gate).changeState(GateState.OR);
     
     
     }
